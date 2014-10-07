@@ -4,5 +4,15 @@
     <string name="app_name">NiceBody</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_recommend_list">Recommend_list</string>
+
+    <!-- recommend list title -->
+    <string name="title_1">1단계</string>
+    <string name="title_2">2단계</string>
+    <string name="title_3">3단계</string>
+    <string name="title_4">4단계</string>
+    <string name="title_5">5단계</string>
+    <string name="title_6">6단계</string>
+    <string name="title_activity_recommend_description1">1단계</string>
 
 </resources>

@@ -33,7 +33,7 @@ public class Main extends Activity {
 		recommend_btn.setOnClickListener(new View.OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-	            Intent intent = new Intent(Main.this, Free_menu.class);
+	            Intent intent = new Intent(Main.this, Recommend_list.class);
 	            startActivity(intent);
 	         }
 	      });   
