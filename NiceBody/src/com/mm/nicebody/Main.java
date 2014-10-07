@@ -42,7 +42,7 @@ public class Main extends Activity {
 		schedule_btn.setOnClickListener(new View.OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-	            Intent intent = new Intent(Main.this, Free_menu.class);
+	            Intent intent = new Intent(Main.this, Schedule_calendar.class);
 	            startActivity(intent);
 	         }
 	      });   

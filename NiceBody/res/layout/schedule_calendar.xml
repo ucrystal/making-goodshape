@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp" >
+
+        <Button
+            android:id="@+id/schedule_cal_btn01"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/schedule_01"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/schedule_cal_btn02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.32"
+            android:background="@drawable/schedule_02"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff" >
+
+        <Button
+            android:id="@+id/calendar_btn01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/schedule_calendar_01"
+            android:gravity="left" />
+
+        <TextView
+            android:id="@+id/calendar_title"
+            android:layout_width="225dp"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/calendar_btn02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/schedule_calendar_02"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Sun"
+            android:textColor="#778899" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Mon"
+            android:textColor="#778899" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Tue"
+            android:textColor="#778899" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Wed"
+            android:textColor="#778899" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Thu"
+            android:textColor="#778899" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Fri"
+            android:textColor="#778899" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Sat"
+            android:textColor="#778899" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/schedule_calendarView"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="17dp"
+        android:background="#ffffff"
+        android:listSelector="@drawable/calendar_gstyle"
+        android:numColumns="7"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="25dp" >
+    </GridView>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#c0c0c0"
+        android:text="@string/comment"
+        android:textColor="#ffffff" >
+    </TextView>
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff" >
+    </ListView>
+
+</LinearLayout>
