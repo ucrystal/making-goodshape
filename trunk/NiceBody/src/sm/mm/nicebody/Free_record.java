@@ -1,18 +1,19 @@
 package sm.mm.nicebody;
 
-import android.os.Bundle;
-import android.os.SystemClock;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Chronometer;
 import android.widget.Chronometer.OnChronometerTickListener;
+import android.widget.TextView;
 
 
 public class Free_record extends Activity implements SensorEventListener {
@@ -40,10 +41,11 @@ public class Free_record extends Activity implements SensorEventListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.free_record);
-
+		
+		ActionBar actionBar = getActionBar();
+		actionBar.hide();
 		
 		ch = (Chronometer)findViewById(R.id.chronometer_record);
-
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
 		free_finish_btn.setOnClickListener(new View.OnClickListener() {
