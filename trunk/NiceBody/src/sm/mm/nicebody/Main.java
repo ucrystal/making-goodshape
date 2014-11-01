@@ -25,13 +25,22 @@ public class Main extends Activity {
 		free_btn.setOnClickListener(new View.OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
+
 	        	 
 	        	 if(Profile_modify.Height == null && Profile_modify.Weight == null){
+	        		 
+		        	 
+		        	 Profile_modify.Height = "168";
+		        	 Profile_modify.Weight = "50";
 		     			
+	        		 /* 
+		        	 //일단 편의상 열어논다 
 	        		 	mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용", Toast.LENGTH_LONG); 
 	        		 	mainToast.show();
 		     			return;
+		     		*/
 	     		}
+
 	        	 
 	            Intent intent = new Intent(Main.this, Free_menu.class);
 	            startActivity(intent);
@@ -43,12 +52,23 @@ public class Main extends Activity {
 	         @Override
 	         public void onClick(View v) {
 	        	 
+	        	 
+
 	        	 if(Profile_modify.Height == null && Profile_modify.Weight == null){
+	        	 
+	        	 		Profile_modify.Height = "168";
+		        	 	Profile_modify.Weight = "50";
 		     			
+			        	 /*
+			        	  
+			        	 //일단 편의상 열어논다 
 	        		 	mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용", Toast.LENGTH_LONG); 
 	        		 	mainToast.show();
 		     			return;
+		     			
+		     			*/
 	     		}
+
 	        	 
 	            Intent intent = new Intent(Main.this, Recommend_list.class);
 	            startActivity(intent);
