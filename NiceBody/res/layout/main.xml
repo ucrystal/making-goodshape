@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#67c6e5"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Main" >
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/main_logo" />
+    
+    <Button
+        android:id="@+id/free_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:background="#93d5eb"
+        android:text="자유 운동"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+    
+    <Button
+         android:id="@+id/recommend_btn"
+         android:layout_width="150dp"
+         android:layout_height="40dp"
+         android:layout_below="@+id/imageView1"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="50dp"
+         android:background="#93d5eb"
+         android:text="추천 운동"
+         android:textColor="#ffffff"
+         android:textSize="10pt"
+         android:textStyle="bold" />
+    
+    <Button
+         android:id="@+id/schedule_btn"
+         android:layout_width="150dp"
+         android:layout_height="40dp"
+         android:layout_below="@+id/imageView1"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="100dp"
+         android:background="#93d5eb"
+         android:text="운동기록"
+         android:textColor="#ffffff"
+         android:textSize="10pt"
+         android:textStyle="bold" />
+    
+    <Button
+         android:id="@+id/profile_btn"
+         android:layout_width="150dp"
+         android:layout_height="40dp"
+         android:layout_below="@+id/imageView1"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="150dp"
+         android:background="#93d5eb"
+         android:text="프로필"
+         android:textColor="#ffffff"
+         android:textSize="10pt"
+         android:textStyle="bold" />
+
+</RelativeLayout>
