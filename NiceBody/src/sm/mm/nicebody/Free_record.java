@@ -22,7 +22,7 @@ public class Free_record extends Activity implements SensorEventListener {
 	Sensor m_sensor;
 
 	//크로노미터 객체 
-	private Chronometer ch_recommend;
+	private Chronometer ch;
 
 	TextView free_countNum;
 	int printNum = 0;
@@ -42,7 +42,7 @@ public class Free_record extends Activity implements SensorEventListener {
 		setContentView(R.layout.free_record);
 
 		
-		ch_recommend = (Chronometer)findViewById(R.id.chronometer_recommend);
+		ch = (Chronometer)findViewById(R.id.chronometer_record);
 
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
@@ -51,7 +51,7 @@ public class Free_record extends Activity implements SensorEventListener {
 			public void onClick(View v) {
 				
 				//현재 측정된 시간을 다음 페이지로 전달해줌
-				timerResult = ch_recommend.getText().toString();
+				timerResult = ch.getText().toString();
 				
 				Intent intent = new Intent(Free_record.this,Free_result.class);
 				startActivity(intent);
@@ -67,14 +67,14 @@ public class Free_record extends Activity implements SensorEventListener {
 			public void onClick(View v) {
 				playCheck = 1;
 				
-				ch_recommend.setBase(SystemClock.elapsedRealtime());
-				ch_recommend.start();
+				ch.setBase(SystemClock.elapsedRealtime());
+				ch.start();
 				
-				ch_recommend.setOnChronometerTickListener(new OnChronometerTickListener() {
+				ch.setOnChronometerTickListener(new OnChronometerTickListener() {
 					@Override
 					public void onChronometerTick(Chronometer chronometer) {
-						String cur_time = ch_recommend.getText().toString();
-						if(cur_time.equals("05:00")) ch_recommend.stop();
+						String cur_time = ch.getText().toString();
+						if(cur_time.equals("05:00")) ch.stop();
 					}
 				});
 			}
@@ -85,7 +85,7 @@ public class Free_record extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View v) {
 				playCheck = 2;
-				ch_recommend.stop();
+				ch.stop();
 			}
 		});
 		
@@ -97,7 +97,7 @@ public class Free_record extends Activity implements SensorEventListener {
 				free_countNum.setText("0" + printNum);
 				playCheck = 2;
 				
-				ch_recommend.setBase(SystemClock.elapsedRealtime());
+				ch.setBase(SystemClock.elapsedRealtime());
 			}
 		});
 

@@ -11,7 +11,8 @@
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
-        android:background="#ffffff" />
+        android:src="@drawable/profile_none"> 
+    </ImageView>"
     
     <Button
         android:id="@+id/pickPhoto_btn"
@@ -24,89 +25,113 @@
         android:textColor="#ffffff"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:text="홍길동"
-        android:textColor="#5ea7be"
-        android:textSize="20dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_gravity="center_horizontal"
-         android:layout_marginTop="60dp">
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="신장    "
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#5ea7be"
-            android:textSize="15dp" />
-
-        <EditText
-            android:id="@+id/editHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="3"
-            android:inputType="number"
-            android:background="#ffffff"
-            android:textColor="#000000" >
-
-        </EditText>
-        
-        <TextView
-            android:id="@+id/textView1_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  cm"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#5ea7be"
-            android:textSize="15dp" />
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp" >
+        android:layout_marginTop="60dp"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="몸무게    "
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#5ea7be"
-            android:textSize="15dp" />
-         
-        <EditText
-            android:id="@+id/editWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="3"
-            android:inputType="number"
-            android:background="#ffffff"
-            android:textColor="#000000" >
+            android:layout_marginTop="15dp" >
 
-        </EditText>
-        
-        <TextView
-            android:id="@+id/textView2_3"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textColor="#5ea7be"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_marginLeft="23dp" 
+                android:ems="5"
+                android:inputType="text"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  kg"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#5ea7be"
-            android:textSize="15dp" />
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="신장"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#5ea7be"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/editHeight"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp" 
+                android:background="#ffffff"
+                android:ems="3"
+                android:inputType="number"
+                android:textColor="#000000" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView1_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp" 
+                android:text="cm"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#5ea7be"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="몸무게"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#5ea7be"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/editWeight"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:layout_marginLeft="10dp" 
+                android:ems="3"
+                android:inputType="number"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/textView2_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" 
+                android:text="kg"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#5ea7be"
+                android:textSize="15dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
