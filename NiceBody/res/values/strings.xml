@@ -2,15 +2,25 @@
 <resources>
 
     <string name="hello_world">hello_world</string>
+    
     <string name="app_name">몸매가예뻐Gym</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_free_menu">Free_menu</string>
-    <string name="title_activity_recommend_list">Recommend_list</string>
-    <string name="title_activity_schedule_calendar">Schedule_calendar</string>
+    <string name="action_profile">프로필</string>
+    <string name="action_settings">설정</string>
+    <string name="action_schedule">운동기록</string>
+    <string name="action_modify">수정</string>
+    <string name="action_ok">완료</string>
+    
+    <string name="title_activity_profile">프로필</string>
+    <string name="title_activity_profile_modify">프로필수정</string>
+    <string name="title_activity_free_menu">자유운동</string>
+    <string name="title_activity_free_expain">운동설명</string>
+    <string name="title_activity_free_success">자유운동결과</string>
+    <string name="title_activity_recommend_list">추천운동</string>
+    <string name="title_activity_schedule_calendar">운동기록</string>
     <string name="title_activity_recommend_count">Recommend_count</string>
-    <string name="title_activity_recommend_success">Recommend_success</string>
+    <string name="title_activity_recommend_success">도전성공</string>
     <string name="title_activity_schedule_calendar_day">Schedule_calendar_day</string>
-	<string name="title_activity_recommend_description1">Recommend_description1</string>
+	<string name="title_activity_recommend_description1">도전</string>
     
     <!-- schedule_calendar -->
     <string name="comment">COMMENT</string>
