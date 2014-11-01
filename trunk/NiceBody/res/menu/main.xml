@@ -3,6 +3,16 @@
     tools:context="sm.mm.nicebody.Main" >
 
     <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_profile"/>
+    <item
+        android:id="@+id/action_schedule"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_schedule"/>
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"

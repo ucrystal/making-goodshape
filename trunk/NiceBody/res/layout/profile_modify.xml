@@ -20,7 +20,7 @@
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:background="#5ea7be"
+        android:background="#67C6E5"
         android:text="사진 업로드" 
         android:textColor="#ffffff"
         android:textStyle="bold" />
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이름"
-                android:textColor="#5ea7be"
+                android:textColor="#67C6E5"
                 android:textSize="15dp" />
 
             <EditText
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:text="신장"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#5ea7be"
+                android:textColor="#67C6E5"
                 android:textSize="15dp" />
 
             <EditText
@@ -95,7 +95,7 @@
                 android:layout_marginLeft="20dp" 
                 android:text="cm"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#5ea7be"
+                android:textColor="#67C6E5"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="몸무게"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#5ea7be"
+                android:textColor="#67C6E5"
                 android:textSize="15dp" />
 
             <EditText
@@ -131,7 +131,7 @@
                 android:layout_marginLeft="20dp" 
                 android:text="kg"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#5ea7be"
+                android:textColor="#67C6E5"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -143,7 +143,7 @@
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
-        android:background="#5ea7be"
+        android:background="#67C6E5"
         android:textColor="#ffffff"
         android:text="수정 완료" 
         android:textStyle="bold" />

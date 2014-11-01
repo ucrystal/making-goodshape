@@ -105,7 +105,7 @@
             android:label="@string/title_activity_schedule_calendar" >
         </activity>
         <activity
-            android:name=".Recommend_count"
+            android:name=".Recommend_record"
             android:label="@string/title_activity_recommend_count" >
         </activity>
         <activity
