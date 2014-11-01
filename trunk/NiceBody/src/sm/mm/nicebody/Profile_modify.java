@@ -20,6 +20,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -61,6 +68,21 @@ public class Profile_modify extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_modify);
 
+		if(Profile_modify.checkInt == 0){
+			
+		}else if(Profile_modify.checkInt == 1) {
+			
+			try {
+				profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
+				String imgpath = "data/data/sm.mm.nicebody/files/profile.png";
+				Bitmap bmp = BitmapFactory.decodeFile(imgpath);
+				profilePhoto.setImageBitmap(bmp);
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(), "load error",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+		
 		// 사진 호출
 		pickPhoto_btn = (Button) findViewById(R.id.pickPhoto_btn);
 		profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
@@ -171,7 +193,22 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			if (extras != null) {
 				photo = extras.getParcelable("data");
-				profilePhoto.setImageBitmap(photo);
+				
+				
+				
+				Bitmap output = Bitmap.createBitmap(photo.getWidth(),photo.getHeight(), Config.ARGB_8888);
+				Canvas canvas = new Canvas(output);
+				final Paint paint = new Paint();
+				final Rect rect = new Rect(0, 0, photo.getWidth(), photo.getHeight());
+				paint.setAntiAlias(true);
+				canvas.drawARGB(0, 0, 0, 0);
+				int size = (photo.getWidth() / 2);
+				canvas.drawCircle(size, size, size, paint);
+				paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+				canvas.drawBitmap(photo, rect, rect, paint);
+				
+				
+				profilePhoto.setImageBitmap(output);
 				
 				//사진을 가져오면 checkInt를 1로 변경 
 				checkInt = 1;
@@ -181,7 +218,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 					File file = new File("profile.png");
 					FileOutputStream fos = openFileOutput("profile.png", 0);
-					photo.compress(CompressFormat.PNG, 100, fos);
+					output.compress(CompressFormat.PNG, 100, fos);
 					fos.flush();
 					fos.close();
 

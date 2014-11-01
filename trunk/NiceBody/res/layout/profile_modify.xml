@@ -11,12 +11,12 @@
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
-        android:src="@drawable/profile_none"> 
+        android:src="@drawable/profile_default"> 
     </ImageView>"
     
     <Button
         android:id="@+id/pickPhoto_btn"
-        android:layout_width="110dp"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
@@ -54,6 +54,9 @@
                 android:ems="5"
                 android:inputType="text"
                 android:textColor="#000000" />
+            
+            
+                <requestFocus />
 
         </LinearLayout>
 
@@ -82,7 +85,6 @@
                 android:inputType="number"
                 android:textColor="#000000" >
 
-                <requestFocus />
             </EditText>
 
             <TextView
@@ -137,8 +139,8 @@
 
     <Button
         android:id="@+id/modifyFinish_btn"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
         android:background="#5ea7be"
