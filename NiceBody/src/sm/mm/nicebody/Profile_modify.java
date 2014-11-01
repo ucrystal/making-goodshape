@@ -4,22 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -67,6 +73,10 @@ public class Profile_modify extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_modify);
+
+		customActionBar();
+
+		// 사진 호출
 
 		if(Profile_modify.checkInt == 0){
 			
@@ -141,32 +151,74 @@ public class Profile_modify extends Activity implements OnClickListener {
 					return;
 
 				}
-
 				// Profile.profilePhoto_default.setImageBitmap(photo);
-
 				Intent intent = new Intent(Profile_modify.this, Profile.class);
 				startActivity(intent);
 			}
 		});
 
 	}
-
 	// 사진 가져오는 함수
 	private void doTakePhotoAction() {
 		
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
 		// 임시로 사용할 파일의 경로를 생성
 		String url = "tmpImage.jpg";
 		mImageCaptureUri = Uri.fromFile(new File(Environment
 				.getExternalStorageDirectory(), url));
-
 		intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
 				mImageCaptureUri);
 		// 특정기기에서 사진을 저장못하는 문제가 있어 다음을 주석처리 합니다.
 		// intent.putExtra("return-data", true);
 		startActivityForResult(intent, PICK_FROM_CAMERA);
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.profile_modify, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, Main.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			break;
+		case R.id.action_ok:
+			intent = new Intent(this, Profile.class);
+			startActivity(intent);
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void customActionBar() {
+		// Customize the ActionBar
+		final ActionBar abar = getActionBar();
+		abar.setBackgroundDrawable(new ColorDrawable(Color
+				.parseColor("#67C6E5")));
+		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
+		// under the action bar
+		View viewActionBar = getLayoutInflater().inflate(
+				R.layout.actionbar_layout, null);
+		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+				// Center the textview in the ActionBar !
+				ActionBar.LayoutParams.WRAP_CONTENT,
+				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
+		TextView textviewTitle = (TextView) viewActionBar
+				.findViewById(R.id.actionbar_textview);
+		textviewTitle.setText(R.string.title_activity_profile_modify);
+		abar.setCustomView(viewActionBar, params);
+		abar.setDisplayShowCustomEnabled(true);
+		abar.setDisplayShowTitleEnabled(false);
+		abar.setDisplayHomeAsUpEnabled(true);
+		// abar.setIcon(R.color.transparent);
+		abar.setHomeButtonEnabled(true);
 	}
 
 	// 앨범에서 이미지 가져오기
