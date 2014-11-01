@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Main" >
+    tools:context=".MainActivity" >
     
     <ImageView
         android:id="@+id/imageView1"
@@ -21,7 +21,7 @@
     <Button
         android:id="@+id/free_btn"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+         android:layout_height="40dp"
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:background="#93d5eb"
@@ -69,4 +69,5 @@
          android:textSize="10pt"
          android:textStyle="bold" />
 
+    
 </RelativeLayout>
