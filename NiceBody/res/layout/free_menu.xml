@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#67c6e5"
     android:orientation="vertical"
-    tools:context=".Free_menu" >
+    tools:context=".MainActivity" >
     
     <Button
         android:id="@+id/free_pushup_btn"

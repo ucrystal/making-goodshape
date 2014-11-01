@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#67c6e5"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/countNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/chronometer_recommend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textSize="80pt"
+        android:textStyle="bold" />
+
+    
+
+    <Chronometer
+        android:id="@+id/chronometer_recommend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="25pt"
+        android:textColor="#ffffff" />
+    
+    <Button
+        android:id="@+id/free_play_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/countNum"
+        android:layout_below="@+id/countNum"
+        android:layout_marginTop="39dp"
+        android:background="@drawable/play_btn" />
+    
+    <Button
+        android:id="@+id/free_pause_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/free_finish_btn"
+        android:layout_alignRight="@+id/countNum"
+        android:background="@drawable/fause_btn" />
+    
+
+    <Button
+        android:id="@+id/free_refresh_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBaseline="@+id/free_play_btn"
+        android:layout_alignBottom="@+id/free_play_btn"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/refresh_btn" />
+
+    <Button
+        android:id="@+id/free_finish_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/free_play_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:background="#93d5eb"
+        android:text="운동 완료"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+
+</RelativeLayout>
