@@ -77,7 +77,8 @@ public class Schedule_calendar_adapter extends BaseAdapter {
 
 		if (day != null) {
 			dayViewHolder.Day.setText(day.getDay());
-
+			
+		
 			if (day.isToday()) {
 				dayViewHolder.Background
 						.setBackgroundResource(R.drawable.circle);

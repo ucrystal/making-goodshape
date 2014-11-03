@@ -46,16 +46,19 @@ public class Profile extends Activity {
 		tv_name = (TextView) findViewById(R.id.textView_name);
 
 
-
-		tv_height.setText(Profile_modify.Height);
-		tv_weight.setText(Profile_modify.Weight);
-		tv_name.setText(Profile_modify.Name);
-
 		
 		//file에 저장된 이미지 불러오는 과정 
 		if(Profile_modify.checkInt == 0){
+			
+			tv_height.setText("  00 cm");
+			tv_weight.setText("  00 kg");
+			tv_name.setText("  "+Profile_modify.Name);
 		
 		}else if(Profile_modify.checkInt == 1) {
+			
+			tv_height.setText("  "+Profile_modify.Height+" cm");
+			tv_weight.setText("  "+Profile_modify.Weight+" cm");
+			tv_name.setText("  "+Profile_modify.Name);
 			
 			try {
 				profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
@@ -68,26 +71,6 @@ public class Profile extends Activity {
 			}
 		}
 		
-		tv_height.setText(Profile_modify.Height);
-		tv_weight.setText(Profile_modify.Weight);
-
-		modifyPro_btn = (Button) findViewById(R.id.modifyProfile_btn);
-		modifyPro_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Profile.this, Profile_modify.class);
-				startActivity(intent);
-			}
-		});
-
-		confirmPro_btn = (Button) findViewById(R.id.confirmProfile_btn);
-		confirmPro_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Profile.this, Main.class);
-				startActivity(intent);
-			}
-		});
 	}
 
 	@Override

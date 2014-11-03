@@ -46,9 +46,10 @@ import android.widget.ImageView;
 public class Profile_modify extends Activity implements OnClickListener {
 
 	Button modifyFns_btn;
-	static String Height = null;
-	static String Weight = null;
-	static String Name = "홍길동";
+	
+	static String Height;
+	static String Weight;
+	static String Name = "프로필을 입력해주세요.";
 	
 	//수정했는지 검사하는 과정 
 	static int checkInt = 0;
@@ -67,7 +68,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 	private Uri mImageCaptureUri;
 	private ImageView profilePhoto;
-	private Button pickPhoto_btn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +76,33 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 		customActionBar();
 
+		// 수치 입력
+				editHeight = (EditText) findViewById(R.id.editHeight);
+				editWeight = (EditText) findViewById(R.id.editWeight);
+				editName = (EditText) findViewById(R.id.editName);
+				
+		// 사진 호출
+		profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
+
+		profilePhoto.setOnClickListener(this);
+		
+		
+		
 		// 사진 호출
 
 		if(Profile_modify.checkInt == 0){
 			
+			Height = null;
+			Weight = null;
+			
 		}else if(Profile_modify.checkInt == 1) {
 			
+			editHeight.setText(Height);
+			editWeight.setText(Weight);
+			editName.setText(Name);
+			
 			try {
-				profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
+				
 				String imgpath = "data/data/sm.mm.nicebody/files/profile.png";
 				Bitmap bmp = BitmapFactory.decodeFile(imgpath);
 				profilePhoto.setImageBitmap(bmp);
@@ -93,70 +112,9 @@ public class Profile_modify extends Activity implements OnClickListener {
 			}
 		}
 		
-		// 사진 호출
-		pickPhoto_btn = (Button) findViewById(R.id.pickPhoto_btn);
-		profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
 
-		pickPhoto_btn.setOnClickListener(this);
 
-		// 수치 입력
-		editHeight = (EditText) findViewById(R.id.editHeight);
-		editWeight = (EditText) findViewById(R.id.editWeight);
-		editName = (EditText) findViewById(R.id.editName);
-
-		modifyFns_btn = (Button) findViewById(R.id.modifyFinish_btn);
-		modifyFns_btn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				
-				Height = editHeight.getText().toString();
-				Weight = editWeight.getText().toString();
-				Name = editName.getText().toString();
-
-				
-
-				// 공백(스페이스바)만 눌러서 넘기는 경우
-				Height = Height.trim();
-				Weight = Weight.trim();
-				Name = Name.trim();
-				
-				
-				if(Name.getBytes().length <= 0)
-					Name = "홍길동";
-
-				if (Height.getBytes().length <= 0
-						&& Weight.getBytes().length > 0) {// 빈값이 넘어올때의 처리
-
-					toast = Toast.makeText(getApplicationContext(),
-							"키를 입력하세요!", Toast.LENGTH_LONG);
-					toast.show();
-					return;
-
-				} else if (Height.getBytes().length > 0
-						&& Weight.getBytes().length <= 0) {
-
-					toast = Toast.makeText(getApplicationContext(),
-							"몸무게를 입력하세요!", Toast.LENGTH_LONG);
-					toast.show();
-					return;
-
-				} else if (Height.getBytes().length <= 0
-						&& Weight.getBytes().length <= 0) {
-
-					toast = Toast.makeText(getApplicationContext(),
-							"키와 몸무게를 입력하세요!", Toast.LENGTH_LONG);
-					toast.show();
-					return;
-
-				}
-				// Profile.profilePhoto_default.setImageBitmap(photo);
-				Intent intent = new Intent(Profile_modify.this, Profile.class);
-				startActivity(intent);
-			}
-		});
-
+		
 	}
 	// 사진 가져오는 함수
 	private void doTakePhotoAction() {
@@ -190,6 +148,53 @@ public class Profile_modify extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.action_ok:
+			
+			Height = editHeight.getText().toString();
+			Weight = editWeight.getText().toString();
+			Name = editName.getText().toString();
+
+			
+
+			// 공백(스페이스바)만 눌러서 넘기는 경우
+			Height = Height.trim();
+			Weight = Weight.trim();
+			Name = Name.trim();
+			
+			
+			if(Name.getBytes().length <= 0)
+				Name = "홍길동";
+
+			if (Height.getBytes().length <= 0
+					&& Weight.getBytes().length > 0) {// 빈값이 넘어올때의 처리
+
+				toast = Toast.makeText(getApplicationContext(),
+						"키를 입력하세요!", Toast.LENGTH_LONG);
+				toast.show();
+				break;
+
+
+			} else if (Height.getBytes().length > 0
+					&& Weight.getBytes().length <= 0) {
+
+				toast = Toast.makeText(getApplicationContext(),
+						"몸무게를 입력하세요!", Toast.LENGTH_LONG);
+				toast.show();
+				break;
+
+
+			} else if (Height.getBytes().length <= 0
+					&& Weight.getBytes().length <= 0) {
+
+				toast = Toast.makeText(getApplicationContext(),
+						"키와 몸무게를 입력하세요!", Toast.LENGTH_LONG);
+				toast.show();
+				break;
+
+			}
+			// Profile.profilePhoto_default.setImageBitmap(photo);
+			
+			checkInt = 1;
+			
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
 			break;
