@@ -5,27 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".Schedule_calendar" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="44dp" >
-
-        <Button
-            android:id="@+id/schedule_cal_btn01"
-            android:layout_width="74dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/schedule_01"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/schedule_cal_btn02"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.32"
-            android:background="@drawable/schedule_02"
-            android:textStyle="bold" />
-    </LinearLayout>
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -59,12 +39,13 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="17dp" >
+        android:paddingRight="3dp" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Sun"
             android:textColor="#778899" />
 
@@ -72,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Mon"
             android:textColor="#778899" />
 
@@ -79,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Tue"
             android:textColor="#778899" />
 
@@ -86,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Wed"
             android:textColor="#778899" />
 
@@ -93,6 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Thu"
             android:textColor="#778899" />
 
@@ -100,6 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Fri"
             android:textColor="#778899" />
 
@@ -107,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/Sat"
             android:textColor="#778899"
             />
@@ -114,12 +101,15 @@
 
     <GridView
         android:id="@+id/schedule_calendarView"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:layout_marginLeft="17dp"
         android:background="#ffffff"
+        android:gravity="center"
+        android:horizontalSpacing="18dp"
         android:listSelector="@drawable/calendar_gstyle"
         android:numColumns="7"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:stretchMode="columnWidth"
         android:verticalSpacing="25dp" >
     </GridView>

@@ -29,6 +29,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	private TextView calendar_title;
 	private GridView calendar_view;
 
+
 	private ArrayList<Schedule_calendar_day> DayList;
 	private Schedule_calendar_adapter Calendar_adapter;
 
@@ -50,6 +51,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		bLastMonth.setOnClickListener(this);
 		bNextMonth.setOnClickListener(this);
 		calendar_view.setOnItemClickListener(this);
+
 
 		DayList = new ArrayList<Schedule_calendar_day>();
 
@@ -150,7 +152,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				1);
 		calendar.add(Calendar.MONTH, -1);
-		calendar_title.setText(ThisMonthCalendar.get(Calendar.YEAR) + "년"
+		calendar_title.setText(ThisMonthCalendar.get(Calendar.YEAR) + "년 "
 				+ (ThisMonthCalendar.get(Calendar.MONTH) + 1) + "월");
 		return calendar;
 	}
@@ -160,7 +162,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				1);
 		calendar.add(Calendar.MONTH, +1);
-		calendar_title.setText(ThisMonthCalendar.get(Calendar.YEAR) + "년"
+		calendar_title.setText(ThisMonthCalendar.get(Calendar.YEAR) + "년 "
 				+ (ThisMonthCalendar.get(Calendar.MONTH) + 1) + "월");
 		return calendar;
 	}
