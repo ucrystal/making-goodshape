@@ -9,11 +9,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Recommend_record extends Activity implements SensorEventListener {
+public class Recommend_record3 extends Activity implements SensorEventListener {
 	private static final int MILLISINFUTURE = 50 * 1000;
 	private static final int COUNT_DOWN_INTERVAL = 1000;
 
@@ -39,12 +41,12 @@ public class Recommend_record extends Activity implements SensorEventListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.recommend_record);
+		setContentView(R.layout.recommend_record3);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
-		countTxt = (TextView) findViewById(R.id.countTxt);
+		countTxt = (TextView) findViewById(R.id.countTxt3);
 		countTxt.setText(String.valueOf(count) + "초");
 
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
@@ -75,7 +77,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 			fixedNum2.setText(" 복부 " + arr[5][1]);
 			fixedNum3.setText(" 하체 " + arr[5][2]);
 		}
-
+		
 		countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
 			public void onTick(long millisUntilFinished) {
 				playCheck = 1;
@@ -89,7 +91,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 			}
 		};
 
-		start_btn = (Button) findViewById(R.id.recommend_play_btn);
+		start_btn = (Button) findViewById(R.id.recommend_play_btn3);
 		start_btn.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -97,20 +99,20 @@ public class Recommend_record extends Activity implements SensorEventListener {
 			}
 		});
 
-		giveup_btn = (Button) findViewById(R.id.recommend_finish_btn);
+		giveup_btn = (Button) findViewById(R.id.recommend_finish_btn3);
 		giveup_btn.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				countDownTimer.cancel();
 
-				Intent intent = new Intent(Recommend_record.this,
+				Intent intent = new Intent(Recommend_record3.this,
 						Recommend_fail.class);
 				startActivity(intent);
 			}
 		});
 
 		// 출력용 텍스트뷰를 얻는다.
-		recommend_countNum = (TextView) findViewById(R.id.recommendcountNum);
+		recommend_countNum = (TextView) findViewById(R.id.recommendcountNum3);
 
 		// 시스템서비스로부터 SensorManager 객체를 얻는다.
 		m_sensor_manager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -165,58 +167,58 @@ public class Recommend_record extends Activity implements SensorEventListener {
 
 						if (Recommend_description1.ChallengeNum == 1) {
 							// 상체운동 성공 시 하체운동 페이지로 이동
-							if (printNum == arr[0][0]) {
+							if (printNum == arr[0][2]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
 								Intent intent = new Intent(
-										Recommend_record.this,
-										Recommend_record2.class);
+										Recommend_record3.this,
+										Recommend_success.class);
 								startActivity(intent);
 							}
 						} else if (Recommend_description1.ChallengeNum == 2) {
-							if (printNum == arr[1][0]) {
+							if (printNum == arr[1][2]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
 								Intent intent = new Intent(
-										Recommend_record.this,
-										Recommend_record2.class);
+										Recommend_record3.this,
+										Recommend_success.class);
 								startActivity(intent);
 							}
 						} else if (Recommend_description1.ChallengeNum == 3) {
-							if (printNum == arr[2][0]) {
+							if (printNum == arr[2][2]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
 								Intent intent = new Intent(
-										Recommend_record.this,
-										Recommend_record2.class);
+										Recommend_record3.this,
+										Recommend_success.class);
 								startActivity(intent);
 							}
 						} else if (Recommend_description1.ChallengeNum == 4) {
-							if (printNum == arr[3][0]) {
+							if (printNum == arr[3][2]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
 								Intent intent = new Intent(
-										Recommend_record.this,
-										Recommend_record2.class);
+										Recommend_record3.this,
+										Recommend_success.class);
 								startActivity(intent);
 							}
 
 						} else if (Recommend_description1.ChallengeNum == 5) {
-							if (printNum == arr[4][0]) {
+							if (printNum == arr[4][2]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
 								Intent intent = new Intent(
-										Recommend_record.this,
-										Recommend_record2.class);
+										Recommend_record3.this,
+										Recommend_success.class);
 								startActivity(intent);
 							}
 						} else if (Recommend_description1.ChallengeNum == 6) {
-							if (printNum == arr[5][0]) {
+							if (printNum == arr[5][2]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
 								Intent intent = new Intent(
-										Recommend_record.this,
-										Recommend_record2.class);
+										Recommend_record3.this,
+										Recommend_success.class);
 								startActivity(intent);
 							}
 						}

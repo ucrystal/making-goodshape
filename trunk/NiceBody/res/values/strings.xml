@@ -2,14 +2,12 @@
 <resources>
 
     <string name="hello_world">hello_world</string>
-    
     <string name="app_name">몸매가예뻐Gym</string>
     <string name="action_profile">프로필</string>
     <string name="action_settings">설정</string>
     <string name="action_schedule">운동기록</string>
     <string name="action_modify">수정</string>
     <string name="action_ok">완료</string>
-    
     <string name="title_activity_profile">프로필</string>
     <string name="title_activity_profile_modify">프로필수정</string>
     <string name="title_activity_free_menu">자유운동</string>
@@ -20,8 +18,8 @@
     <string name="title_activity_recommend_count">Recommend_count</string>
     <string name="title_activity_recommend_success">도전성공</string>
     <string name="title_activity_schedule_calendar_day">Schedule_calendar_day</string>
-	<string name="title_activity_recommend_description1">도전</string>
-    
+    <string name="title_activity_recommend_description1">도전</string>
+
     <!-- schedule_calendar -->
     <string name="comment">COMMENT</string>
     <string name="Sun">Sun</string>
@@ -39,6 +37,8 @@
     <string name="title_4">4단계</string>
     <string name="title_5">5단계</string>
     <string name="title_6">6단계</string>
-    
+    <string name="title_activity_recommend_fail">Recommend_fail</string>
+    <string name="title_activity_recommend_record2">Recommend_record2</string>
+    <string name="title_activity_recommend_record3">Recommend_record3</string>
 
 </resources>

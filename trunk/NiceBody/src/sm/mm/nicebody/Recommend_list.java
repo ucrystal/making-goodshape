@@ -35,6 +35,7 @@ public class Recommend_list extends Activity {
 			R.string.title_5, 
 			R.string.title_6 };
 
+	static int choiceCh = 0;
 	private ListView mLvData;
 	private Recommend_Adapter mCustomAdapter;
 	private ArrayList<Recommend_list_model> mList;
@@ -66,26 +67,32 @@ public class Recommend_list extends Activity {
             	switch (position) {
 				
 				case 0:
+					choiceCh = 1;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
 					break;
 				case 1:
+					choiceCh = 2;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
 					break;
 				case 2:
+					choiceCh = 3;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
 					break;
 				case 3:
+					choiceCh = 4;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
 					break;
 				case 4:
+					choiceCh = 5;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
 					break;
 				case 5:
+					choiceCh = 6;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
 					break;		

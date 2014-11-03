@@ -15,20 +15,39 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Recommend_description1 extends Activity {
-Button recommend_btn;
+	Button recommend_btn1,recommend_btn2,recommend_btn3,recommend_btn4,recommend_btn5,recommend_btn6;
+	static int ChallengeNum = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.recommend_description1);
+		if (Recommend_list.choiceCh == 1){
+			ChallengeNum=1;
+			setContentView(R.layout.recommend_description1);}
+		else if (Recommend_list.choiceCh == 2){
+			ChallengeNum=2;
+			setContentView(R.layout.recommend_description2);}
+		else if (Recommend_list.choiceCh == 3){
+			ChallengeNum=3;
+			setContentView(R.layout.recommend_description3);}
+		else if (Recommend_list.choiceCh == 4){
+			ChallengeNum=4;
+			setContentView(R.layout.recommend_description4);}
+		else if (Recommend_list.choiceCh == 5){
+			ChallengeNum=5;
+			setContentView(R.layout.recommend_description5);}
+		else if (Recommend_list.choiceCh == 6){
+			ChallengeNum=6;
+			setContentView(R.layout.recommend_description6);}
 		
 		customActionBar();
 		
-		recommend_btn = (Button)findViewById(R.id.recommendlist_btn1);
-		recommend_btn.setOnClickListener(new OnClickListener() {
+		recommend_btn1 = (Button)findViewById(R.id.recommendlist_btn1);
+		recommend_btn1.setBackgroundResource(R.drawable.btn_start);
+		recommend_btn1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-	            Intent intent = new Intent(Recommend_description1.this, Recommend_success.class);
+	            Intent intent = new Intent(Recommend_description1.this, Recommend_record.class);
 	            startActivity(intent);
 	         }
 	      });
