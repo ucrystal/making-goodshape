@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="First Challenge"
+        android:text="Sixth Challenge"
         android:textColor="#67C6E5"
         android:textSize="30sp" />
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="첫 번째 챌린지입니다."
+        android:text="여섯 번째 챌린지입니다."
         android:textSize="16sp" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="연습삼아 운동해 볼까요?"
+        android:text="쓰러질 지도 몰라요."
         android:textSize="16sp" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="상체1 - 복부2 - 하체1"
+        android:text="상체10 - 복부18 - 하체15"
         android:textColor="#ff1e5f"
         android:textSize="24sp" />
 
@@ -53,6 +53,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="80dp" />
 
 </LinearLayout>

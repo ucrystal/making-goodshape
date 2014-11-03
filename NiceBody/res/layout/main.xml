@@ -21,11 +21,11 @@
     <Button
         android:id="@+id/free_btn"
         android:layout_width="150dp"
-         android:layout_height="40dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:background="#93d5eb"
-        android:text="자유 운동"
+        android:text="자유운동"
         android:textColor="#ffffff"
         android:textSize="10pt"
         android:textStyle="bold" />
@@ -38,7 +38,7 @@
          android:layout_centerHorizontal="true"
          android:layout_marginTop="50dp"
          android:background="#93d5eb"
-         android:text="추천 운동"
+         android:text="추천운동"
          android:textColor="#ffffff"
          android:textSize="10pt"
          android:textStyle="bold" />

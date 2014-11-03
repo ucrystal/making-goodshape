@@ -86,10 +86,10 @@ public class Free_explain extends Activity {
 				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
-		TextView textviewTitle = (TextView) viewActionBar
-				.findViewById(R.id.actionbar_textview);
+		TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.actionbar_textview);
 		textviewTitle.setText(R.string.title_activity_free_expain);
 		abar.setCustomView(viewActionBar, params);
+		abar.setDisplayUseLogoEnabled(true);
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
 		abar.setDisplayHomeAsUpEnabled(true);
