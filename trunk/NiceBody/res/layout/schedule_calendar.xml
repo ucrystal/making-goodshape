@@ -108,7 +108,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/Sat"
-            android:textColor="#778899" />
+            android:textColor="#778899"
+            />
     </LinearLayout>
 
     <GridView
