@@ -3,14 +3,11 @@ package sm.mm.nicebody;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import android.app.ActionBar;
+import sm.mm.nicebody.R;
+import sm.mm.nicebody.Schedule_calendar_adapter;
+import sm.mm.nicebody.Schedule_calendar_day;
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -20,7 +17,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 public class Schedule_calendar extends Activity implements OnItemClickListener,
-	OnClickListener {
+		OnClickListener {
 	public static int SUNDAY = 1;
 	public static int MONDAY = 2;
 	public static int TUESDAY = 3;
@@ -38,15 +35,12 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	Calendar LastMonthCalendar;
 	Calendar ThisMonthCalendar;
 	Calendar NextMonthCalendar;
-	Calendar Today;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule_calendar);
 
-		customActionBar();
-		
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
 
@@ -58,16 +52,26 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		calendar_view.setOnItemClickListener(this);
 
 		DayList = new ArrayList<Schedule_calendar_day>();
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
+		// 이번달 의 캘린더 인스턴스를 생성
 		ThisMonthCalendar = Calendar.getInstance();
 		ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, 1);
 		getCalendar(ThisMonthCalendar);
+
 	}
+
+	/**
+	 * 달력을 셋팅
+	 * 
+	 * @param calendar
+	 *            달력에 보여지는 이번달의 Calendar 객체
+	 */
 
 	private void getCalendar(Calendar calendar) {
 		int lastMonthStartDay;
@@ -76,8 +80,12 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 		DayList.clear();
 
+		// 이번달 시작일의 요일을 구함. 시작일이 일요일인 경우 인덱스를 1(일요일)에서 8(다음주 일요일)로 바꾼다
+
 		dayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
 		thisMonthLastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		// 지난달 마지막 날
 
 		lastMonthStartDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
@@ -87,10 +95,13 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 		lastMonthStartDay -= (dayOfMonth - 1) - 1;
 
-		calendar_title.setText(ThisMonthCalendar.get(Calendar.YEAR) + "년"
+		// 캘린더 타이틀 세팅
+		calendar_title.setText(ThisMonthCalendar.get(Calendar.YEAR) + "년 "
 				+ (ThisMonthCalendar.get(Calendar.MONTH) + 1) + "월");
 
 		Schedule_calendar_day day;
+
+		Calendar todayCalendar = Calendar.getInstance();
 
 		for (int i = 0; i < dayOfMonth - 1; i++) {
 			int date = lastMonthStartDay + i;
@@ -103,9 +114,14 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		for (int i = 1; i <= thisMonthLastDay; i++) {
 			day = new Schedule_calendar_day();
 			day.setDay(Integer.toString(i));
+
+			ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
+			day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
+
 			day.setInMonth(true);
 
 			DayList.add(day);
+
 		}
 		for (int i = 1; i < 42 - (thisMonthLastDay + dayOfMonth - 1) + 1; i++) {
 			day = new Schedule_calendar_day();
@@ -117,6 +133,19 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		initCalendarAdapter();
 	}
 
+	private boolean isToday(Calendar todayCalendar, Calendar ThisMonthCalendar) {
+		if (todayCalendar.get(Calendar.YEAR) == ThisMonthCalendar
+				.get(Calendar.YEAR)
+				&& todayCalendar.get(Calendar.MONTH) == ThisMonthCalendar
+						.get(Calendar.MONTH)
+				&& todayCalendar.get(Calendar.DAY_OF_MONTH) == ThisMonthCalendar
+						.get(Calendar.DAY_OF_MONTH))
+			return true;
+		else
+			return false;
+	}
+
+	// 지난달의 Calendar 객체를 반환
 	private Calendar getLastMonth(Calendar calendar) {
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				1);
@@ -126,6 +155,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		return calendar;
 	}
 
+	// 다음달의 Calendar 객체를 반환
 	private Calendar getNextMonth(Calendar calendar) {
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				1);
@@ -159,55 +189,5 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		Calendar_adapter = new Schedule_calendar_adapter(this,
 				R.layout.schedule_calendar_day, DayList);
 		calendar_view.setAdapter(Calendar_adapter);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			Intent intent = new Intent(this, Main.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			break;
-		case R.id.action_profile:
-			intent = new Intent(this, Profile.class);
-			startActivity(intent);
-			break;
-
-		case R.id.action_schedule:
-			intent = new Intent(this, Schedule_calendar.class);
-			startActivity(intent);
-			break;
-
-		case R.id.action_settings:
-			intent = new Intent(this, Main.class);
-			startActivity(intent);
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	public void customActionBar() {
-		// Customize the ActionBar
-		final ActionBar abar = getActionBar();
-		abar.setBackgroundDrawable(new ColorDrawable(Color
-				.parseColor("#67C6E5")));
-		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
-		// under the action bar
-		View viewActionBar = getLayoutInflater().inflate(
-				R.layout.actionbar_layout, null);
-		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-				// Center the textview in the ActionBar !
-				ActionBar.LayoutParams.WRAP_CONTENT,
-				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
-		TextView textviewTitle = (TextView) viewActionBar
-				.findViewById(R.id.actionbar_textview);
-		textviewTitle.setText(R.string.title_activity_schedule_calendar);
-		abar.setCustomView(viewActionBar, params);
-		abar.setDisplayShowCustomEnabled(true);
-		abar.setDisplayShowTitleEnabled(false);
-		abar.setDisplayHomeAsUpEnabled(true);
-		// abar.setIcon(R.color.transparent);
-		abar.setHomeButtonEnabled(true);
 	}
 }
