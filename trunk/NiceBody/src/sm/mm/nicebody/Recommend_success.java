@@ -31,6 +31,7 @@ public class Recommend_success extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Recommend_success.this, Main.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}

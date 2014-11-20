@@ -4,8 +4,12 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -18,6 +22,30 @@ public class Main extends Activity {
 	ImageView logoImageview;
 	Button free_btn, recommend_btn, schedule_btn, profile_btn, test_btn;
 	Toast mainToast;
+
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			new AlertDialog.Builder(this)
+					.setTitle("종료")
+					.setMessage("종료 하시겠습니까?")
+					.setPositiveButton("예",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									//ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+									//activityManager.killBackgroundProcesses("sm.mm.nicebody");
+									moveTaskToBack(true);
+									finish();
+								}
+							}).setNegativeButton("아니오", null).show();
+			return false;
+		default:
+			return false;
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +75,7 @@ public class Main extends Activity {
 
 		recommend_btn = (Button) findViewById(R.id.recommend_btn);
 		recommend_btn.setOnClickListener(new View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 
@@ -56,6 +85,7 @@ public class Main extends Activity {
 		});
 
 		schedule_btn = (Button) findViewById(R.id.schedule_btn);
+
 		schedule_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -90,5 +120,11 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	@Override
+	public void onDestroy() {
+	        super.onDestroy();
+	        android.os.Process.killProcess(android.os.Process.myPid());
+	    }
 
 }

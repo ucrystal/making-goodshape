@@ -77,7 +77,8 @@
         android:text="도전 시작"
         android:textColor="#ffffff"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:clickable="false" />
     <Button
         android:id="@+id/recommend_finish_btn"
         android:layout_width="150dp"

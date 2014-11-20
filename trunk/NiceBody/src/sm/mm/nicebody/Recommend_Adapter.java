@@ -66,5 +66,16 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 
 		return convertView;
 	}
-
+	
+	@Override
+	public boolean areAllItemsEnabled()
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isEnabled(int position)
+	{  /* if position is last index or second last index of mStrings then return false*/
+		return (position==mList.size()-4|position==mList.size()-3|position==mList.size()-2|position==mList.size()-1)?false:true;
+	}
 }

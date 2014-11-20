@@ -98,6 +98,7 @@ public class Free_result extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Free_result.this, Main.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}
