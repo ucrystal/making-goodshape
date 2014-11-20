@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,7 +26,8 @@
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:background="#93d5eb"
-        android:text="자유운동"
+        android:layout_marginTop="40dp"
+        android:text="자유 운동"
         android:textColor="#ffffff"
         android:textSize="10pt"
         android:textStyle="bold" />
@@ -36,7 +38,7 @@
          android:layout_height="40dp"
          android:layout_below="@+id/imageView1"
          android:layout_centerHorizontal="true"
-         android:layout_marginTop="50dp"
+         android:layout_marginTop="90dp"
          android:background="#93d5eb"
          android:text="추천운동"
          android:textColor="#ffffff"
@@ -49,7 +51,7 @@
          android:layout_height="40dp"
          android:layout_below="@+id/imageView1"
          android:layout_centerHorizontal="true"
-         android:layout_marginTop="100dp"
+         android:layout_marginTop="140dp"
          android:background="#93d5eb"
          android:text="운동기록"
          android:textColor="#ffffff"
@@ -62,12 +64,13 @@
          android:layout_height="40dp"
          android:layout_below="@+id/imageView1"
          android:layout_centerHorizontal="true"
-         android:layout_marginTop="150dp"
+         android:layout_marginTop="190dp"
          android:background="#93d5eb"
          android:text="프로필"
          android:textColor="#ffffff"
          android:textSize="10pt"
          android:textStyle="bold" />
+
 
     
 </RelativeLayout>

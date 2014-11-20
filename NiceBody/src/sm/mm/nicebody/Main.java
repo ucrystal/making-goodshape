@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class Main extends Activity {
 
 	ImageView logoImageview;
-	Button free_btn, recommend_btn,schedule_btn,profile_btn;
+	Button free_btn, recommend_btn,schedule_btn,profile_btn, test_btn;
 	Toast mainToast;
 	
 	@Override
@@ -25,27 +25,19 @@ public class Main extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		
+		Profile.db = new FreeDatabase(this);
+		
 		free_btn = (Button)findViewById(R.id.free_btn);
 		free_btn.setOnClickListener(new View.OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-
-	        	 
-	        	 if(Profile_modify.Height == null && Profile_modify.Weight == null){
-	        		 
-		        	 
-		        	 Profile_modify.Height = "168";
-		        	 Profile_modify.Weight = "50";
 		     			
 	        		 /* 
 		        	 //일단 편의상 열어논다 
 	        		 	mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용", Toast.LENGTH_LONG); 
 	        		 	mainToast.show();
 		     			return;
-		     		*/
-	     		}
-
-	        	 
+		     		*/	        	 
 	            Intent intent = new Intent(Main.this, Free_menu.class);
 	            startActivity(intent);
 	         }
@@ -56,24 +48,7 @@ public class Main extends Activity {
 	         @Override
 	         public void onClick(View v) {
 	        	 
-	        	 
-
-	        	 if(Profile_modify.Height == null && Profile_modify.Weight == null){
-	        	 
-	        	 		Profile_modify.Height = "168";
-		        	 	Profile_modify.Weight = "50";
-		     			
-			        	 /*
-			        	  
-			        	 //일단 편의상 열어논다 
-	        		 	mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용", Toast.LENGTH_LONG); 
-	        		 	mainToast.show();
-		     			return;
-		     			
-		     			*/
-	     		}
-
-	        	 
+	      
 	            Intent intent = new Intent(Main.this, Recommend_list.class);
 	            startActivity(intent);
 	         }
@@ -96,6 +71,7 @@ public class Main extends Activity {
 	            startActivity(intent);
 	         }
 	      });   
+		
 	}
 	
 
