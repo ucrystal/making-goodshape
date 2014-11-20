@@ -1,25 +1,33 @@
 package sm.mm.nicebody;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Free_result extends Activity {
 
 	Button result_pushup_gomain;
+	Button result_record;
+
 	TextView free_resultNum;
 	TextView free_resultTimer;
 	TextView free_resultCal;
 	double calCalorie;
+
+	Toast recordToast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,48 +43,54 @@ public class Free_result extends Activity {
 		if (Free_record.countResult < 10)
 			free_resultNum.setText("0" + Free_record.countResult);
 		else
-			free_resultNum.setText("" + Free_record.countResult );
-		
-		free_resultTimer.setText( Free_record.timerResult + " 소요" );
-		
-		
-		if(Free_menu.choiceEx == 1){
-			
-			/*
-			//choiceEx 1은 pushUp
-			calCalorie = Double.parseDouble(Profile_modify.Height)/100*Double.parseDouble(Profile_modify.Weight)*(0.0494)*2*Free_record.countResult;
-			free_resultCal.setText( (int)calCalorie + " 칼로리 소모" );
-			*/
-			
+			free_resultNum.setText("" + Free_record.countResult);
+
+		free_resultTimer.setText(Free_record.timerResult + " 소요");
+
+		if (Free_menu.choiceEx == 1) {
+
 			calCalorie = Calorie.cal_fushUp(Free_record.countResult);
-			free_resultCal.setText( (int)calCalorie + " 칼로리 소모" );
-			
-		}else if(Free_menu.choiceEx == 2){
-			
-			/*
-			//choiceEx 2는 lunge
-			calCalorie = Double.parseDouble(Profile_modify.Height)/100*Double.parseDouble(Profile_modify.Weight)*(0.07639)*2*Free_record.countResult;
-			free_resultCal.setText((int)calCalorie + " 칼로리 소모");
-			*/
-			
+			free_resultCal.setText((int) calCalorie + " 칼로리 소모");
+
+		} else if (Free_menu.choiceEx == 2) {
+
 			calCalorie = Calorie.cal_lunge(Free_record.countResult);
-			free_resultCal.setText( (int)calCalorie + " 칼로리 소모" );
-			
-			
-		}else if(Free_menu.choiceEx == 3){
-			
-			/*
-			//choiceEx 3은 legRaise
-			calCalorie = Double.parseDouble(Profile_modify.Height)/100*Double.parseDouble(Profile_modify.Weight)*(0.0211)*2*Free_record.countResult;
-			free_resultCal.setText((int)calCalorie + " 칼로리 소모");
-			
->>>>>>> .r18
-			*/
-			
+			free_resultCal.setText((int) calCalorie + " 칼로리 소모");
+
+		} else if (Free_menu.choiceEx == 3) {
+
 			calCalorie = Calorie.cal_legRaise(Free_record.countResult);
-			free_resultCal.setText( (int)calCalorie + " 칼로리 소모" );
-			
+			free_resultCal.setText((int) calCalorie + " 칼로리 소모");
+
 		}
+
+		result_record = (Button) findViewById(R.id.result_record);
+		result_record.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				Profile.db.addFreeData(new FreeData(Free_menu.choiceEx,
+						Free_record.countResult));
+				List<FreeData> printAll = Profile.db.getAllFreeDatas();
+				for (int i = 0; i < printAll.size(); i++) {
+					String log_s = "";
+					if (printAll.get(i).getType() == 1) {
+						log_s = "윗몸일으키기";
+					}else if (printAll.get(i).getType() == 2) {
+						log_s = "런지";
+					}else if (printAll.get(i).getType() == 3) {
+						log_s = "레그레이즈";
+					}
+					
+					Log.v("free", log_s +","+ printAll.get(i).getCount() +","+ printAll.get(i).getDate());
+				}
+
+				recordToast = Toast.makeText(getApplicationContext(),
+						"기록되었습니다!!!!!!!!!", Toast.LENGTH_LONG);
+				recordToast.show();
+
+			}
+		});
 
 		result_pushup_gomain = (Button) findViewById(R.id.result_gomain);
 		result_pushup_gomain.setOnClickListener(new View.OnClickListener() {

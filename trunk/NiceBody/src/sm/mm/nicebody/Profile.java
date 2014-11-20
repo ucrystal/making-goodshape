@@ -3,6 +3,7 @@ package sm.mm.nicebody;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.Bitmap;
@@ -22,6 +23,8 @@ public class Profile extends Activity {
 	TextView tv_height;
 	TextView tv_weight;
 	TextView tv_name;
+	
+	static FreeDatabase db;
 
 	static ImageView profilePhoto_default;
 
@@ -45,20 +48,28 @@ public class Profile extends Activity {
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
 		tv_name = (TextView) findViewById(R.id.textView_name);
 
-
+		//db에 접속여부 저장, 처음이라면 0 출려
+		//프로필 값이 저장되어 있다면 1 출력
 		
-		//file에 저장된 이미지 불러오는 과정 
-		if(Profile_modify.checkInt == 0){
+		
+		//Profile.db.dropProfileTable();
+		
+		if(db.checkTable() == 0){
 			
 			tv_height.setText("  00 cm");
 			tv_weight.setText("  00 kg");
-			tv_name.setText("  "+Profile_modify.Name);
-		
-		}else if(Profile_modify.checkInt == 1) {
+			tv_name.setText(" 홍길동 ");
 			
-			tv_height.setText("  "+Profile_modify.Height+" cm");
-			tv_weight.setText("  "+Profile_modify.Weight+" cm");
-			tv_name.setText("  "+Profile_modify.Name);
+			Profile.db.dropProfileTable();
+			Profile.db.createProfileTable();
+			
+		
+		}else if(db.checkTable() == 1) {
+			
+			ProfileData profile_pd = db.getProfileData();
+			tv_name.setText("  "+profile_pd.getName());
+			tv_height.setText("  "+profile_pd.getHeight()+" cm");
+			tv_weight.setText("  "+profile_pd.getWeight()+" kg");
 			
 			try {
 				profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);

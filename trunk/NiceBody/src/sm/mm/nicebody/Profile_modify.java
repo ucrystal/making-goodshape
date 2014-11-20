@@ -46,12 +46,12 @@ import android.widget.ImageView;
 public class Profile_modify extends Activity implements OnClickListener {
 
 	Button modifyFns_btn;
-	
-	static String Height;
-	static String Weight;
-	static String Name = "프로필을 입력해주세요.";
-	
-	//수정했는지 검사하는 과정 
+
+	String Height;
+	String Weight;
+	String Name = "프로필을 입력해주세요.";
+
+	// 수정했는지 검사하는 과정
 	static int checkInt = 0;
 
 	static Bitmap photo;
@@ -77,32 +77,28 @@ public class Profile_modify extends Activity implements OnClickListener {
 		customActionBar();
 
 		// 수치 입력
-				editHeight = (EditText) findViewById(R.id.editHeight);
-				editWeight = (EditText) findViewById(R.id.editWeight);
-				editName = (EditText) findViewById(R.id.editName);
-				
-		// 사진 호출
+		editHeight = (EditText) findViewById(R.id.editHeight);
+		editWeight = (EditText) findViewById(R.id.editWeight);
+		editName = (EditText) findViewById(R.id.editName);
+
+		// 프로필 사진을 클릭하면 사진을 입력할 수 있도록
 		profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
-
 		profilePhoto.setOnClickListener(this);
-		
-		
-		
-		// 사진 호출
 
-		if(Profile_modify.checkInt == 0){
-			
+		if (Profile.db.checkTable() == 0) {
+
 			Height = null;
 			Weight = null;
-			
-		}else if(Profile_modify.checkInt == 1) {
-			
+
+
+		} else if (Profile.db.checkTable() == 1) {
+
 			editHeight.setText(Height);
 			editWeight.setText(Weight);
 			editName.setText(Name);
-			
+
 			try {
-				
+
 				String imgpath = "data/data/sm.mm.nicebody/files/profile.png";
 				Bitmap bmp = BitmapFactory.decodeFile(imgpath);
 				profilePhoto.setImageBitmap(bmp);
@@ -111,14 +107,12 @@ public class Profile_modify extends Activity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 			}
 		}
-		
 
-
-		
 	}
+
 	// 사진 가져오는 함수
 	private void doTakePhotoAction() {
-		
+
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		// 임시로 사용할 파일의 경로를 생성
 		String url = "tmpImage.jpg";
@@ -148,39 +142,33 @@ public class Profile_modify extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.action_ok:
-			
+
 			Height = editHeight.getText().toString();
 			Weight = editWeight.getText().toString();
 			Name = editName.getText().toString();
-
-			
 
 			// 공백(스페이스바)만 눌러서 넘기는 경우
 			Height = Height.trim();
 			Weight = Weight.trim();
 			Name = Name.trim();
-			
-			
-			if(Name.getBytes().length <= 0)
+
+			if (Name.getBytes().length <= 0)
 				Name = "홍길동";
 
-			if (Height.getBytes().length <= 0
-					&& Weight.getBytes().length > 0) {// 빈값이 넘어올때의 처리
+			if (Height.getBytes().length <= 0 && Weight.getBytes().length > 0) {
 
-				toast = Toast.makeText(getApplicationContext(),
-						"키를 입력하세요!", Toast.LENGTH_LONG);
+				toast = Toast.makeText(getApplicationContext(), "키를 입력하세요!",
+						Toast.LENGTH_LONG);
 				toast.show();
 				break;
-
 
 			} else if (Height.getBytes().length > 0
 					&& Weight.getBytes().length <= 0) {
 
-				toast = Toast.makeText(getApplicationContext(),
-						"몸무게를 입력하세요!", Toast.LENGTH_LONG);
+				toast = Toast.makeText(getApplicationContext(), "몸무게를 입력하세요!",
+						Toast.LENGTH_LONG);
 				toast.show();
 				break;
-
 
 			} else if (Height.getBytes().length <= 0
 					&& Weight.getBytes().length <= 0) {
@@ -189,12 +177,15 @@ public class Profile_modify extends Activity implements OnClickListener {
 						"키와 몸무게를 입력하세요!", Toast.LENGTH_LONG);
 				toast.show();
 				break;
-
 			}
 			// Profile.profilePhoto_default.setImageBitmap(photo);
-			
-			checkInt = 1;
-			
+
+			// db에 값 저장하기
+			ProfileData pd = new ProfileData(Name,
+					Integer.parseInt(Height), Integer.parseInt(Weight));
+			Profile.db.addProfileData(pd);
+
+			//다음 activity로 
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
 			break;
@@ -250,24 +241,23 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			if (extras != null) {
 				photo = extras.getParcelable("data");
-				
-				
-				
-				Bitmap output = Bitmap.createBitmap(photo.getWidth(),photo.getHeight(), Config.ARGB_8888);
+
+				Bitmap output = Bitmap.createBitmap(photo.getWidth(),
+						photo.getHeight(), Config.ARGB_8888);
 				Canvas canvas = new Canvas(output);
 				final Paint paint = new Paint();
-				final Rect rect = new Rect(0, 0, photo.getWidth(), photo.getHeight());
+				final Rect rect = new Rect(0, 0, photo.getWidth(),
+						photo.getHeight());
 				paint.setAntiAlias(true);
 				canvas.drawARGB(0, 0, 0, 0);
 				int size = (photo.getWidth() / 2);
 				canvas.drawCircle(size, size, size, paint);
 				paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 				canvas.drawBitmap(photo, rect, rect, paint);
-				
-				
+
 				profilePhoto.setImageBitmap(output);
-				
-				//사진을 가져오면 checkInt를 1로 변경 
+
+				// 사진을 가져오면 checkInt를 1로 변경
 				checkInt = 1;
 
 				// bitmap 이미지 file에 저장하는 과정
