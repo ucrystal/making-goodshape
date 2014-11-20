@@ -43,7 +43,6 @@ public class Profile extends Activity {
 
 		profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
 
-
 		tv_height = (TextView) findViewById(R.id.textView_height);
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
 		tv_name = (TextView) findViewById(R.id.textView_name);

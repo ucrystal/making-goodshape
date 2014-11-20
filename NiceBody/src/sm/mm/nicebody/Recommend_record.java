@@ -2,6 +2,9 @@ package sm.mm.nicebody;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,6 +12,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,6 +41,28 @@ public class Recommend_record extends Activity implements SensorEventListener {
 	private TextView fixedNum1, fixedNum2, fixedNum3;
 
 	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			new AlertDialog.Builder(this)
+					.setTitle("종료")
+					.setMessage("종료 하시겠습니까?")
+					.setPositiveButton("예",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									ActivityManager am  = (ActivityManager)getSystemService(Activity.ACTIVITY_SERVICE);
+									am.killBackgroundProcesses(getPackageName());
+
+								}
+							}).setNegativeButton("아니오", null).show();
+			return false;
+		default:
+			return false;
+		}
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recommend_record);
@@ -50,27 +76,27 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
 		fixedNum2 = (TextView) findViewById(R.id.fixedNum2);
 		fixedNum3 = (TextView) findViewById(R.id.fixedNum3);
-		if (Recommend_description1.ChallengeNum == 1){
+		if (Recommend_description1.ChallengeNum == 1) {
 			fixedNum1.setText("상체 " + arr[0][0]);
 			fixedNum2.setText(" 복부 " + arr[0][1]);
 			fixedNum3.setText(" 하체 " + arr[0][2]);
-		}else if (Recommend_description1.ChallengeNum == 2){
+		} else if (Recommend_description1.ChallengeNum == 2) {
 			fixedNum1.setText("상체 " + arr[1][0]);
 			fixedNum2.setText(" 복부 " + arr[1][1]);
 			fixedNum3.setText(" 하체 " + arr[1][2]);
-		}else if (Recommend_description1.ChallengeNum == 3){
+		} else if (Recommend_description1.ChallengeNum == 3) {
 			fixedNum1.setText("상체 " + arr[2][0]);
 			fixedNum2.setText(" 복부 " + arr[2][1]);
 			fixedNum3.setText(" 하체 " + arr[2][2]);
-		}else if (Recommend_description1.ChallengeNum == 4){
+		} else if (Recommend_description1.ChallengeNum == 4) {
 			fixedNum1.setText("상체 " + arr[3][0]);
 			fixedNum2.setText(" 복부 " + arr[3][1]);
 			fixedNum3.setText(" 하체 " + arr[3][2]);
-		}else if (Recommend_description1.ChallengeNum == 5){
+		} else if (Recommend_description1.ChallengeNum == 5) {
 			fixedNum1.setText("상체 " + arr[4][0]);
 			fixedNum2.setText(" 복부 " + arr[4][1]);
 			fixedNum3.setText(" 하체 " + arr[4][2]);
-		}else if (Recommend_description1.ChallengeNum == 6){
+		} else if (Recommend_description1.ChallengeNum == 6) {
 			fixedNum1.setText("상체 " + arr[5][0]);
 			fixedNum2.setText(" 복부 " + arr[5][1]);
 			fixedNum3.setText(" 하체 " + arr[5][2]);
