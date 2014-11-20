@@ -60,7 +60,9 @@ public class Profile extends Activity {
 			tv_name.setText(" ȫ�浿 ");
 			
 			Profile.db.dropProfileTable();
+			Profile.db.dropFreeTable();
 			Profile.db.createProfileTable();
+			Profile.db.createFreeTable();
 			
 		
 		}else if(db.checkTable() == 1) {
