@@ -50,7 +50,7 @@ public class Profile extends Activity {
 		//db에 접속여부 저장, 처음이라면 0 출려
 		//프로필 값이 저장되어 있다면 1 출력
 		
-		
+		//Profile.db = new FreeDatabase(this);
 		//Profile.db.dropProfileTable();
 		
 		if(db.checkTable() == 0){

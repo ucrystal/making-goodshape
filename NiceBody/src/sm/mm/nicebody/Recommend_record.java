@@ -45,15 +45,16 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
 			new AlertDialog.Builder(this)
-					.setTitle("종료")
-					.setMessage("종료 하시겠습니까?")
+					.setTitle("도전포기")
+					.setMessage("도전을 정말 포기하시겠습니까?")
 					.setPositiveButton("예",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									ActivityManager am  = (ActivityManager)getSystemService(Activity.ACTIVITY_SERVICE);
-									am.killBackgroundProcesses(getPackageName());
-
+									Intent intent = new Intent(Recommend_record.this,
+											Recommend_fail.class);
+									startActivity(intent);
+									finish();
 								}
 							}).setNegativeButton("아니오", null).show();
 			return false;
@@ -61,7 +62,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 			return false;
 		}
 	}
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,27 +77,27 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
 		fixedNum2 = (TextView) findViewById(R.id.fixedNum2);
 		fixedNum3 = (TextView) findViewById(R.id.fixedNum3);
-		if (Recommend_description1.ChallengeNum == 1) {
+		if (Recommend_list.choiceCh == 1) {
 			fixedNum1.setText("상체 " + arr[0][0]);
 			fixedNum2.setText(" 복부 " + arr[0][1]);
 			fixedNum3.setText(" 하체 " + arr[0][2]);
-		} else if (Recommend_description1.ChallengeNum == 2) {
+		} else if (Recommend_list.choiceCh == 2) {
 			fixedNum1.setText("상체 " + arr[1][0]);
 			fixedNum2.setText(" 복부 " + arr[1][1]);
 			fixedNum3.setText(" 하체 " + arr[1][2]);
-		} else if (Recommend_description1.ChallengeNum == 3) {
+		} else if (Recommend_list.choiceCh == 3) {
 			fixedNum1.setText("상체 " + arr[2][0]);
 			fixedNum2.setText(" 복부 " + arr[2][1]);
 			fixedNum3.setText(" 하체 " + arr[2][2]);
-		} else if (Recommend_description1.ChallengeNum == 4) {
+		} else if (Recommend_list.choiceCh == 4) {
 			fixedNum1.setText("상체 " + arr[3][0]);
 			fixedNum2.setText(" 복부 " + arr[3][1]);
 			fixedNum3.setText(" 하체 " + arr[3][2]);
-		} else if (Recommend_description1.ChallengeNum == 5) {
+		} else if (Recommend_list.choiceCh == 5) {
 			fixedNum1.setText("상체 " + arr[4][0]);
 			fixedNum2.setText(" 복부 " + arr[4][1]);
 			fixedNum3.setText(" 하체 " + arr[4][2]);
-		} else if (Recommend_description1.ChallengeNum == 6) {
+		} else if (Recommend_list.choiceCh == 6) {
 			fixedNum1.setText("상체 " + arr[5][0]);
 			fixedNum2.setText(" 복부 " + arr[5][1]);
 			fixedNum3.setText(" 하체 " + arr[5][2]);
@@ -116,10 +117,13 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		};
 
 		start_btn = (Button) findViewById(R.id.recommend_play_btn);
+		start_btn.setClickable(true);
 		start_btn.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				countDownTimer.start();
+				start_btn.setClickable(false);
+				
 			}
 		});
 
@@ -132,6 +136,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 				Intent intent = new Intent(Recommend_record.this,
 						Recommend_fail.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 
@@ -189,7 +194,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 
-						if (Recommend_description1.ChallengeNum == 1) {
+						if (Recommend_list.choiceCh == 1) {
 							// 상체운동 성공 시 하체운동 페이지로 이동
 							if (printNum == arr[0][0]) {
 								recommend_countNum.setText("0" + printNum);
@@ -198,8 +203,9 @@ public class Recommend_record extends Activity implements SensorEventListener {
 										Recommend_record.this,
 										Recommend_record2.class);
 								startActivity(intent);
+								finish();
 							}
-						} else if (Recommend_description1.ChallengeNum == 2) {
+						} else if (Recommend_list.choiceCh == 2) {
 							if (printNum == arr[1][0]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
@@ -207,8 +213,9 @@ public class Recommend_record extends Activity implements SensorEventListener {
 										Recommend_record.this,
 										Recommend_record2.class);
 								startActivity(intent);
+								finish();
 							}
-						} else if (Recommend_description1.ChallengeNum == 3) {
+						} else if (Recommend_list.choiceCh == 3) {
 							if (printNum == arr[2][0]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
@@ -216,8 +223,9 @@ public class Recommend_record extends Activity implements SensorEventListener {
 										Recommend_record.this,
 										Recommend_record2.class);
 								startActivity(intent);
+								finish();
 							}
-						} else if (Recommend_description1.ChallengeNum == 4) {
+						} else if (Recommend_list.choiceCh == 4) {
 							if (printNum == arr[3][0]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
@@ -225,9 +233,10 @@ public class Recommend_record extends Activity implements SensorEventListener {
 										Recommend_record.this,
 										Recommend_record2.class);
 								startActivity(intent);
+								finish();
 							}
 
-						} else if (Recommend_description1.ChallengeNum == 5) {
+						} else if (Recommend_list.choiceCh == 5) {
 							if (printNum == arr[4][0]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
@@ -235,8 +244,9 @@ public class Recommend_record extends Activity implements SensorEventListener {
 										Recommend_record.this,
 										Recommend_record2.class);
 								startActivity(intent);
+								finish();
 							}
-						} else if (Recommend_description1.ChallengeNum == 6) {
+						} else if (Recommend_list.choiceCh == 6) {
 							if (printNum == arr[5][0]) {
 								recommend_countNum.setText("0" + printNum);
 								countDownTimer.cancel();
@@ -244,6 +254,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 										Recommend_record.this,
 										Recommend_record2.class);
 								startActivity(intent);
+								finish();
 							}
 						}
 

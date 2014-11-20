@@ -36,6 +36,7 @@ public class Free_explain extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Free_explain.this, Free_record.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}

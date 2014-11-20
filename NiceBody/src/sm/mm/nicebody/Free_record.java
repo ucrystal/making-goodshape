@@ -57,6 +57,7 @@ public class Free_record extends Activity implements SensorEventListener {
 				
 				Intent intent = new Intent(Free_record.this,Free_result.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 

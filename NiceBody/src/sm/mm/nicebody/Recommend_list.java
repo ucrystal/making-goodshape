@@ -36,6 +36,7 @@ public class Recommend_list extends Activity {
 			R.string.title_6 };
 
 	static int choiceCh = 0;
+	
 	private ListView mLvData;
 	private Recommend_Adapter mCustomAdapter;
 	private ArrayList<Recommend_list_model> mList;
