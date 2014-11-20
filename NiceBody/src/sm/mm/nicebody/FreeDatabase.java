@@ -144,6 +144,31 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		}
 		return freeData;
 	}
+	
+	public List<FreeData> getFreeDatasByDate(String t) {
+		List<FreeData> freeDatas = new LinkedList<FreeData>();
+		String query = "SELECT  * FROM " + TABLE_FREES +" WHERE t =" + t;
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		FreeData freeData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				freeData = new FreeData();
+				freeData.setId(Integer.parseInt(cursor.getString(0)));
+				freeData.setType(Integer.parseInt(cursor.getString(1)));
+				freeData.setCount(Integer.parseInt(cursor.getString(2)));
+				try {
+					freeData.setDate(cursor.getString(3));
+				} catch (Exception e) {
+					Log.v("test", "error parsing <" + cursor.getString(3) + ">");
+				}
+				freeDatas.add(freeData);
+			} while (cursor.moveToNext());
+		}
+		return freeDatas;
+	}
 
 	public List<FreeData> getAllFreeDatas() {
 		List<FreeData> freeDatas = new LinkedList<FreeData>();
@@ -220,42 +245,4 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		return profileData;
 	}
 
-	/*
-	 * public List<Book> getAllBooksOrderByTitle() { List<Book> books = new
-	 * LinkedList<Book>(); String query = "SELECT  * FROM " + TABLE_BOOKS +
-	 * " order by title"; SQLiteDatabase db = this.getWritableDatabase(); Cursor
-	 * cursor = db.rawQuery(query, null); Book book = null; if
-	 * (cursor.moveToFirst()) { do { book = new Book();
-	 * book.setId(Integer.parseInt(cursor.getString(0)));
-	 * book.setTitle(cursor.getString(1)); book.setAuthor(cursor.getString(2));
-	 * try { book.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-	 * .parse(cursor.getString(3))); } catch (Exception e) { Log.v("test",
-	 * "error parsing <" + cursor.getString(3) + ">"); } books.add(book); }
-	 * while (cursor.moveToNext()); } return books; }
-	 * 
-	 * public int updateBook(Book book) { SQLiteDatabase db =
-	 * this.getWritableDatabase(); ContentValues values = new ContentValues();
-	 * values.put("title", book.getTitle()); // get title values.put("author",
-	 * book.getAuthor()); // get author values.put(KEY_DATE, getDateTime()); int
-	 * i = db.update(TABLE_BOOKS, // table values, // column/value KEY_ID +
-	 * " = ?", // selections new String[] { String.valueOf(book.getId()) }); //
-	 * selection // args db.close(); return i; }
-	 * 
-	 * public void deleteBook(Book book) { SQLiteDatabase db =
-	 * this.getWritableDatabase(); db.delete(TABLE_BOOKS, KEY_ID + " = ?", new
-	 * String[] { String.valueOf(book.getId()) }); db.close(); }
-	 */
-
-	/*
-	 * public Book getBookWithFirstCharInTitle(char c) { SQLiteDatabase db =
-	 * this.getReadableDatabase(); Cursor cursor = db.query(TABLE_BOOKS, // a.
-	 * table COLUMNS, // b. column names "title like '" + c + "%'", // c.
-	 * selections null, // e. group by null, // f. having null, // g. order by
-	 * null); // h. limit if (cursor != null) cursor.moveToFirst(); Book book =
-	 * new Book(); book.setId(Integer.parseInt(cursor.getString(0)));
-	 * book.setTitle(cursor.getString(1)); book.setAuthor(cursor.getString(2));
-	 * try { book.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-	 * .parse(cursor.getString(3))); } catch (Exception e) { Log.v("test",
-	 * "error parsing <" + cursor.getString(3) + ">"); } return book; }
-	 */
 }

@@ -92,10 +92,10 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 
 		} else if (Profile.db.checkTable() == 1) {
-
-			editHeight.setText(Height);
-			editWeight.setText(Weight);
-			editName.setText(Name);
+			ProfileData pm_pd = Profile.db.getProfileData();
+			editHeight.setText("  "+pm_pd.getHeight()+" cm");
+			editWeight.setText("  "+pm_pd.getWeight()+" kg");
+			editName.setText("  "+pm_pd.getName());
 
 			try {
 
