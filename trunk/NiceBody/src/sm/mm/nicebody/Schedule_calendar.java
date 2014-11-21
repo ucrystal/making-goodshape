@@ -216,42 +216,49 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			Log.i("gym", "onItemClick()");
 			Log.i("gym", "position =" + position);
 			Log.i("gym", "date= " + date_result);
-			
-			//운동별 횟수 출력
+
+			// 운동별 횟수 출력
 			int totalCount1 = 0;
 			int totalCount2 = 0;
 			int totalCount3 = 0;
-			
+
 			if (date_result == null || date_result.equals(""))
 				return;
-			
-			for (int i = 1; i<Schedule_result.size(); i++){ 
-	
-				if(Schedule_result.get(i).getType() == 1){
+
+			for (int i = 1; i < Schedule_result.size(); i++) {
+
+				if (Schedule_result.get(i).getType() == 1) {
 					totalCount1 += Schedule_result.get(i).getCount();
 				}
-				
-				if(Schedule_result.get(i).getType() == 2){
+				if (Schedule_result.get(i).getType() == 2) {
 					totalCount2 += Schedule_result.get(i).getCount();
 				}
-				
-				if(Schedule_result.get(i).getType() == 3){
+				if (Schedule_result.get(i).getType() == 3) {
 					totalCount3 += Schedule_result.get(i).getCount();
 				}
 			}
-			
-			// 리스트 객체에 데이터 추가
-			resultList.add(String.valueOf("팔굽혀펴기                                                                             "+totalCount1+"회"));
-			resultList.add(String.valueOf("런지                                                                             "+totalCount2+"회"));
-			resultList.add(String.valueOf("레그레이즈                                                                             "+totalCount3+"회"));
-			};
-			
-	
-			//resultList.add(String.valueOf(Schedule_result.get(2).getType()+"                                        "+Schedule_result.get(2).getCount()+"회"));
-			//갱신
-			list_adapter.notifyDataSetChanged();
+
+			if (totalCount1 != 0) {
+				// 리스트 객체에 데이터 추가
+				resultList.add(String.valueOf("자유운동 : 팔굽혀펴기               "
+						+ totalCount1 + "회"));
+			}
+			if (totalCount2 != 0) {
+				resultList.add(String
+						.valueOf("자유운동: 런지                        "
+								+ totalCount2 + "회"));
+			}
+			if (totalCount3 != 0) {
+				resultList.add(String.valueOf("자유운동: 레그레이즈               "
+						+ totalCount3 + "회"));
+			}
 		}
-	
+		;
+
+		// resultList.add(String.valueOf(Schedule_result.get(2).getType()+"                                        "+Schedule_result.get(2).getCount()+"회"));
+		// 갱신
+		list_adapter.notifyDataSetChanged();
+	}
 
 	@Override
 	public void onClick(View v) {
