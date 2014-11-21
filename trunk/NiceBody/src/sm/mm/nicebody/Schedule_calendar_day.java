@@ -26,6 +26,7 @@ public class Schedule_calendar_day {
 		this.isToday = isToday;
 	}
 
+	
 	// 이번달의 날짜인지 정보를 반환
 	public boolean isInMonth() {
 		return inMonth;

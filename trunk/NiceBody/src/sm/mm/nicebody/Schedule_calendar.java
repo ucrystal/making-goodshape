@@ -2,25 +2,31 @@ package sm.mm.nicebody;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import sm.mm.nicebody.R;
 import sm.mm.nicebody.Schedule_calendar_adapter;
 import sm.mm.nicebody.Schedule_calendar_day;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Schedule_calendar extends Activity implements OnItemClickListener,
@@ -36,7 +42,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	private TextView calendar_title;
 	private GridView calendar_view;
 
-
 	private ArrayList<Schedule_calendar_day> DayList;
 	private Schedule_calendar_adapter Calendar_adapter;
 
@@ -44,13 +49,17 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	Calendar ThisMonthCalendar;
 	Calendar NextMonthCalendar;
 
+	ListView listView;
+	ArrayList<String> resultList;
+	ArrayAdapter<String> list_adapter;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule_calendar);
 
 		customActionBar();
-		
+
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
 
@@ -61,8 +70,17 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		bNextMonth.setOnClickListener(this);
 		calendar_view.setOnItemClickListener(this);
 
-
 		DayList = new ArrayList<Schedule_calendar_day>();
+		listView = (ListView) findViewById(R.id.result_listView);
+
+		resultList = new ArrayList<String>();
+		list_adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, resultList);
+		// simple_list_item_1는 textview를 담고 있는 xml형태
+
+		// listview 객체에 아답터 객체 연결
+		listView.setAdapter(list_adapter);
+		listView.setDivider(new ColorDrawable(Color.WHITE));
 
 	}
 
@@ -177,10 +195,63 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View v, int position,
-			long arg3) {
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		resultList.clear();
 
-	}
+		// 클릭된 그리드뷰 아이템의 포지션을 이용해 어댑터뷰에서 아이템을 꺼내온다.
+		Schedule_calendar_day data = (Schedule_calendar_day) parent
+				.getItemAtPosition(position);
+		String date = data.getDay();
+
+		if (data.isInMonth() == true) {
+			String year = String.valueOf(ThisMonthCalendar.get(Calendar.YEAR));
+			String month = String
+					.valueOf(ThisMonthCalendar.get(Calendar.MONTH) + 1);
+
+			String date_result = year + month + date;
+
+			List<FreeData> Schedule_result = Profile.db.getFreeDatasByDate("'"
+					+ date_result + "'");
+
+			Log.i("gym", "onItemClick()");
+			Log.i("gym", "position =" + position);
+			Log.i("gym", "date= " + date_result);
+			
+			//운동별 횟수 출력
+			int totalCount1 = 0;
+			int totalCount2 = 0;
+			int totalCount3 = 0;
+			
+			if (date_result == null || date_result.equals(""))
+				return;
+			
+			for (int i = 1; i<Schedule_result.size(); i++){ 
+	
+				if(Schedule_result.get(i).getType() == 1){
+					totalCount1 += Schedule_result.get(i).getCount();
+				}
+				
+				if(Schedule_result.get(i).getType() == 2){
+					totalCount2 += Schedule_result.get(i).getCount();
+				}
+				
+				if(Schedule_result.get(i).getType() == 3){
+					totalCount3 += Schedule_result.get(i).getCount();
+				}
+			}
+			
+			// 리스트 객체에 데이터 추가
+			resultList.add(String.valueOf("팔굽혀펴기                                                                             "+totalCount1+"회"));
+			resultList.add(String.valueOf("런지                                                                             "+totalCount2+"회"));
+			resultList.add(String.valueOf("레그레이즈                                                                             "+totalCount3+"회"));
+			};
+			
+	
+			//resultList.add(String.valueOf(Schedule_result.get(2).getType()+"                                        "+Schedule_result.get(2).getCount()+"회"));
+			//갱신
+			list_adapter.notifyDataSetChanged();
+		}
+	
 
 	@Override
 	public void onClick(View v) {
@@ -201,7 +272,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				R.layout.schedule_calendar_day, DayList);
 		calendar_view.setAdapter(Calendar_adapter);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -248,7 +319,8 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
-		TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.actionbar_textview);
+		TextView textviewTitle = (TextView) viewActionBar
+				.findViewById(R.id.actionbar_textview);
 		textviewTitle.setText(R.string.title_activity_free_expain);
 		abar.setCustomView(viewActionBar, params);
 		abar.setDisplayUseLogoEnabled(true);
@@ -258,4 +330,5 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+
 }

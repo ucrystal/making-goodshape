@@ -32,22 +32,27 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	
 	//테이블 존재 여부 확인 
 	public int checkTable(){
+		List<ProfileData> profiles = new LinkedList<ProfileData>();
+		String query = "SELECT  * FROM " + TABLE_PROFILES;
+
 		int cec = 0;
 		
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c =db.rawQuery("SELECT COUNT() FROM sqlite_master WHERE name ='profiles';",null);
-        if (c != null ) {
-            if  (c.moveToFirst()) {
-                  do {
-                	  cec = Integer.parseInt(c.getString(0));
-                	  return cec;
-                  }while (c.moveToNext());
-            }
-       }else if(c == null){
-    	   return cec;
-       }
-		return cec;
+		Cursor cursor = db.rawQuery(query, null);
 
+		if (cursor.moveToFirst()) {
+			do {
+				if(cursor.getString(1) == null){
+					cec = 0;  
+            		return cec;
+				}else if(cursor.getString(1) != null){
+					 cec = 1;
+           		  return cec;
+				}
+			} while (cursor.moveToNext());
+			
+		}
+		return cec;
 	}
 	
 	
