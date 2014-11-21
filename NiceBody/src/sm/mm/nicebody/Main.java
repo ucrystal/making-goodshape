@@ -98,15 +98,16 @@ public class Main extends Activity {
 		profile_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+/*
 				List<FreeData> printByDate = Profile.db
 						.getFreeDatasByDate("20141120");
 				for (int i = 0; i < printByDate.size(); i++) {
 					Log.v("DB_Test", printByDate.get(i).getType() + ","
 							+ printByDate.get(i).getCount() + ","
 							+ printByDate.get(i).getDate());
+							
 				}
-
+*/
 				Intent intent = new Intent(Main.this, Profile.class);
 				startActivity(intent);
 			}
