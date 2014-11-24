@@ -79,6 +79,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:clickable="false" />
+
     <Button
         android:id="@+id/recommend_finish_btn"
         android:layout_width="150dp"

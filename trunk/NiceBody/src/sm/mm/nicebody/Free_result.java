@@ -96,6 +96,8 @@ public class Free_result extends Activity {
 		result_pushup_gomain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				Free_record.countResult = 0;
 				Intent intent = new Intent(Free_result.this, Main.class);
 				startActivity(intent);
 				finish();

@@ -14,9 +14,9 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.Toast;
 import android.widget.Chronometer.OnChronometerTickListener;
 import android.widget.TextView;
-
 
 public class Free_record extends Activity implements SensorEventListener {
 
@@ -24,13 +24,13 @@ public class Free_record extends Activity implements SensorEventListener {
 	SensorManager m_sensor_manager;
 	Sensor m_sensor;
 
-	//크로노미터 객체 
+	// 크로노미터 객체
 	private Chronometer ch;
 
 	TextView free_countNum;
 	int printNum = 0;
 	int playCheck = 0;
-	
+
 	static int countResult = 0;
 	static String timerResult = null;
 
@@ -38,7 +38,7 @@ public class Free_record extends Activity implements SensorEventListener {
 	Button free_play_btn;
 	Button free_pause_btn;
 	Button free_refresh_btn;
-	
+
 	Sound mSound;
 	long timeWhenStopped = 0;
 
@@ -56,10 +56,21 @@ public class Free_record extends Activity implements SensorEventListener {
 		
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
-		free_finish_btn.setOnClickListener(new View.OnClickListener() {
+		
+
+		
+		free_finish_btn.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
 				
+				if (countResult == 0) {
+
+					Toast toast = Toast.makeText(getApplicationContext(), "운동을 하지 않았습니다ㅠㅠ",
+							Toast.LENGTH_LONG);
+					toast.show();
+					return;
+					
+				}
 				//현재 측정된 시간을 다음 페이지로 전달해줌
 				timerResult = ch.getText().toString();
 				
@@ -148,15 +159,14 @@ public class Free_record extends Activity implements SensorEventListener {
 
 	// 측정한 값을 전달해주는 메소드.
 	public void onSensorChanged(SensorEvent event) {
-	
-		
+
 		// 정확도가 낮은 측정값인 경우
 		if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
 			// 몇몇 기기의 경우 accuracy 가 SENSOR_STATUS_UNRELIABLE 값을
 			// 가져서 측정값을 사용하지 못하는 경우가 있기때문에 임의로 return ; 을 막는다.
 			// return;
 		}
-		
+
 		long currentTime = System.currentTimeMillis();
 		long lastTime = 0;
 		long gabOfTime = (currentTime - lastTime);
@@ -166,15 +176,14 @@ public class Free_record extends Activity implements SensorEventListener {
 			lastTime = currentTime;
 			testNum = event.values[0];
 
+			if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
 
-		if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-			
 				if (playCheck == 1) {
 					if (testNum == 0) {
 
 						printNum++;
 						countResult = printNum;
-						
+
 						mSound.play();
 						if (printNum < 10)
 							free_countNum.setText("0" + printNum);
@@ -188,7 +197,7 @@ public class Free_record extends Activity implements SensorEventListener {
 						else
 							free_countNum.setText("" + printNum);
 					}
-				}else if(playCheck == 2){	
+				} else if (playCheck == 2) {
 					return;
 				}
 			}
