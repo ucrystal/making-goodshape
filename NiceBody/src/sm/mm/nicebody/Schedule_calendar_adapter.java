@@ -1,11 +1,14 @@
 package sm.mm.nicebody;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import sm.mm.nicebody.R;
 import sm.mm.nicebody.Schedule_calendar_day;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +80,7 @@ public class Schedule_calendar_adapter extends BaseAdapter {
 
 		if (day != null) {
 			dayViewHolder.Day.setText(day.getDay());
-			
-		
+
 			if (day.isToday()) {
 				dayViewHolder.Background
 						.setBackgroundResource(R.drawable.circle);
@@ -86,11 +88,19 @@ public class Schedule_calendar_adapter extends BaseAdapter {
 
 			if (day.isInMonth()) {
 				dayViewHolder.Day.setTextColor(Color.BLACK);
+				//List<FreeData> InfoByDate = Profile.db.getFreeDatasByDate("'"
+				 //+ day.getInfo() + day.getDay() + "'");
+				// 디비에 정보가 있으면 동그라미표시해주기
+				//Log.v("check", day.getInfo()+day.getDay());
+				// String a = day.getInfo()+day.getDay();
 
-			} else {
-				dayViewHolder.Day.setTextColor(Color.LTGRAY);
+				// if(a.size()==true){
+				// dayViewHolder.Background
+				// .setBackgroundColor(Color.RED);
 			}
 
+		} else {
+			dayViewHolder.Day.setTextColor(Color.LTGRAY);
 		}
 
 		return convertView;

@@ -88,18 +88,17 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	protected void onResume() {
 		super.onResume();
 
-		// 이번달 의 캘린더 인스턴스를 생성
+		// 이번달의 캘린더 인스턴스를 생성
 		ThisMonthCalendar = Calendar.getInstance();
 		ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, 1);
 		getCalendar(ThisMonthCalendar);
 
 	}
 
-	/**
+	/*
 	 * 달력을 셋팅
 	 * 
-	 * @param calendar
-	 *            달력에 보여지는 이번달의 Calendar 객체
+	 * @param calendar 달력에 보여지는 이번달의 Calendar 객체
 	 */
 
 	private void getCalendar(Calendar calendar) {
@@ -174,6 +173,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			return false;
 	}
 
+
 	// 지난달의 Calendar 객체를 반환
 	private Calendar getLastMonth(Calendar calendar) {
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -213,9 +213,9 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			List<FreeData> Schedule_result = Profile.db.getFreeDatasByDate("'"
 					+ date_result + "'");
 
-			Log.i("gym", "onItemClick()");
-			Log.i("gym", "position =" + position);
-			Log.i("gym", "date= " + date_result);
+			// Log.i("gym", "onItemClick()");
+			// Log.i("gym", "position =" + position);
+			// Log.i("gym", "date= " + date_result);
 
 			// 운동별 횟수 출력
 			int totalCount1 = 0;
@@ -255,7 +255,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		}
 		;
 
-		// resultList.add(String.valueOf(Schedule_result.get(2).getType()+"                                        "+Schedule_result.get(2).getCount()+"회"));
 		// 갱신
 		list_adapter.notifyDataSetChanged();
 	}
