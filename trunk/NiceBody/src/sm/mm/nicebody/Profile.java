@@ -108,10 +108,19 @@ public class Profile extends Activity {
 		case R.id.action_modify:
 			intent = new Intent(this, Profile_modify.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 			break;
 
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+
+		overridePendingTransition(R.anim.default_end_enter,
+				R.anim.default_end_exit);
 	}
 
 	public void customActionBar() {

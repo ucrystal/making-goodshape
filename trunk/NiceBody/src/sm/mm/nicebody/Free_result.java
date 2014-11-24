@@ -100,6 +100,7 @@ public class Free_result extends Activity {
 				Free_record.countResult = 0;
 				Intent intent = new Intent(Free_result.this, Main.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -137,6 +138,7 @@ public class Free_result extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 	public void customActionBar() {
 		// Customize the ActionBar
@@ -153,7 +155,7 @@ public class Free_result extends Activity {
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
 				.findViewById(R.id.actionbar_textview);
-		textviewTitle.setText(R.string.title_activity_free_success);
+		textviewTitle.setText(R.string.title_activity_free_result);
 		abar.setCustomView(viewActionBar, params);
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);

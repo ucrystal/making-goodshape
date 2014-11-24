@@ -24,7 +24,7 @@ public class Free_menu extends Activity {
 		setContentView(R.layout.free_menu);
 
 		customActionBar();
-		
+
 		free_pushup_btn = (Button) findViewById(R.id.free_pushup_btn);
 		free_pushup_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -34,7 +34,8 @@ public class Free_menu extends Activity {
 
 				Intent intent = new Intent(Free_menu.this, Free_explain.class);
 				startActivity(intent);
-
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 		free_lunge_btn = (Button) findViewById(R.id.free_lunge_btn);
@@ -46,6 +47,8 @@ public class Free_menu extends Activity {
 
 				Intent intent = new Intent(Free_menu.this, Free_explain.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 		free_legraise_btn = (Button) findViewById(R.id.free_legraise_btn);
@@ -57,6 +60,8 @@ public class Free_menu extends Activity {
 
 				Intent intent = new Intent(Free_menu.this, Free_explain.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 	}
@@ -93,6 +98,7 @@ public class Free_menu extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 
 	public void customActionBar() {
 		// Customize the ActionBar

@@ -71,32 +71,44 @@ public class Recommend_list extends Activity {
 					choiceCh = 1;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+					finish();
 					break;
 				case 1:
 					choiceCh = 2;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+					finish();
 					break;
 				case 2:
 					choiceCh = 3;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+					finish();
 					break;
 				case 3:
 					choiceCh = 4;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+					finish();
 					break;
 				case 4:
 					choiceCh = 5;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
+					overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+					finish();
 					break;
 				case 5:
 					choiceCh = 6;
 					intent = new Intent(Recommend_list.this, Recommend_description1.class);
 					startActivity(intent);
-					break;		
+					overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+					finish();
+					break;
 				}
 			}
 		});
@@ -150,6 +162,13 @@ public class Recommend_list extends Activity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	@Override
+	public void finish() {
+		super.finish();
+
+		overridePendingTransition(R.anim.default_end_enter,
+				R.anim.default_end_exit);
 	}
 
 	public void customActionBar() {

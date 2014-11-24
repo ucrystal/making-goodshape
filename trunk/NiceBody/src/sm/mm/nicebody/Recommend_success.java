@@ -20,8 +20,19 @@ public class Recommend_success extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.recommend_success);
-
+		if (Recommend_list.choiceCh == 1){
+			setContentView(R.layout.recommend_success1);}
+		else if (Recommend_list.choiceCh == 2){
+			setContentView(R.layout.recommend_success2);}
+		else if (Recommend_list.choiceCh == 3){
+			setContentView(R.layout.recommend_success3);}
+		else if (Recommend_list.choiceCh == 4){
+			setContentView(R.layout.recommend_success4);}
+		else if (Recommend_list.choiceCh == 5){
+			setContentView(R.layout.recommend_success5);}
+		else if (Recommend_list.choiceCh == 6){
+			setContentView(R.layout.recommend_success6);}
+		
 		customActionBar();
 		
 		btn_backtomain = (Button) findViewById(R.id.recommend_backtomain_btn);
@@ -31,6 +42,7 @@ public class Recommend_success extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Recommend_success.this, Main.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -68,7 +80,7 @@ public class Recommend_success extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	public void customActionBar() {
 		// Customize the ActionBar
 		final ActionBar abar = getActionBar();

@@ -39,6 +39,8 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 
 	private TextView fixedNum1, fixedNum2, fixedNum3;
 
+	Sound mSound;
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -70,6 +72,8 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
+		mSound = new Sound(this, R.raw.sound);
+		
 		countTxt = (TextView) findViewById(R.id.countTxt2);
 		countTxt.setText(String.valueOf(count) + "초");
 
@@ -192,6 +196,12 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 
+						mSound.play();
+						if (printNum < 10)
+							recommend_countNum.setText("0" + printNum);
+						else
+							recommend_countNum.setText("" + printNum);
+						
 						if (Recommend_list.choiceCh == 1) {
 							// 상체운동 성공 시 하체운동 페이지로 이동
 							if (printNum == arr[0][1]) {
@@ -201,6 +211,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 										Recommend_record2.this,
 										Recommend_record3.class);
 								startActivity(intent);
+								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 								finish();
 							}
 						} else if (Recommend_list.choiceCh == 2) {
@@ -211,6 +222,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 										Recommend_record2.this,
 										Recommend_record3.class);
 								startActivity(intent);
+								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 								finish();
 							}
 						} else if (Recommend_list.choiceCh == 3) {
@@ -221,6 +233,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 										Recommend_record2.this,
 										Recommend_record3.class);
 								startActivity(intent);
+								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 								finish();
 							}
 						} else if (Recommend_list.choiceCh == 4) {
@@ -231,6 +244,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 										Recommend_record2.this,
 										Recommend_record3.class);
 								startActivity(intent);
+								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 								finish();
 							}
 
@@ -242,6 +256,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 										Recommend_record2.this,
 										Recommend_record3.class);
 								startActivity(intent);
+								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 								finish();
 							}
 						} else if (Recommend_list.choiceCh == 6) {
@@ -252,6 +267,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 										Recommend_record2.this,
 										Recommend_record3.class);
 								startActivity(intent);
+								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 								finish();
 							}
 						}
@@ -278,5 +294,6 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 		}
 
 	}
+	
 
 }
