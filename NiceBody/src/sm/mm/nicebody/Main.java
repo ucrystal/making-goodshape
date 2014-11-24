@@ -23,7 +23,6 @@ public class Main extends Activity {
 	Button free_btn, recommend_btn, schedule_btn, profile_btn, test_btn;
 	Toast mainToast;
 
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -35,8 +34,10 @@ public class Main extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									//ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-									//activityManager.killBackgroundProcesses("sm.mm.nicebody");
+									// ActivityManager activityManager =
+									// (ActivityManager)
+									// getSystemService(ACTIVITY_SERVICE);
+									// activityManager.killBackgroundProcesses("sm.mm.nicebody");
 									moveTaskToBack(true);
 									finish();
 								}
@@ -56,7 +57,7 @@ public class Main extends Activity {
 		actionBar.hide();
 
 		Profile.db = new FreeDatabase(this);
-
+		
 		free_btn = (Button) findViewById(R.id.free_btn);
 		free_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -67,7 +68,7 @@ public class Main extends Activity {
 				 * Toast.makeText(getApplicationContext(), "프로필을 입력해주세용",
 				 * Toast.LENGTH_LONG); mainToast.show(); return;
 				 */
-				
+
 				Intent intent = new Intent(Main.this, Free_menu.class);
 				startActivity(intent);
 			}
@@ -98,9 +99,12 @@ public class Main extends Activity {
 		profile_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 /*
+
 				List<FreeData> printByDate = Profile.db
 						.getFreeDatasByDate("20141120");
+
 				for (int i = 0; i < printByDate.size(); i++) {
 					Log.v("DB_Test", printByDate.get(i).getType() + ","
 							+ printByDate.get(i).getCount() + ","
@@ -121,11 +125,11 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public void onDestroy() {
-	        super.onDestroy();
-	        android.os.Process.killProcess(android.os.Process.myPid());
-	    }
+		super.onDestroy();
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
 
 }

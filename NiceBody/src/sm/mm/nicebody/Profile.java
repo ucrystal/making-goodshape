@@ -1,5 +1,8 @@
 package sm.mm.nicebody;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +26,7 @@ public class Profile extends Activity {
 	TextView tv_height;
 	TextView tv_weight;
 	TextView tv_name;
-	
+
 	static FreeDatabase db;
 
 	static ImageView profilePhoto_default;
@@ -47,42 +50,44 @@ public class Profile extends Activity {
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
 		tv_name = (TextView) findViewById(R.id.textView_name);
 
-		//db에 접속여부 저장, 처음이라면 0 출려
-		//프로필 값이 저장되어 있다면 1 출력
-		
+		// db에 접속여부 저장, 처음이라면 0 출려
+		// 프로필 값이 저장되어 있다면 1 출력
+
 		//Profile.db = new FreeDatabase(this);
 		//Profile.db.dropProfileTable();
 		
-		if(db.checkTable() == 0){
-			
+
+		if (db.checkTable() == 0) {
+
 			tv_height.setText("  00 cm");
 			tv_weight.setText("  00 kg");
 			tv_name.setText(" 홍길동 ");
-			
+
 			Profile.db.dropProfileTable();
 			Profile.db.dropFreeTable();
 			Profile.db.createProfileTable();
 			Profile.db.createFreeTable();
+
+		} else if (db.checkTable() == 1) {
+
+			List<ProfileData> ProfileDatas = new LinkedList<ProfileData>();
+			ProfileDatas = Profile.db.getAllProfileDatas();
+			int d_size = ProfileDatas.size()-1;
+			ProfileData profile_pd = ProfileDatas.get(d_size);
+			tv_name.setText("  " + profile_pd.getName());
+			tv_height.setText("  " + profile_pd.getHeight() + " cm");
+			tv_weight.setText("  " + profile_pd.getWeight() + " kg");
+
+			profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
 			
-		
-		}else if(db.checkTable() == 1) {
+			byte[] drawableIconByteArray =  profile_pd.getPhoto();
+			Bitmap d = BitmapFactory.decodeByteArray(drawableIconByteArray, 0,
+					drawableIconByteArray.length);
 			
-			ProfileData profile_pd = db.getProfileData();
-			tv_name.setText("  "+profile_pd.getName());
-			tv_height.setText("  "+profile_pd.getHeight()+" cm");
-			tv_weight.setText("  "+profile_pd.getWeight()+" kg");
-			
-			try {
-				profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
-				String imgpath = "data/data/sm.mm.nicebody/files/profile.png";
-				Bitmap bmp = BitmapFactory.decodeFile(imgpath);
-				profilePhoto_default.setImageBitmap(bmp);
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(), "load error",
-						Toast.LENGTH_SHORT).show();
-			}
+			profilePhoto_default.setImageBitmap(d);
+
 		}
-		
+
 	}
 
 	@Override

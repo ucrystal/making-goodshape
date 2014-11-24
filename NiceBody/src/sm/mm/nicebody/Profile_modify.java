@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -47,8 +48,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 	Button modifyFns_btn;
 
-	String Height;
-	String Weight;
+	int Height;
+	int Weight;
 	String Name = "프로필을 입력해주세요.";
 
 	// 수정했는지 검사하는 과정
@@ -61,6 +62,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 	EditText editName;
 	Toast toast;
 
+	byte[] imageInByte;
+
 	// 사진 가져오는 변수
 	private static final int PICK_FROM_CAMERA = 0;
 	private static final int PICK_FROM_ALBUM = 1;
@@ -68,6 +71,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 	private Uri mImageCaptureUri;
 	private ImageView profilePhoto;
+
+	private ProfileData pm_pd = Profile.db.getProfileData();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,25 +92,19 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 		if (Profile.db.checkTable() == 0) {
 
-			Height = null;
-			Weight = null;
-
+			Height = 0;
+			Weight = 0;
 
 		} else if (Profile.db.checkTable() == 1) {
-			ProfileData pm_pd = Profile.db.getProfileData();
-			editHeight.setText("  "+pm_pd.getHeight()+" cm");
-			editWeight.setText("  "+pm_pd.getWeight()+" kg");
-			editName.setText("  "+pm_pd.getName());
 
-			try {
+			editHeight.setText("" +(int)pm_pd.getHeight());
+			editWeight.setText("" + (int)pm_pd.getWeight());
+			editName.setText("" + pm_pd.getName());
+			byte[] drawableIconByteArray = pm_pd.getPhoto();
+			Bitmap bd = BitmapFactory.decodeByteArray(drawableIconByteArray, 0,
+					drawableIconByteArray.length);
 
-				String imgpath = "data/data/sm.mm.nicebody/files/profile.png";
-				Bitmap bmp = BitmapFactory.decodeFile(imgpath);
-				profilePhoto.setImageBitmap(bmp);
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(), "load error",
-						Toast.LENGTH_SHORT).show();
-			}
+			profilePhoto.setImageBitmap(bd);
 		}
 
 	}
@@ -143,35 +142,33 @@ public class Profile_modify extends Activity implements OnClickListener {
 			break;
 		case R.id.action_ok:
 
-			Height = editHeight.getText().toString();
-			Weight = editWeight.getText().toString();
+			Height = Integer.parseInt(editHeight.getText().toString());
+			Weight = Integer.parseInt(editWeight.getText().toString());
 			Name = editName.getText().toString();
 
-			// 공백(스페이스바)만 눌러서 넘기는 경우
-			Height = Height.trim();
-			Weight = Weight.trim();
-			Name = Name.trim();
+			/*
+			 * // 공백(스페이스바)만 눌러서 넘기는 경우 Height = Height.trim(); Weight =
+			 * Weight.trim(); Name = Name.trim();
+			 */
 
 			if (Name.getBytes().length <= 0)
 				Name = "홍길동";
 
-			if (Height.getBytes().length <= 0 && Weight.getBytes().length > 0) {
+			if (Height <= 0 && Weight > 0) {
 
 				toast = Toast.makeText(getApplicationContext(), "키를 입력하세요!",
 						Toast.LENGTH_LONG);
 				toast.show();
 				break;
 
-			} else if (Height.getBytes().length > 0
-					&& Weight.getBytes().length <= 0) {
+			} else if (Height > 0 && Weight <= 0) {
 
 				toast = Toast.makeText(getApplicationContext(), "몸무게를 입력하세요!",
 						Toast.LENGTH_LONG);
 				toast.show();
 				break;
 
-			} else if (Height.getBytes().length <= 0
-					&& Weight.getBytes().length <= 0) {
+			} else if (Height <= 0 && Weight <= 0) {
 
 				toast = Toast.makeText(getApplicationContext(),
 						"키와 몸무게를 입력하세요!", Toast.LENGTH_LONG);
@@ -180,12 +177,17 @@ public class Profile_modify extends Activity implements OnClickListener {
 			}
 			// Profile.profilePhoto_default.setImageBitmap(photo);
 
+			if (imageInByte == null) {
+				//ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				//output.compress(Bitmap.CompressFormat.PNG, 100, stream);
+				imageInByte = pm_pd.getPhoto();
+			}
+
 			// db에 값 저장하기
-			ProfileData pd = new ProfileData(Name,
-					Integer.parseInt(Height), Integer.parseInt(Weight));
+			ProfileData pd = new ProfileData(Name, Height, Weight, imageInByte);
 			Profile.db.addProfileData(pd);
 
-			//다음 activity로 
+			// 다음 activity로
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
 			break;
@@ -255,24 +257,11 @@ public class Profile_modify extends Activity implements OnClickListener {
 				paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 				canvas.drawBitmap(photo, rect, rect, paint);
 
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				output.compress(Bitmap.CompressFormat.PNG, 100, stream);
+				imageInByte = stream.toByteArray();
+
 				profilePhoto.setImageBitmap(output);
-
-				// 사진을 가져오면 checkInt를 1로 변경
-				checkInt = 1;
-
-				// bitmap 이미지 file에 저장하는 과정
-				try {
-
-					File file = new File("profile.png");
-					FileOutputStream fos = openFileOutput("profile.png", 0);
-					output.compress(CompressFormat.PNG, 100, fos);
-					fos.flush();
-					fos.close();
-
-				} catch (Exception e) {
-					Toast.makeText(this, "file error", Toast.LENGTH_SHORT)
-							.show();
-				}
 			}
 
 			break;

@@ -24,38 +24,36 @@ public class FreeDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_FREE_TABLE = "CREATE TABLE IF NOT EXISTS frees ( id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, count INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP)";
-		String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height VARCHAR(10), weight VARCHAR(10))";
+		String CREATE_FREE_TABLE = "CREATE TABLE IF NOT EXISTS frees ( id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, count INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP, photo BLOB)";
+		String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER)";
 		db.execSQL(CREATE_FREE_TABLE);
-		db.execSQL(CREATE_PROFILE_TABLE);		
+		db.execSQL(CREATE_PROFILE_TABLE);
 	}
-	
-	//테이블 존재 여부 확인 
-	public int checkTable(){
-		List<ProfileData> profiles = new LinkedList<ProfileData>();
-		String query = "SELECT  * FROM " + TABLE_PROFILES;
 
+	// 테이블 존재 여부 확인
+	public int checkTable() {
 		int cec = 0;
-		
-		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(query, null);
 
-		if (cursor.moveToFirst()) {
-			do {
-				if(cursor.getString(1) == null){
-					cec = 0;  
-            		return cec;
-				}else if(cursor.getString(1) != null){
-					 cec = 1;
-           		  return cec;
-				}
-			} while (cursor.moveToNext());
-			
-		}
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		String query = "SELECT * FROM " + TABLE_PROFILES;
+			Cursor cursor = db.rawQuery(query, null);
+
+			if (cursor.moveToFirst()) {
+				do {
+					if (cursor.getString(1) == null) {
+						cec = 0;
+						return cec;
+					} else if (cursor.getString(1) != null) {
+						cec = 1;
+						return cec;
+					}
+				} while (cursor.moveToNext());
+
+			}
+
 		return cec;
 	}
-	
-	
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -69,13 +67,12 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS frees");
 		db.close();
 	}
-	
+
 	public void dropProfileTable() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS profiles");
 		db.close();
 	}
-
 
 	public void createIndex() {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -92,7 +89,7 @@ public class FreeDatabase extends SQLiteOpenHelper {
 
 	public void createProfileTable() {
 		SQLiteDatabase db = this.getWritableDatabase();
-		String CREATE_PROFILE_TABLE = "CREATE TABLE profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER)";
+		String CREATE_PROFILE_TABLE = "CREATE TABLE profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER, photo BLOB)";
 		db.execSQL(CREATE_PROFILE_TABLE);
 		db.close();
 	}
@@ -107,13 +104,12 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	private static final String KEY_TYPE = "type";
 	private static final String KEY_COUNT = "count";
 	private static final String KEY_DATE = "t";
-	
+
 	Calendar calendar = Calendar.getInstance();
 	Date today = calendar.getTime();
 
-
 	private static final String[] COLUMNS = { KEY_ID, KEY_TYPE, KEY_COUNT,
-			KEY_DATE};
+			KEY_DATE };
 
 	public void addFreeData(FreeData freeData) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -149,11 +145,11 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		}
 		return freeData;
 	}
-	
+
 	public List<FreeData> getFreeDatasByDate(String t) {
 		List<FreeData> freeDatas = new LinkedList<FreeData>();
-		String query = "SELECT  * FROM " + TABLE_FREES +" WHERE t =" + t;
-		
+		String query = "SELECT  * FROM " + TABLE_FREES + " WHERE t =" + t;
+
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
 
@@ -201,15 +197,15 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	}
 
 	private String getDateTime() {
-		
+
 		String instance_t = "";
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREAN);
 		instance_t = sdf.format(today);
 
 		return instance_t;
 	}
-	
+
 	/*
 	 * 프로필 함수 생성
 	 */
@@ -218,6 +214,7 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	private static final String KEY_NAME = "name";
 	private static final String KEY_HEIGHT = "height";
 	private static final String KEY_WEIGHT = "weight";
+	private static final String KEY_PHOTO = "photo";
 
 	// private static final String[] P_COLUMNS = { KEY_ID,
 	// KEY_TYPE, KEY_COUNT, KEY_DATE };
@@ -229,6 +226,7 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		values.put(KEY_NAME, profileData.getName());
 		values.put(KEY_HEIGHT, profileData.getHeight());
 		values.put(KEY_WEIGHT, profileData.getWeight());
+		values.put(KEY_PHOTO, profileData.getPhoto());
 		db.insert(TABLE_PROFILES, null, values);
 		db.close();
 	}
@@ -242,12 +240,39 @@ public class FreeDatabase extends SQLiteOpenHelper {
 
 		ProfileData profileData = null;
 		if (cursor.moveToFirst()) {
-				profileData = new ProfileData();
-				profileData.setName(cursor.getString(1));
-				profileData.setHeight(Integer.parseInt(cursor.getString(2)));
-				profileData.setWeight(Integer.parseInt(cursor.getString(3)));
+			profileData = new ProfileData();
+			profileData.setName(cursor.getString(1));
+			profileData.setHeight(Integer.parseInt(cursor.getString(2)));
+			profileData.setWeight(Integer.parseInt(cursor.getString(3)));
+
+			//int drawalbeColumnId = cursor.getColumnIndex(cursor.getString(4));
+			byte[] drawableIconByteArray = cursor.getBlob(4);
+
+			profileData.setPhoto(drawableIconByteArray);
 		}
 		return profileData;
+	}
+	
+	public List<ProfileData> getAllProfileDatas() {
+		List<ProfileData> ProfileDatas = new LinkedList<ProfileData>();
+		String query = "SELECT  * FROM " + TABLE_PROFILES;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		ProfileData ProfileData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				ProfileData= new ProfileData();
+				ProfileData.setName(cursor.getString(1));
+				ProfileData.setHeight(Integer.parseInt(cursor.getString(2)));
+				ProfileData.setWeight(Integer.parseInt(cursor.getString(3)));
+				ProfileData.setPhoto(cursor.getBlob(4));
+	
+				ProfileDatas.add(ProfileData);
+			} while (cursor.moveToNext());
+		}
+		return ProfileDatas;
 	}
 
 }

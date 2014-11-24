@@ -7,6 +7,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -36,6 +38,8 @@ public class Free_record extends Activity implements SensorEventListener {
 	Button free_play_btn;
 	Button free_pause_btn;
 	Button free_refresh_btn;
+	
+	Sound mSound;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class Free_record extends Activity implements SensorEventListener {
 		actionBar.hide();
 		
 		ch = (Chronometer)findViewById(R.id.chronometer_record);
+		mSound = new Sound(this, R.raw.sound);
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
 		free_finish_btn.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +141,9 @@ public class Free_record extends Activity implements SensorEventListener {
 
 	// 측정한 값을 전달해주는 메소드.
 	public void onSensorChanged(SensorEvent event) {
+	
+
+		
 		// 정확도가 낮은 측정값인 경우
 		if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
 			// 몇몇 기기의 경우 accuracy 가 SENSOR_STATUS_UNRELIABLE 값을
@@ -158,6 +166,8 @@ public class Free_record extends Activity implements SensorEventListener {
 
 						printNum++;
 						countResult = printNum;
+						
+						mSound.play();
 						if (printNum < 10)
 							free_countNum.setText("0" + printNum);
 						else
