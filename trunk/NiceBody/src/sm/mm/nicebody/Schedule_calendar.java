@@ -225,7 +225,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			if (date_result == null || date_result.equals(""))
 				return;
 
-			for (int i = 1; i < Schedule_result.size(); i++) {
+			for (int i = 0; i < Schedule_result.size(); i++) {
 
 				if (Schedule_result.get(i).getType() == 1) {
 					totalCount1 += Schedule_result.get(i).getCount();
