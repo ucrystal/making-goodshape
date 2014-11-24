@@ -311,6 +311,14 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+
+		overridePendingTransition(R.anim.default_end_enter,
+				R.anim.default_end_exit);
+	}
 
 	public void customActionBar() {
 		// Customize the ActionBar
@@ -327,7 +335,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
 				.findViewById(R.id.actionbar_textview);
-		textviewTitle.setText(R.string.title_activity_free_expain);
+		textviewTitle.setText(R.string.title_activity_schedule_calendar);
 		abar.setCustomView(viewActionBar, params);
 		abar.setDisplayUseLogoEnabled(true);
 		abar.setDisplayShowCustomEnabled(true);

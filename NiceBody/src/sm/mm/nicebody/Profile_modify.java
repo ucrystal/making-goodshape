@@ -190,6 +190,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 			// 다음 activity로
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
+			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -321,5 +322,13 @@ public class Profile_modify extends Activity implements OnClickListener {
 				.setPositiveButton("사진촬영", cameraListener)
 				.setNeutralButton("앨범선택", albumListener)
 				.setNegativeButton("취소", cancelListener).show();
+	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+
+		overridePendingTransition(R.anim.default_end_enter,
+				R.anim.default_end_exit);
 	}
 }

@@ -76,6 +76,7 @@ public class Free_record extends Activity implements SensorEventListener {
 				
 				Intent intent = new Intent(Free_record.this,Free_result.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -203,6 +204,7 @@ public class Free_record extends Activity implements SensorEventListener {
 			}
 		}
 
-	}
+	}	
+
 
 }

@@ -43,6 +43,7 @@ public class Recommend_description1 extends Activity {
 	         public void onClick(View v) {
 	            Intent intent = new Intent(Recommend_description1.this, Recommend_record.class);
 	            startActivity(intent);
+	            overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 	            finish();
 	         }
 	      });
@@ -79,6 +80,7 @@ public class Recommend_description1 extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 	public void customActionBar() {
 		// Customize the ActionBar

@@ -18,9 +18,10 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "NiceDB";
 
-	public FreeDatabase(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	}
+	  public FreeDatabase(Context context) {
+          super(context, DATABASE_NAME, null, DATABASE_VERSION);
+  }
+
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {

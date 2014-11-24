@@ -36,6 +36,7 @@ public class Free_explain extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Free_explain.this, Free_record.class);
 				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -73,7 +74,7 @@ public class Free_explain extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	public void customActionBar() {
 		// Customize the ActionBar
 		final ActionBar abar = getActionBar();

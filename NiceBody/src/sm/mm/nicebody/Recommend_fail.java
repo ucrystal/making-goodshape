@@ -67,6 +67,14 @@ public class Recommend_fail extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+
+		overridePendingTransition(R.anim.default_end_enter,
+				R.anim.default_end_exit);
+	}
 
 	public void customActionBar() {
 		// Customize the ActionBar
@@ -83,7 +91,7 @@ public class Recommend_fail extends Activity {
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
 				.findViewById(R.id.actionbar_textview);
-		textviewTitle.setText(R.string.title_activity_recommend_success);
+		textviewTitle.setText(R.string.title_activity_recommend_fail);
 		abar.setCustomView(viewActionBar, params);
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);

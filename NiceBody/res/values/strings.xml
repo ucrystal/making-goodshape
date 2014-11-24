@@ -12,13 +12,17 @@
     <string name="title_activity_profile_modify">프로필수정</string>
     <string name="title_activity_free_menu">자유운동</string>
     <string name="title_activity_free_expain">운동설명</string>
-    <string name="title_activity_free_success">자유운동결과</string>
+    <string name="title_activity_free_record">자유운동</string>
+    <string name="title_activity_free_result">운동결과</string>
     <string name="title_activity_recommend_list">추천운동</string>
+    <string name="title_activity_recommend_description1">추천운동</string>
+    <string name="title_activity_recommend_record2">복부운동</string>
+    <string name="title_activity_recommend_record3">하체운동</string>
     <string name="title_activity_schedule_calendar">운동기록</string>
-    <string name="title_activity_recommend_count">Recommend_count</string>
     <string name="title_activity_recommend_success">도전성공</string>
+    <string name="title_activity_recommend_fail">도전실패</string>
+    <string name="title_activity_recommend_count">Recommend_count</string>
     <string name="title_activity_schedule_calendar_day">Schedule_calendar_day</string>
-    <string name="title_activity_recommend_description1">도전</string>
 
     <!-- schedule_calendar -->
     <string name="comment">COMMENT</string>
@@ -37,8 +41,6 @@
     <string name="title_4">4단계</string>
     <string name="title_5">5단계</string>
     <string name="title_6">6단계</string>
-    <string name="title_activity_recommend_fail">Recommend_fail</string>
-    <string name="title_activity_recommend_record2">Recommend_record2</string>
-    <string name="title_activity_recommend_record3">Recommend_record3</string>
+    <string name="title_activity_splash">Splash</string>
 
 </resources>

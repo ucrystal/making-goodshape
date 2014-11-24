@@ -41,6 +41,8 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 
 	private TextView fixedNum1, fixedNum2, fixedNum3;
 
+	Sound mSound;
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -72,6 +74,8 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
+		mSound = new Sound(this, R.raw.sound);
+		
 		countTxt = (TextView) findViewById(R.id.countTxt3);
 		countTxt.setText(String.valueOf(count) + "초");
 
@@ -195,6 +199,12 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 
+						mSound.play();
+						if (printNum < 10)
+							recommend_countNum.setText("0" + printNum);
+						else
+							recommend_countNum.setText("" + printNum);
+						
 						if (Recommend_list.choiceCh == 1) {
 							// 상체운동 성공 시 하체운동 페이지로 이동
 							if (printNum == arr[0][2]) {
