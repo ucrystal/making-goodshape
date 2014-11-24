@@ -40,6 +40,7 @@ public class Free_record extends Activity implements SensorEventListener {
 	Button free_refresh_btn;
 	
 	Sound mSound;
+	long timeWhenStopped = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class Free_record extends Activity implements SensorEventListener {
 		
 		ch = (Chronometer)findViewById(R.id.chronometer_record);
 		mSound = new Sound(this, R.raw.sound);
+		
+		
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
 		free_finish_btn.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +68,6 @@ public class Free_record extends Activity implements SensorEventListener {
 				finish();
 			}
 		});
-
 		
 		//측정이 가능한 상태는 playCheck가 1일때,
 		//측정이 일시정지되어 있는 상태는 playCheck가 2일때 (일시정지 버튼을 누르면 측정이 중지됨)
@@ -75,8 +77,9 @@ public class Free_record extends Activity implements SensorEventListener {
 			public void onClick(View v) {
 				playCheck = 1;
 				
-				ch.setBase(SystemClock.elapsedRealtime());
+				ch.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
 				ch.start();
+
 				
 				ch.setOnChronometerTickListener(new OnChronometerTickListener() {
 					@Override
@@ -93,7 +96,10 @@ public class Free_record extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View v) {
 				playCheck = 2;
+				
+				timeWhenStopped = ch.getBase() - SystemClock.elapsedRealtime();
 				ch.stop();
+
 			}
 		});
 		
@@ -106,6 +112,7 @@ public class Free_record extends Activity implements SensorEventListener {
 				playCheck = 2;
 				
 				ch.setBase(SystemClock.elapsedRealtime());
+				timeWhenStopped = 0;
 			}
 		});
 
@@ -142,7 +149,6 @@ public class Free_record extends Activity implements SensorEventListener {
 	// 측정한 값을 전달해주는 메소드.
 	public void onSensorChanged(SensorEvent event) {
 	
-
 		
 		// 정확도가 낮은 측정값인 경우
 		if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
@@ -150,17 +156,19 @@ public class Free_record extends Activity implements SensorEventListener {
 			// 가져서 측정값을 사용하지 못하는 경우가 있기때문에 임의로 return ; 을 막는다.
 			// return;
 		}
+		
+		long currentTime = System.currentTimeMillis();
+		long lastTime = 0;
+		long gabOfTime = (currentTime - lastTime);
+		float testNum = 0;
+
+		if (gabOfTime > 100) {
+			lastTime = currentTime;
+			testNum = event.values[0];
+
 
 		if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-			long currentTime = System.currentTimeMillis();
-			long lastTime = 0;
-			long gabOfTime = (currentTime - lastTime);
-			float testNum = 0;
-
-			if (gabOfTime > 100) {
-				lastTime = currentTime;
-				testNum = event.values[0];
-
+			
 				if (playCheck == 1) {
 					if (testNum == 0) {
 

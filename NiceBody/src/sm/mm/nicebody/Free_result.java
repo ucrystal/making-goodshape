@@ -50,17 +50,17 @@ public class Free_result extends Activity {
 		if (Free_menu.choiceEx == 1) {
 
 			calCalorie = Calorie.cal_fushUp(Free_record.countResult);
-			free_resultCal.setText((int) calCalorie + " 칼로리 소모");
+			free_resultCal.setText((int) calCalorie + " cal 소모");
 
 		} else if (Free_menu.choiceEx == 2) {
 
 			calCalorie = Calorie.cal_lunge(Free_record.countResult);
-			free_resultCal.setText((int) calCalorie + " 칼로리 소모");
+			free_resultCal.setText((int) calCalorie + " cal 소모");
 
 		} else if (Free_menu.choiceEx == 3) {
 
 			calCalorie = Calorie.cal_legRaise(Free_record.countResult);
-			free_resultCal.setText((int) calCalorie + " 칼로리 소모");
+			free_resultCal.setText((int) calCalorie + " cal 소모");
 
 		}
 

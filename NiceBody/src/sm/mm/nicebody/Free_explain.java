@@ -26,7 +26,7 @@ public class Free_explain extends Activity {
 		if (Free_menu.choiceEx == 1)
 			setContentView(R.layout.free_pushup_explain);
 		else if (Free_menu.choiceEx == 2)
-			setContentView(R.layout.free_lunge_explain);
+			setContentView(R.layout.free_kneeling_explain);
 		else if (Free_menu.choiceEx == 3)
 			setContentView(R.layout.free_leg_explain);
 
