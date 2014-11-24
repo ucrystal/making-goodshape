@@ -245,11 +245,11 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			}
 			if (totalCount2 != 0) {
 				resultList.add(String
-						.valueOf("자유운동: 런지                        "
+						.valueOf("자유운동 : 런지                        "
 								+ totalCount2 + "회"));
 			}
 			if (totalCount3 != 0) {
-				resultList.add(String.valueOf("자유운동: 레그레이즈               "
+				resultList.add(String.valueOf("자유운동 : 레그레이즈               "
 						+ totalCount3 + "회"));
 			}
 		}
