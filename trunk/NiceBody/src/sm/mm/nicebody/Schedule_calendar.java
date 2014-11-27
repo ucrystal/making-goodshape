@@ -245,16 +245,16 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 			if (totalCount1 != 0) {
 				// 리스트 객체에 데이터 추가
-				resultList.add(String.valueOf("자유운동 : 팔굽혀펴기               "
+				resultList.add(String.valueOf("자유운동 : 팔굽혀펴기      "
 						+ totalCount1 + "회"));
 			}
 			if (totalCount2 != 0) {
 				resultList.add(String
-						.valueOf("자유운동 : 런지               "
+						.valueOf("자유운동 : 닐링 레그 리프트     "
 								+ totalCount2 + "회"));
 			}
 			if (totalCount3 != 0) {
-				resultList.add(String.valueOf("자유운동 : 레그레이즈               "
+				resultList.add(String.valueOf("자유운동 : 레그레이즈      "
 						+ totalCount3 + "회"));
 			}
 			
@@ -268,8 +268,11 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 					rec_s += Schedule_result_r.get(i).getId() + " ";
 			}
 
-			resultList.add(String.valueOf("추천운동 성공 :              "
-					+ rec_s +"단계"));
+			if(Schedule_result_r.size() > 0){
+				resultList.add(String.valueOf("추천운동 성공 :              "
+						+ rec_s +"단계"));
+			}
+		
 		}
 		;
 

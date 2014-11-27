@@ -172,43 +172,40 @@ public class Profile_modify extends Activity implements OnClickListener {
 			
 			if (Name.getBytes().length <= 0)
 				Name = "홍길동";
-
-			if (Height.getBytes().length <=0  && Weight.getBytes().length > 0) {
-
-				toast = Toast.makeText(getApplicationContext(), "키를 입력하세요!",
-						Toast.LENGTH_LONG);
-				toast.show();
-				break;
-
-			} else if (Height.getBytes().length > 0 && Weight.getBytes().length <= 0 ) {
-
-				toast = Toast.makeText(getApplicationContext(), "몸무게를 입력하세요!",
-						Toast.LENGTH_LONG);
-				toast.show();
-				break;
-
-			} else if (Height.getBytes().length <=0 && Weight.getBytes().length <=0) {
-
-				toast = Toast.makeText(getApplicationContext(),
-						"키와 몸무게를 입력하세요!", Toast.LENGTH_LONG);
-				toast.show();
-				break;
-			}
-			// Profile.profilePhoto_default.setImageBitmap(photo);
-
-			if (imageInByte == null) {
-				// ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				// output.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
-				if (profileDatas.size() == 0) {
-					imageInByte = null;
-				} else if (profileDatas.size() > 0) {
-					if (pm_pd.getPhoto() == null) {
-						imageInByte = pm_pd.getPhoto();
-					}
+			
+			
+			if(profileDatas.size() > 0){
+				if (pm_pd.getPhoto() != null && imageInByte == null) {
+					imageInByte = pm_pd.getPhoto();
 				}
 
 			}
+		
+			if (Height.getBytes().length <= 0  || Weight.getBytes().length <= 0 || imageInByte == null) {
+
+				String toast_s = "";
+				
+				
+				if(Height.getBytes().length <= 0){
+					toast_s += " 키";
+				}
+				if(Weight.getBytes().length <= 0){
+					toast_s += " 몸무게";
+				}
+				if(imageInByte == null){
+					toast_s += " 사진";
+				}
+				
+				toast_s += " 정보를 입력해주세요!!!";
+				toast = Toast.makeText(getApplicationContext(), toast_s,
+						Toast.LENGTH_LONG);
+				toast.show();
+				break;
+
+			} 
+			
+			// Profile.profilePhoto_default.setImageBitmap(photo);
+
 
 			// db에 값 저장하기
 			ProfileData pd = new ProfileData(Name, Integer.parseInt(Height),
