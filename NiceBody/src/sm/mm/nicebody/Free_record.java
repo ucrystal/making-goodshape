@@ -20,6 +20,9 @@ import android.widget.TextView;
 
 public class Free_record extends Activity implements SensorEventListener {
 
+	//백버튼 두번 누르면 종료 객체
+	private BackPressCloseHandler backPressCloseHandler;
+	
 	// 센서 관련 객체
 	SensorManager m_sensor_manager;
 	Sensor m_sensor;
@@ -50,11 +53,12 @@ public class Free_record extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		
+		backPressCloseHandler = new BackPressCloseHandler(this);
+		
 		ch = (Chronometer)findViewById(R.id.chronometer_record);
 		mSound = new Sound(this, R.raw.sound);
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
-				
 		free_finish_btn.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
@@ -202,5 +206,9 @@ public class Free_record extends Activity implements SensorEventListener {
 
 	}	
 
-
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

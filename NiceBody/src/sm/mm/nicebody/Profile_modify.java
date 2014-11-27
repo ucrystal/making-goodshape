@@ -45,7 +45,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class Profile_modify extends Activity implements OnClickListener {
-
+	
+	private BackPressCloseHandler backPressCloseHandler;
 	Button modifyFns_btn;
 
 	int Height;
@@ -80,7 +81,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 		setContentView(R.layout.profile_modify);
 
 		customActionBar();
-
+		backPressCloseHandler = new BackPressCloseHandler(this);
+		
 		// 수치 입력
 		editHeight = (EditText) findViewById(R.id.editHeight);
 		editWeight = (EditText) findViewById(R.id.editWeight);
@@ -139,6 +141,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, Main.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			finish();
 			break;
 		case R.id.action_ok:
 
@@ -190,7 +193,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 			// 다음 activity로
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
-			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+			finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -325,10 +328,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 	}
 	
 	@Override
-	public void finish() {
-		super.finish();
-
-		overridePendingTransition(R.anim.default_end_enter,
-				R.anim.default_end_exit);
-	}
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

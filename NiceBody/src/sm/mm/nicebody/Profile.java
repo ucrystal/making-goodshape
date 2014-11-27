@@ -23,7 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Profile extends Activity {
-
+	private BackPressCloseHandler backPressCloseHandler;
+	
 	TextView tv_height;
 	TextView tv_weight;
 	TextView tv_name;
@@ -41,7 +42,8 @@ public class Profile extends Activity {
 		setContentView(R.layout.profile);
 
 		customActionBar();
-
+		backPressCloseHandler = new BackPressCloseHandler(this);
+	
 		tv_height = (TextView) findViewById(R.id.textView_height);
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
 
@@ -110,25 +112,19 @@ public class Profile extends Activity {
 			Intent intent = new Intent(this, Main.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			finish();
 			break;
 		case R.id.action_modify:
 			intent = new Intent(this, Profile_modify.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+			finish();
 			break;
 
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
-	@Override
-	public void finish() {
-		super.finish();
-
-		overridePendingTransition(R.anim.default_end_enter,
-				R.anim.default_end_exit);
-	}
-
 	public void customActionBar() {
 		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
@@ -152,4 +148,10 @@ public class Profile extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

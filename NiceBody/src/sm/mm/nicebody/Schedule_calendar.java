@@ -53,13 +53,16 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	ArrayList<String> resultList;
 	ArrayAdapter<String> list_adapter;
 
+	private BackPressCloseHandler backPressCloseHandler;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule_calendar);
 
 		customActionBar();
-
+		backPressCloseHandler = new BackPressCloseHandler(this);
+	
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
 
@@ -311,14 +314,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-	public void finish() {
-		super.finish();
-
-		overridePendingTransition(R.anim.default_end_enter,
-				R.anim.default_end_exit);
-	}
 
 	public void customActionBar() {
 		// Customize the ActionBar
@@ -344,5 +339,10 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
-
+	
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

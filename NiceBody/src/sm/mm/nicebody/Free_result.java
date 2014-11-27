@@ -28,14 +28,16 @@ public class Free_result extends Activity {
 	double calCalorie;
 
 	Toast recordToast;
-
+	private BackPressCloseHandler backPressCloseHandler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.free_result);
 
 		customActionBar();
-
+		backPressCloseHandler = new BackPressCloseHandler(this);
+	
 		free_resultNum = (TextView) findViewById(R.id.resultNum);
 		free_resultTimer = (TextView) findViewById(R.id.resultTimer);
 		free_resultCal = (TextView) findViewById(R.id.resultCal);
@@ -164,4 +166,9 @@ public class Free_result extends Activity {
 		abar.setHomeButtonEnabled(true);
 	}
 
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }
