@@ -27,8 +27,10 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_FREE_TABLE = "CREATE TABLE IF NOT EXISTS frees ( id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, count INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP, photo BLOB)";
 		String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER)";
+		String CREATE_RECOMMEND_TABLE = "CREATE TABLE IF NOT EXISTS recommends (id INTEGER PRIMARY KEY AUTOINCREMENT, s_check INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP)";
 		db.execSQL(CREATE_FREE_TABLE);
 		db.execSQL(CREATE_PROFILE_TABLE);
+		db.execSQL(CREATE_RECOMMEND_TABLE);
 	}
 
 	// 테이블 존재 여부 확인
@@ -56,6 +58,8 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		return cec;
 	}
 
+
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS frees");
@@ -72,6 +76,12 @@ public class FreeDatabase extends SQLiteOpenHelper {
 	public void dropProfileTable() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DROP TABLE IF EXISTS profiles");
+		db.close();
+	}
+	
+	public void dropRecommendTable() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS recommends");
 		db.close();
 	}
 
@@ -92,6 +102,13 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		String CREATE_PROFILE_TABLE = "CREATE TABLE profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER, photo BLOB)";
 		db.execSQL(CREATE_PROFILE_TABLE);
+		db.close();
+	}
+	
+	public void createRecommendTable() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String CREATE_RECOMMEND_TABLE = "CREATE TABLE recommends (id INTEGER PRIMARY KEY AUTOINCREMENT, s_check INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP)";
+		db.execSQL(CREATE_RECOMMEND_TABLE);
 		db.close();
 	}
 
@@ -275,5 +292,112 @@ public class FreeDatabase extends SQLiteOpenHelper {
 		}
 		return ProfileDatas;
 	}
+	
+	/*
+	 * 추천운동함수생성
+	 */
+
+	private static final String TABLE_RECOMMENDS = "recommends";
+	private static final String KEY_SCHECK = "s_check";
+
+	// private static final String[] P_COLUMNS = { KEY_ID,
+	// KEY_TYPE, KEY_COUNT, KEY_DATE };
+
+	public void openNext (RecommendData recommendData) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_SCHECK, recommendData.getCheck());
+		values.put(KEY_DATE, getDateTime());
+		
+		db.insert(TABLE_RECOMMENDS, null, values);
+		db.close();
+		
+	}
+	
+	public RecommendData getRecommendData(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_RECOMMENDS, // a. table
+				COLUMNS, // b. column names
+				"id = ?", // c. selections
+				new String[] { Integer.toString(id) }, // d. selections args
+				null, // e. group by
+				null, // f. having
+				null, // g. order by
+				null); // h. limit
+		if (cursor != null)
+			cursor.moveToFirst();
+		RecommendData recommendData = new RecommendData();
+		recommendData.setId(Integer.parseInt(cursor.getString(0)));
+		recommendData.setCheck(Integer.parseInt(cursor.getString(1)));
+		recommendData.setDate(cursor.getString(2));
+
+		return recommendData;
+	}
+
+	public List<RecommendData> getAllRecommendDatas() {
+		List<RecommendData> recommendDatas = new LinkedList<RecommendData>();
+		String query = "SELECT  * FROM " + TABLE_RECOMMENDS;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		RecommendData recommendData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				recommendData= new RecommendData();
+				recommendData.setId(Integer.parseInt(cursor.getString(1)));
+				recommendData.setCheck(Integer.parseInt(cursor.getString(2)));
+				recommendData.setDate(cursor.getString(2));
+	
+				recommendDatas.add(recommendData);
+			} while (cursor.moveToNext());
+		}
+		return recommendDatas;
+	}
+	
+	public List<RecommendData> getRecommendDatasByDate(String t) {
+		List<RecommendData> recommendDatas = new LinkedList<RecommendData>();
+		String query = "SELECT  * FROM " + TABLE_RECOMMENDS + " WHERE t =" + t;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		RecommendData recommendData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				recommendData = new RecommendData();
+				recommendData.setId(Integer.parseInt(cursor.getString(0)));
+				recommendData.setCheck(Integer.parseInt(cursor.getString(1)));
+				recommendData.setDate(cursor.getString(2));
+
+				recommendDatas.add(recommendData);
+			} while (cursor.moveToNext());
+		}
+		return recommendDatas;
+	}
+
+	
+	public List<RecommendData> getRecommendDatasById(int i) {
+		List<RecommendData> recommendDatas = new LinkedList<RecommendData>();
+		String query = "SELECT  * FROM " + TABLE_RECOMMENDS + " WHERE id =" + i;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		RecommendData recommendData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				recommendData = new RecommendData();
+				recommendData.setId(Integer.parseInt(cursor.getString(0)));
+				recommendData.setCheck(Integer.parseInt(cursor.getString(1)));
+				recommendData.setDate(cursor.getString(2));
+
+				recommendDatas.add(recommendData);
+			} while (cursor.moveToNext());
+		}
+		return recommendDatas;
+	}
+	
 
 }

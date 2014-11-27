@@ -1,11 +1,14 @@
 package sm.mm.nicebody;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,21 +23,33 @@ public class Recommend_success extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (Recommend_list.choiceCh == 1){
-			setContentView(R.layout.recommend_success1);}
-		else if (Recommend_list.choiceCh == 2){
-			setContentView(R.layout.recommend_success2);}
-		else if (Recommend_list.choiceCh == 3){
-			setContentView(R.layout.recommend_success3);}
-		else if (Recommend_list.choiceCh == 4){
-			setContentView(R.layout.recommend_success4);}
-		else if (Recommend_list.choiceCh == 5){
-			setContentView(R.layout.recommend_success5);}
-		else if (Recommend_list.choiceCh == 6){
-			setContentView(R.layout.recommend_success6);}
-		
+		if (Recommend_list.choiceCh == 1) {
+			setContentView(R.layout.recommend_success1);
+		} else if (Recommend_list.choiceCh == 2) {
+			setContentView(R.layout.recommend_success2);
+		} else if (Recommend_list.choiceCh == 3) {
+			setContentView(R.layout.recommend_success3);
+		} else if (Recommend_list.choiceCh == 4) {
+			setContentView(R.layout.recommend_success4);
+		} else if (Recommend_list.choiceCh == 5) {
+			setContentView(R.layout.recommend_success5);
+		} else if (Recommend_list.choiceCh == 6) {
+			setContentView(R.layout.recommend_success6);
+		}
+
 		customActionBar();
 		
+		int i = Recommend_list.choiceCh + 1;
+		List<RecommendData> Recommend_result = Profile.db
+				.getRecommendDatasById(i);
+		
+		if (Recommend_result.size() == 0) {
+			RecommendData recommendData = new RecommendData(1);
+			Profile.db.openNext(recommendData);
+		}
+		
+		Log.v("Test", "추천운동성공여부는"+Recommend_result.size());
+
 		btn_backtomain = (Button) findViewById(R.id.recommend_backtomain_btn);
 
 		btn_backtomain.setOnClickListener(new OnClickListener() {
@@ -42,7 +57,8 @@ public class Recommend_success extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Recommend_success.this, Main.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -80,7 +96,7 @@ public class Recommend_success extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void customActionBar() {
 		// Customize the ActionBar
 		final ActionBar abar = getActionBar();

@@ -53,12 +53,8 @@ public class Free_record extends Activity implements SensorEventListener {
 		ch = (Chronometer)findViewById(R.id.chronometer_record);
 		mSound = new Sound(this, R.raw.sound);
 		
-		
-		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
-		
-
-		
+				
 		free_finish_btn.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
