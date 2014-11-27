@@ -4,7 +4,7 @@
     android:id="@+id/ListView1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#DEDEDE"
+    android:background="#C9C9C9"
     android:dividerHeight="1dp"
     android:divider="#C9C9C9"
     tools:context=".Recommend_list" >

@@ -122,20 +122,24 @@ public class Free_result extends Activity {
 			Intent intent = new Intent(this, Main.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			finish();
 			break;
 		case R.id.action_profile:
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
+			finish();
 			break;
 
 		case R.id.action_schedule:
 			intent = new Intent(this, Schedule_calendar.class);
 			startActivity(intent);
+			finish();
 			break;
 
 		case R.id.action_settings:
 			intent = new Intent(this, Main.class);
 			startActivity(intent);
+			finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
