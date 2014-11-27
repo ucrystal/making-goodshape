@@ -84,7 +84,9 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 		}
 		else if (Recommend_result.size() == 6) {
 			convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));			
-		} else
+		}else if (Recommend_result.size() == 7) {
+			convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));			
+		}else
 			convertView.setBackgroundColor((position == mList.size() - 5 | position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
 					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
 
@@ -106,6 +108,7 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 		List<RecommendData> Recommend_result = Profile.db
 				.getAllRecommendDatas();
 
+		
 		if (Recommend_result.size() == 2) {
 			return (position == mList.size() - 4 | position == mList.size() - 3
 					| position == mList.size() - 2 | position == mList.size() - 1) ? false
@@ -123,6 +126,8 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 			return (position == mList.size() - 1) ? false : true;
 		}
 		else if (Recommend_result.size() == 6) {
+			return true;
+		}else if (Recommend_result.size() == 7) {
 			return true;
 		}
 
