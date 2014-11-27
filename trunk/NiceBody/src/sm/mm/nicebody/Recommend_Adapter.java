@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,14 +56,37 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 		Recommend_list_model data = getItem(position);
 
 		if (data != null) {
-			ImageView ivImage = (ImageView) convertView
-					.findViewById(R.id.item_icon);
-			TextView tvTitle = (TextView) convertView
-					.findViewById(R.id.item_title);
+			ImageView ivImage = (ImageView) convertView.findViewById(R.id.item_icon);
+			TextView tvTitle = (TextView) convertView.findViewById(R.id.item_title);
 
 			ivImage.setImageResource(data.getImage());
 			tvTitle.setText(data.getTitle());
 		}
+		
+		List<RecommendData> Recommend_result = Profile.db
+				.getAllRecommendDatas();
+
+		if (Recommend_result.size() == 2) {
+			convertView.setBackgroundColor((position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
+					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
+		}
+		else if (Recommend_result.size() == 3) {
+			convertView.setBackgroundColor((position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
+					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
+		}
+		else if (Recommend_result.size() == 4) {
+			convertView.setBackgroundColor((position == mList.size() - 2 | position == mList.size() - 1) ? 
+					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));			
+		}
+		else if (Recommend_result.size() == 5) {
+			convertView.setBackgroundColor((position == mList.size() - 1) ? 
+					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
+		}
+		else if (Recommend_result.size() == 6) {
+			convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));			
+		} else
+			convertView.setBackgroundColor((position == mList.size() - 5 | position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
+					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
 
 		return convertView;
 	}
