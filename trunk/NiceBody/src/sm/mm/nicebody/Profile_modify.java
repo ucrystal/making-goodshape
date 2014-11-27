@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -49,8 +52,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 	private BackPressCloseHandler backPressCloseHandler;
 	Button modifyFns_btn;
 
-	int Height;
-	int Weight;
+	String Height;
+	String Weight;
 	String Name = "프로필을 입력해주세요.";
 
 	// 수정했는지 검사하는 과정
@@ -73,7 +76,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 	private Uri mImageCaptureUri;
 	private ImageView profilePhoto;
 
-	private ProfileData pm_pd = Profile.db.getProfileData();
+	List<ProfileData> profileDatas;
+	ProfileData pm_pd;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,13 @@ public class Profile_modify extends Activity implements OnClickListener {
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
 		
+		profileDatas = new LinkedList<ProfileData>();
+		profileDatas = Profile.db.getAllProfileDatas();
+
+		if (profileDatas.size() != 0) {
+			pm_pd = profileDatas.get(profileDatas.size() - 1);
+		}
+
 		// 수치 입력
 		editHeight = (EditText) findViewById(R.id.editHeight);
 		editWeight = (EditText) findViewById(R.id.editWeight);
@@ -94,19 +105,25 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 		if (Profile.db.checkTable() == 0) {
 
-			Height = 0;
-			Weight = 0;
+			Height = null;
+			Weight = null;
 
 		} else if (Profile.db.checkTable() == 1) {
 
-			editHeight.setText("" +(int)pm_pd.getHeight());
-			editWeight.setText("" + (int)pm_pd.getWeight());
+			editHeight.setText("" + (int) pm_pd.getHeight());
+			editWeight.setText("" + (int) pm_pd.getWeight());
 			editName.setText("" + pm_pd.getName());
-			byte[] drawableIconByteArray = pm_pd.getPhoto();
-			Bitmap bd = BitmapFactory.decodeByteArray(drawableIconByteArray, 0,
-					drawableIconByteArray.length);
 
-			profilePhoto.setImageBitmap(bd);
+			if (pm_pd.getPhoto() == null) {
+				Profile.profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
+			} else if (pm_pd.getPhoto() != null) {
+				byte[] drawableIconByteArray = pm_pd.getPhoto();
+				Bitmap bd = BitmapFactory.decodeByteArray(
+						drawableIconByteArray, 0, drawableIconByteArray.length);
+
+				profilePhoto.setImageBitmap(bd);
+			}
+
 		}
 
 	}
@@ -145,33 +162,32 @@ public class Profile_modify extends Activity implements OnClickListener {
 			break;
 		case R.id.action_ok:
 
-			Height = Integer.parseInt(editHeight.getText().toString());
-			Weight = Integer.parseInt(editWeight.getText().toString());
+			Height = editHeight.getText().toString();
+			Weight = editWeight.getText().toString();
 			Name = editName.getText().toString();
 
-			/*
-			 * // 공백(스페이스바)만 눌러서 넘기는 경우 Height = Height.trim(); Weight =
-			 * Weight.trim(); Name = Name.trim();
-			 */
-
+			Height = Height.trim();
+			Weight = Weight.trim();
+			Name = Name.trim();
+			
 			if (Name.getBytes().length <= 0)
 				Name = "홍길동";
 
-			if (Height <= 0 && Weight > 0) {
+			if (Height.getBytes().length <=0  && Weight.getBytes().length > 0) {
 
 				toast = Toast.makeText(getApplicationContext(), "키를 입력하세요!",
 						Toast.LENGTH_LONG);
 				toast.show();
 				break;
 
-			} else if (Height > 0 && Weight <= 0) {
+			} else if (Height.getBytes().length > 0 && Weight.getBytes().length <= 0 ) {
 
 				toast = Toast.makeText(getApplicationContext(), "몸무게를 입력하세요!",
 						Toast.LENGTH_LONG);
 				toast.show();
 				break;
 
-			} else if (Height <= 0 && Weight <= 0) {
+			} else if (Height.getBytes().length <=0 && Weight.getBytes().length <=0) {
 
 				toast = Toast.makeText(getApplicationContext(),
 						"키와 몸무게를 입력하세요!", Toast.LENGTH_LONG);
@@ -181,19 +197,28 @@ public class Profile_modify extends Activity implements OnClickListener {
 			// Profile.profilePhoto_default.setImageBitmap(photo);
 
 			if (imageInByte == null) {
-				//ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				//output.compress(Bitmap.CompressFormat.PNG, 100, stream);
-				imageInByte = pm_pd.getPhoto();
+				// ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				// output.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+				if (profileDatas.size() == 0) {
+					imageInByte = null;
+				} else if (profileDatas.size() > 0) {
+					if (pm_pd.getPhoto() == null) {
+						imageInByte = pm_pd.getPhoto();
+					}
+				}
+
 			}
 
 			// db에 값 저장하기
-			ProfileData pd = new ProfileData(Name, Height, Weight, imageInByte);
+			ProfileData pd = new ProfileData(Name, Integer.parseInt(Height),
+					Integer.parseInt(Weight), imageInByte);
 			Profile.db.addProfileData(pd);
+
 
 			// 다음 activity로
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
-			finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -326,7 +351,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 				.setNeutralButton("앨범선택", albumListener)
 				.setNegativeButton("취소", cancelListener).show();
 	}
-	
+
 	@Override
     public void onBackPressed() {
         //super.onBackPressed();

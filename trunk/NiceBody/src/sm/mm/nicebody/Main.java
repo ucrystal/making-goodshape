@@ -54,21 +54,23 @@ public class Main extends Activity {
 		actionBar.hide();
 
 		Profile.db = new FreeDatabase(this);
-		
+
 		free_btn = (Button) findViewById(R.id.free_btn);
 		free_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-				/*
-				 * //일단 편의상 열어논다 mainToast =
-				 * Toast.makeText(getApplicationContext(), "프로필을 입력해주세용",
-				 * Toast.LENGTH_LONG); mainToast.show(); return;
-				 */
+				if (Profile.db.checkTable() == 0) {
+					mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용",
+							Toast.LENGTH_LONG);
+					mainToast.show();
+					return;
+				}
 
 				Intent intent = new Intent(Main.this, Free_menu.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -78,10 +80,18 @@ public class Main extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
+				
+				if (Profile.db.checkTable() == 0) {
+					mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용",
+							Toast.LENGTH_LONG);
+					mainToast.show();
+					return;
+				}
+				
 				Intent intent = new Intent(Main.this, Recommend_list.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -93,7 +103,8 @@ public class Main extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(Main.this, Schedule_calendar.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -103,21 +114,22 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View v) {
 
-/*
-
-				List<FreeData> printByDate = Profile.db
-						.getFreeDatasByDate("20141120");
-
-				for (int i = 0; i < printByDate.size(); i++) {
-					Log.v("DB_Test", printByDate.get(i).getType() + ","
-							+ printByDate.get(i).getCount() + ","
-							+ printByDate.get(i).getDate());
-							
-				}
-*/
+				/*
+				 * 
+				 * List<FreeData> printByDate = Profile.db
+				 * .getFreeDatasByDate("20141120");
+				 * 
+				 * for (int i = 0; i < printByDate.size(); i++) {
+				 * Log.v("DB_Test", printByDate.get(i).getType() + "," +
+				 * printByDate.get(i).getCount() + "," +
+				 * printByDate.get(i).getDate());
+				 * 
+				 * }
+				 */
 				Intent intent = new Intent(Main.this, Profile.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
