@@ -18,8 +18,13 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -48,7 +53,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class Profile_modify extends Activity implements OnClickListener {
-	
+
 	private BackPressCloseHandler backPressCloseHandler;
 	Button modifyFns_btn;
 
@@ -58,8 +63,9 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 	// 수정했는지 검사하는 과정
 	static int checkInt = 0;
-
 	static Bitmap photo;
+	static String title;
+	static String text;
 
 	EditText editHeight;
 	EditText editWeight;
@@ -86,7 +92,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
-		
+
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
 
@@ -169,49 +175,68 @@ public class Profile_modify extends Activity implements OnClickListener {
 			Height = Height.trim();
 			Weight = Weight.trim();
 			Name = Name.trim();
-			
+
 			if (Name.getBytes().length <= 0)
 				Name = "홍길동";
-			
-			
-			if(profileDatas.size() > 0){
+
+			if (profileDatas.size() > 0) {
 				if (pm_pd.getPhoto() != null && imageInByte == null) {
 					imageInByte = pm_pd.getPhoto();
 				}
 
 			}
-		
-			if (Height.getBytes().length <= 0  || Weight.getBytes().length <= 0 || imageInByte == null) {
+
+			if (Height.getBytes().length <= 0 || Weight.getBytes().length <= 0
+					|| imageInByte == null) {
 
 				String toast_s = "";
-				
-				
-				if(Height.getBytes().length <= 0){
+
+				if (Height.getBytes().length <= 0) {
 					toast_s += " 키";
 				}
-				if(Weight.getBytes().length <= 0){
+				if (Weight.getBytes().length <= 0) {
 					toast_s += " 몸무게";
 				}
-				if(imageInByte == null){
+				if (imageInByte == null) {
 					toast_s += " 사진";
 				}
-				
+
 				toast_s += " 정보를 입력해주세요!!!";
 				toast = Toast.makeText(getApplicationContext(), toast_s,
 						Toast.LENGTH_LONG);
 				toast.show();
 				break;
 
-			} 
-			
+			}
+
 			// Profile.profilePhoto_default.setImageBitmap(photo);
 
+			title = "몸매가 예뻐gym";
+			text = "우리와 함께 건강한 몸매 만들어봐요 ^0^";
+
+			
+			
+			if (profileDatas.size() == 0) {
+				
+				HashMap<String, Object> params = new HashMap<String, Object>();
+				// params.put("phoneNumber", "820142746727");
+				// params.put("msg", "wicked wednesday");
+				ParseCloud.callFunctionInBackground("notify", params,
+						new FunctionCallback<String>() {
+							public void done(String result, ParseException e) {
+								if (e == null) {
+									Log.v("parseTest", "sms result: <" + result
+											+ ">");
+								}
+							}
+						});
+				
+			}
 
 			// db에 값 저장하기
 			ProfileData pd = new ProfileData(Name, Integer.parseInt(Height),
 					Integer.parseInt(Weight), imageInByte);
 			Profile.db.addProfileData(pd);
-
 
 			// 다음 activity로
 			intent = new Intent(this, Profile.class);
@@ -350,8 +375,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 	}
 
 	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
+	public void onBackPressed() {
+		// super.onBackPressed();
+		backPressCloseHandler.onBackPressed();
+	}
 }

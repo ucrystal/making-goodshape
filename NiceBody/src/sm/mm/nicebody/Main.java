@@ -1,11 +1,20 @@
 package sm.mm.nicebody;
 
+import java.util.HashMap;
+
+import com.parse.FunctionCallback;
+import com.parse.Parse;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -52,6 +61,9 @@ public class Main extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
+		
+	    Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1", "fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
+        initializePushNotification();
 
 		Profile.db = new FreeDatabase(this);
 
@@ -114,18 +126,6 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				/*
-				 * 
-				 * List<FreeData> printByDate = Profile.db
-				 * .getFreeDatasByDate("20141120");
-				 * 
-				 * for (int i = 0; i < printByDate.size(); i++) {
-				 * Log.v("DB_Test", printByDate.get(i).getType() + "," +
-				 * printByDate.get(i).getCount() + "," +
-				 * printByDate.get(i).getDate());
-				 * 
-				 * }
-				 */
 				Intent intent = new Intent(Main.this, Profile.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
@@ -141,6 +141,13 @@ public class Main extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void initializePushNotification(){
+	    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+	    installation.put("phoneNumber","821042746727");
+	    installation.put("wantPush",true);
+	    installation.saveInBackground();
 	}
 
 	/*

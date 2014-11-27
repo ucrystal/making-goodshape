@@ -83,8 +83,8 @@ public class Profile extends Activity {
 			int d_size = ProfileDatas.size()-1;
 			ProfileData profile_pd = ProfileDatas.get(d_size);
 			tv_name.setText("  " + profile_pd.getName());
-			tv_height.setText("  " + profile_pd.getHeight() + " cm");
-			tv_weight.setText("  " + profile_pd.getWeight() + " kg");
+			tv_height.setText("  " + (int)profile_pd.getHeight() + " cm");
+			tv_weight.setText("  " + (int)profile_pd.getWeight() + " kg");
 
 			profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
 			
