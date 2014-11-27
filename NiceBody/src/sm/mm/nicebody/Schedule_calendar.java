@@ -260,19 +260,23 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			
 			String rec_s = "";
 			
-			for (int i = 0; i < Schedule_result_r.size(); i++) {
+			if(Schedule_result_r.size() > 1){
+				
+				for (int i = 1; i < Schedule_result_r.size(); i++) {
 
-				if (i < Schedule_result_r.size()-1)
-					rec_s += Schedule_result_r.get(i).getId() + ", ";
-				else if (i == Schedule_result_r.size()-1)
-					rec_s += Schedule_result_r.get(i).getId() + " ";
-			}
+					if (i < Schedule_result_r.size()-1)
+						rec_s += Schedule_result_r.get(i).getId()-1 + ", ";
+					else if (i == Schedule_result_r.size()-1)
+						rec_s += Schedule_result_r.get(i).getId()-1 + " ";
+				}
 
-			if(Schedule_result_r.size() > 0){
-				resultList.add(String.valueOf("추천운동 성공 :              "
-						+ rec_s +"단계"));
+				if(Schedule_result_r.size() > 1){
+					resultList.add(String.valueOf("추천운동 성공 :              "
+							+ rec_s +"단계"));
+				}
+			
 			}
-		
+			
 		}
 		;
 
