@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public class Recommend_fail extends Activity {
 	Button btn_fail_main;
+	private BackPressCloseHandler backPressCloseHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,9 @@ public class Recommend_fail extends Activity {
 		setContentView(R.layout.recommend_fail);
 
 		customActionBar();
-
+	
+		backPressCloseHandler = new BackPressCloseHandler(this);
+	
 		btn_fail_main = (Button) findViewById(R.id.btn_fail);
 		btn_fail_main.setOnClickListener(new OnClickListener() {
 			@Override
@@ -99,4 +102,10 @@ public class Recommend_fail extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+	
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

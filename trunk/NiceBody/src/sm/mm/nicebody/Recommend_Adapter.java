@@ -18,6 +18,8 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 
 	private LayoutInflater mInflater;
 
+	ImageView img;
+		
 	public Recommend_Adapter(Context context, int rowLayoutResource,
 			ArrayList<Recommend_list_model> objects) {
 		super(context, rowLayoutResource, objects);
@@ -76,29 +78,33 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 											 * second last index of mStrings
 											 * then return false
 											 */
-
+	
 		List<RecommendData> Recommend_result = Profile.db
 				.getAllRecommendDatas();
 
-		if (Recommend_result.size() == 2)
+		if (Recommend_result.size() == 2) {
 			return (position == mList.size() - 4 | position == mList.size() - 3
 					| position == mList.size() - 2 | position == mList.size() - 1) ? false
 					: true;
-		else if (Recommend_result.size() == 3)
+		}
+		else if (Recommend_result.size() == 3) {
 			return (position == mList.size() - 3 | position == mList.size() - 2 | position == mList
 					.size() - 1) ? false : true;
-		else if (Recommend_result.size() == 4)
+		}
+		else if (Recommend_result.size() == 4) {
 			return (position == mList.size() - 2 | position == mList.size() - 1) ? false
 					: true;
-		else if (Recommend_result.size() == 5)
+		}
+		else if (Recommend_result.size() == 5) {
 			return (position == mList.size() - 1) ? false : true;
-		else if (Recommend_result.size() == 6)
+		}
+		else if (Recommend_result.size() == 6) {
 			return true;
+		}
 
 		// ±âº»
 		return (position == mList.size() - 5 | position == mList.size() - 4
 				| position == mList.size() - 3 | position == mList.size() - 2 | position == mList
 				.size() - 1) ? false : true;
-
 	}
 }

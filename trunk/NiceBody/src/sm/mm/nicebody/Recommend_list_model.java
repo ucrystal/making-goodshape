@@ -1,9 +1,12 @@
 package sm.mm.nicebody;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
 public class Recommend_list_model {
 	
-	private int title;
-	private int image;
+	int title;
+	int image;
 
 	public Recommend_list_model()
 	{

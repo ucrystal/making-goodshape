@@ -69,6 +69,7 @@ public class Main extends Activity {
 				Intent intent = new Intent(Main.this, Free_menu.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 
@@ -81,6 +82,7 @@ public class Main extends Activity {
 				Intent intent = new Intent(Main.this, Recommend_list.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 
@@ -92,6 +94,7 @@ public class Main extends Activity {
 				Intent intent = new Intent(Main.this, Schedule_calendar.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 
@@ -115,6 +118,7 @@ public class Main extends Activity {
 				Intent intent = new Intent(Main.this, Profile.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
 			}
 		});
 
@@ -127,10 +131,11 @@ public class Main extends Activity {
 		return true;
 	}
 
+	/*
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
-
+	*/
 }

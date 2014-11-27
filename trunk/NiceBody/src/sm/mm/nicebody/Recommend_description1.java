@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class Recommend_description1 extends Activity {
 	Button recommend_btn1,recommend_btn2,recommend_btn3,recommend_btn4,recommend_btn5,recommend_btn6;
 	
+	private BackPressCloseHandler backPressCloseHandler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class Recommend_description1 extends Activity {
 			setContentView(R.layout.recommend_description6);}
 		
 		customActionBar();
+
+		backPressCloseHandler = new BackPressCloseHandler(this);
 		
 		recommend_btn1 = (Button)findViewById(R.id.recommendlist_btn1);
 		recommend_btn1.setBackgroundResource(R.drawable.btn_start);
@@ -105,4 +108,10 @@ public class Recommend_description1 extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+	
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

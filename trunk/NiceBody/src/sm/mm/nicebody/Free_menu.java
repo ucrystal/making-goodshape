@@ -17,14 +17,17 @@ public class Free_menu extends Activity {
 
 	static int choiceEx = 0;
 	Button free_pushup_btn, free_lunge_btn, free_legraise_btn;
-
+	private BackPressCloseHandler backPressCloseHandler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.free_menu);
 
 		customActionBar();
-
+	
+		backPressCloseHandler = new BackPressCloseHandler(this);
+	
 		free_pushup_btn = (Button) findViewById(R.id.free_pushup_btn);
 		free_pushup_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -123,4 +126,10 @@ public class Free_menu extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

@@ -1,6 +1,7 @@
 package sm.mm.nicebody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -46,6 +47,8 @@ public class Recommend_list extends Activity {
 	ImageView image;
 	TextView title_history;
 
+	private BackPressCloseHandler backPressCloseHandler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +56,8 @@ public class Recommend_list extends Activity {
 		
 		customActionBar();
 
+		backPressCloseHandler = new BackPressCloseHandler(this);
+		
 		mLvData = (ListView) findViewById(R.id.ListView1);
 		mList = new ArrayList<Recommend_list_model>();
 
@@ -121,13 +126,56 @@ public class Recommend_list extends Activity {
 
 		mList.clear();
 
-		mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
-		mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_lock));
-		mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_lock));
-		mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
-		mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
-		mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		List<RecommendData> Recommend_result = Profile.db
+				.getAllRecommendDatas();
 
+		if (Recommend_result.size() == 2) {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		}
+		else if (Recommend_result.size() == 3) {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		}
+		else if (Recommend_result.size() == 4) {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		}
+		else if (Recommend_result.size() == 5) {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		}
+		else if (Recommend_result.size() == 6) {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_unlock));
+		} else {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		}
 		mCustomAdapter.notifyDataSetChanged();
 	}
 	
@@ -163,13 +211,6 @@ public class Recommend_list extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	@Override
-	public void finish() {
-		super.finish();
-
-		overridePendingTransition(R.anim.default_end_enter,
-				R.anim.default_end_exit);
-	}
 
 	public void customActionBar() {
 		// Customize the ActionBar
@@ -194,4 +235,10 @@ public class Recommend_list extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+	
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

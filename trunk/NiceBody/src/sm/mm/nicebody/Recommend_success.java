@@ -19,7 +19,8 @@ import android.widget.TextView;
 
 public class Recommend_success extends Activity {
 	Button btn_backtomain;
-
+	private BackPressCloseHandler backPressCloseHandler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,7 +39,9 @@ public class Recommend_success extends Activity {
 		}
 
 		customActionBar();
-		
+
+		backPressCloseHandler = new BackPressCloseHandler(this);
+
 		int i = Recommend_list.choiceCh + 1;
 		List<RecommendData> Recommend_result = Profile.db
 				.getRecommendDatasById(i);
@@ -120,4 +123,10 @@ public class Recommend_success extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+
+	@Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }
