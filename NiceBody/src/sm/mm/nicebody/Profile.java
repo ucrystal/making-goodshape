@@ -30,7 +30,6 @@ public class Profile extends Activity {
 	TextView tv_name;
 
 	static FreeDatabase db;
-
 	static ImageView profilePhoto_default;
 
 	Button modifyPro_btn;
@@ -61,7 +60,7 @@ public class Profile extends Activity {
 		
 
 		if (db.checkTable() == 0) {
-
+			
 			tv_height.setText("  00 cm");
 			tv_weight.setText("  00 kg");
 			tv_name.setText(" ȫ�浿 ");
@@ -78,6 +77,7 @@ public class Profile extends Activity {
 
 		} else if (db.checkTable() == 1) {
 
+
 			List<ProfileData> ProfileDatas = new LinkedList<ProfileData>();
 			ProfileDatas = Profile.db.getAllProfileDatas();
 			int d_size = ProfileDatas.size()-1;
@@ -88,11 +88,17 @@ public class Profile extends Activity {
 
 			profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
 			
-			byte[] drawableIconByteArray =  profile_pd.getPhoto();
-			Bitmap d = BitmapFactory.decodeByteArray(drawableIconByteArray, 0,
-					drawableIconByteArray.length);
 			
-			profilePhoto_default.setImageBitmap(d);
+			if(profile_pd.getPhoto() == null){
+				profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
+			}else if(profile_pd.getPhoto() != null){
+				byte[] drawableIconByteArray =  profile_pd.getPhoto();
+				Bitmap d = BitmapFactory.decodeByteArray(drawableIconByteArray, 0,
+						drawableIconByteArray.length);
+				
+				profilePhoto_default.setImageBitmap(d);
+			}
+			
 
 		}
 

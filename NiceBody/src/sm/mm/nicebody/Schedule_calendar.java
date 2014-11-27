@@ -176,7 +176,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			return false;
 	}
 
-
 	// 지난달의 Calendar 객체를 반환
 	private Calendar getLastMonth(Calendar calendar) {
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -216,6 +215,9 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			List<FreeData> Schedule_result = Profile.db.getFreeDatasByDate("'"
 					+ date_result + "'");
 
+			List<RecommendData> Schedule_result_r = Profile.db
+					.getRecommendDatasByDate("'" + date_result + "'");
+
 			// Log.i("gym", "onItemClick()");
 			// Log.i("gym", "position =" + position);
 			// Log.i("gym", "date= " + date_result);
@@ -248,13 +250,26 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			}
 			if (totalCount2 != 0) {
 				resultList.add(String
-						.valueOf("자유운동 : 런지                        "
+						.valueOf("자유운동 : 런지               "
 								+ totalCount2 + "회"));
 			}
 			if (totalCount3 != 0) {
 				resultList.add(String.valueOf("자유운동 : 레그레이즈               "
 						+ totalCount3 + "회"));
 			}
+			
+			String rec_s = "";
+			
+			for (int i = 0; i < Schedule_result_r.size(); i++) {
+
+				if (i < Schedule_result_r.size()-1)
+					rec_s += Schedule_result_r.get(i).getId() + ", ";
+				else if (i == Schedule_result_r.size()-1)
+					rec_s += Schedule_result_r.get(i).getId() + " ";
+			}
+
+			resultList.add(String.valueOf("추천운동 성공 :              "
+					+ rec_s +"단계"));
 		}
 		;
 
@@ -314,6 +329,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 
 	public void customActionBar() {
 		// Customize the ActionBar
