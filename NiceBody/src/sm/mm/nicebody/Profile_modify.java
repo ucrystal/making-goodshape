@@ -241,6 +241,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 			// ¥Ÿ¿Ω activity∑Œ
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
+			finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);

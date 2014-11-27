@@ -129,10 +129,18 @@ public class Recommend_list extends Activity {
 		List<RecommendData> Recommend_result = Profile.db
 				.getAllRecommendDatas();
 
-		if (Recommend_result.size() == 3) {
+		if (Recommend_result.size() == 2) {
 			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
+		}
+		else if (Recommend_result.size() == 3) {
+			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
+			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
 			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
 			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
@@ -141,7 +149,7 @@ public class Recommend_list extends Activity {
 			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
-			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_lock));
+			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
 			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
 		}
@@ -150,18 +158,10 @@ public class Recommend_list extends Activity {
 			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_unlock));
-			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_lock));
-			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
-		}
-		else if (Recommend_result.size() == 6) {
-			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
-			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
-			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
-			mList.add(new Recommend_list_model(R.string.title_4, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_5, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_6, R.drawable.icon_lock));
 		}
-		else if (Recommend_result.size() == 7) {
+		else if (Recommend_result.size() == 6 && Recommend_result.size() == 7) {
 			mList.add(new Recommend_list_model(R.string.title_1, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_2, R.drawable.icon_unlock));
 			mList.add(new Recommend_list_model(R.string.title_3, R.drawable.icon_unlock));
