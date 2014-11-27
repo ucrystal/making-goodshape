@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -65,8 +66,13 @@ public class Profile extends Activity {
 
 			Profile.db.dropProfileTable();
 			Profile.db.dropFreeTable();
+			Profile.db.dropRecommendTable();
 			Profile.db.createProfileTable();
 			Profile.db.createFreeTable();
+			Profile.db.createRecommendTable();
+			
+			RecommendData recommendData = new RecommendData(1);
+			Profile.db.openNext(recommendData);
 
 		} else if (db.checkTable() == 1) {
 
