@@ -11,44 +11,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class Time_menu extends Activity {
-
-	Button record_btn, check_btn;
+public class Developer extends Activity{
 	
+	Button ask_btn;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.time_menu);
+		setContentView(R.layout.developer);
 		
 		customActionBar();
-		
-		
-		record_btn = (Button) findViewById(R.id.btn_record);
-		record_btn.setOnClickListener(new View.OnClickListener() {
+
+		ask_btn = (Button) findViewById(R.id.ask_btn);
+		ask_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-				Intent intent = new Intent(Time_menu.this, Time_record.class);
+				
+				Intent intent = new Intent(Developer.this, Developer_mail.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 				finish();
 			}
 		});
-		check_btn = (Button) findViewById(R.id.btn_check);
-		check_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
 
-
-				Intent intent = new Intent(Time_menu.this, Main.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-				finish();
-			}
-		});
-		
 	}
 	
 	@Override
@@ -86,7 +73,7 @@ public class Time_menu extends Activity {
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
 				.findViewById(R.id.actionbar_textview);
-		textviewTitle.setText(R.string.title_activity_time_menu);
+		textviewTitle.setText(R.string.title_activity_developer);
 		abar.setCustomView(viewActionBar, params);
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
@@ -94,6 +81,4 @@ public class Time_menu extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
-
-
 }

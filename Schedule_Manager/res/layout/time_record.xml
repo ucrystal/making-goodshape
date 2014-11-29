@@ -4,6 +4,7 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -21,26 +22,22 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="교시 |"
+                android:text="요일 |"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#f8f8f8"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView3"
+            <ImageView
+                android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:text=" 1   |  2   |  3   |  4   |  5   |  6   |  7   |  8"
-                android:textColor="#f8f8f8" />
-
+                android:src="@drawable/time" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            >
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -51,10 +48,10 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
                     android:text="월"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
@@ -68,9 +65,8 @@
                     android:id="@+id/mon_rb1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
-                     />
+                    android:layout_marginLeft="20dp" />
 
                 <CheckBox
                     android:id="@+id/mon_rb2"
@@ -112,9 +108,8 @@
                     android:id="@+id/mon_rb8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="25dp"
-                    android:layout_gravity="center_vertical" />
-
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="25dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -434,16 +429,21 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/time_finish"
-            android:layout_marginTop="25dp"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:background="#67C6E5"
-            android:text="입력하기"
-            android:textColor="#f8f8f8" />
+            android:layout_marginTop="25dp"
+            android:text="자신이 수업을 듣는 교시를 모두 선택한 후 " />
+        <TextView
+            android:id="@+id/textView04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_gravity="center_horizontal"
+            android:text="상단의 체크 버튼을 눌러주세요! " />
 
     </LinearLayout>
 

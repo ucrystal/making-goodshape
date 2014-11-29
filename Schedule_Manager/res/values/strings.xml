@@ -4,7 +4,13 @@
     <string name="app_name">Schedule_Manager</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">Main</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name=" title_activity_profile_modify">modify</string>
+    <string name=" title_activity_developer">developer</string>
+    <string name=" title_activity_developer_mail">developer</string>
+    <string name=" title_activity_time_menu">time table</string>
     
-    
+    <string name="action_modify">modify</string>
+    <string name="action_ok">ok</string>
 
 </resources>
