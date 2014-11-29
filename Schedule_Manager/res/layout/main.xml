@@ -1,11 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#67c6e5"
+    tools:context=".MainActivity" >
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/main" />
+
+    <Button
+        android:id="@+id/time_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="#93d5eb"
+        android:text="시간표작성"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/find_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:background="#93d5eb"
+        android:text="친구찾기"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/list_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
+        android:background="#93d5eb"
+        android:text="약속목록"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/profile_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="190dp"
+        android:background="#93d5eb"
+        android:text="프로필"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/info_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
+        android:background="#93d5eb"
+        android:text="개발자정보"
+        android:textColor="#ffffff"
+        android:textSize="10pt"
+        android:textStyle="bold" />
 
 </RelativeLayout>
