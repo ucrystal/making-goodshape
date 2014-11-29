@@ -22,10 +22,9 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1",
-				"fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
+		Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1", "fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
 		initializePushNotification();
-
+ 
 		Profile.db = new Database(this);
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
