@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -92,6 +93,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
 
+		customActionBar();
+		
 		if (profileDatas.size() != 0) {
 			pm_pd = profileDatas.get(profileDatas.size() - 1);
 		}
@@ -127,86 +130,125 @@ public class Profile_modify extends Activity implements OnClickListener {
 			}
 
 		}
-
-		button_con = (Button) findViewById(R.id.button_con);
-		button_con.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
 				
-				Univ = editUniv.getText().toString();
-				Phone = editPhone.getText().toString();
-				Name = editName.getText().toString();
 
-				Univ = Univ.trim();
-				Phone = Phone.trim();
-				Name = Name.trim();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.profile_modify, menu);
+		return true;
+	}
 
-				if (Name.getBytes().length <= 0)
-					Name = "홍길동";
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, Main.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			finish();
+			break;
+		case R.id.action_ok:
+			
+			Univ = editUniv.getText().toString();
+			Phone = editPhone.getText().toString();
+			Name = editName.getText().toString();
 
-				if (profileDatas.size() > 0) {
-					if (pm_pd.getPhoto() != null && imageInByte == null) {
-						imageInByte = pm_pd.getPhoto();
-					}
+			Univ = Univ.trim();
+			Phone = Phone.trim();
+			Name = Name.trim();
 
+			if (Name.getBytes().length <= 0)
+				Name = "홍길동";
+
+			if (profileDatas.size() > 0) {
+				if (pm_pd.getPhoto() != null && imageInByte == null) {
+					imageInByte = pm_pd.getPhoto();
 				}
-
-				if (Univ.getBytes().length <= 0 || Phone.getBytes().length <= 0
-						|| imageInByte == null) {
-
-					String toast_s = "";
-
-					if (Univ.getBytes().length <= 0) {
-						toast_s += " 학교";
-					}
-					if (Phone.getBytes().length <= 0) {
-						toast_s += " 번호";
-					}
-					if (imageInByte == null) {
-						toast_s += " 사진";
-					}
-
-					toast_s += " 정보를 입력해주세요!!!";
-					toast = Toast.makeText(getApplicationContext(), toast_s,
-							Toast.LENGTH_LONG);
-					toast.show();
-					return;
-
-				}
-
-				// Profile.profilePhoto_default.setImageBitmap(photo);
-
-				title = "우리 지금 만나";
-				text = "우지만과 함께라면 편리한 공강 비교!!";
-
-				if (profileDatas.size() == 0) {
-
-					HashMap<String, Object> params = new HashMap<String, Object>();
-					ParseCloud.callFunctionInBackground("notify", params,
-							new FunctionCallback<String>() {
-								public void done(String result, ParseException e) {
-									if (e == null) {
-										Log.v("parseTest", "sms result: <" + result
-												+ ">");
-									}
-								}
-							});
-
-				}
-
-				// db에 값 저장하기
-				ProfileData pd = new ProfileData(Name, Univ,
-						Phone, imageInByte);
-				Profile.db.addProfileData(pd);
-				Intent intent = new Intent(Profile_modify.this, Profile.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter,
-						R.anim.default_start_exit);
-				finish();
 
 			}
-		});
 
+			if (Univ.getBytes().length <= 0 || Phone.getBytes().length <= 0
+					|| imageInByte == null) {
+
+				String toast_s = "";
+
+				if (Univ.getBytes().length <= 0) {
+					toast_s += " 학교";
+				}
+				if (Phone.getBytes().length <= 0) {
+					toast_s += " 번호";
+				}
+				if (imageInByte == null) {
+					toast_s += " 사진";
+				}
+
+				toast_s += " 정보를 입력해주세요!!!";
+				toast = Toast.makeText(getApplicationContext(), toast_s,
+						Toast.LENGTH_LONG);
+				toast.show();
+				break;
+
+			}
+
+			// Profile.profilePhoto_default.setImageBitmap(photo);
+
+			title = "우리 지금 만나";
+			text = "우지만과 함께라면 편리한 공강 비교!!";
+
+			if (profileDatas.size() == 0) {
+
+				HashMap<String, Object> params = new HashMap<String, Object>();
+				ParseCloud.callFunctionInBackground("notify", params,
+						new FunctionCallback<String>() {
+							public void done(String result, ParseException e) {
+								if (e == null) {
+									Log.v("parseTest", "sms result: <" + result
+											+ ">");
+								}
+							}
+						});
+
+			}
+
+			// db에 값 저장하기
+			ProfileData pd = new ProfileData(Name, Univ,
+					Phone, imageInByte);
+			Profile.db.addProfileData(pd);
+			
+			intent = new Intent(Profile_modify.this, Profile.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.default_start_enter,
+					R.anim.default_start_exit);
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void customActionBar() {
+		// Customize the ActionBar
+		final ActionBar abar = getActionBar();
+		abar.setBackgroundDrawable(new ColorDrawable(Color
+				.parseColor("#67C6E5")));
+		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
+		// under the action bar
+		View viewActionBar = getLayoutInflater().inflate(
+				R.layout.actionbar_layout, null);
+		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+				// Center the textview in the ActionBar !
+				ActionBar.LayoutParams.WRAP_CONTENT,
+				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
+		TextView textviewTitle = (TextView) viewActionBar
+				.findViewById(R.id.actionbar_textview);
+		textviewTitle.setText(R.string.title_activity_profile_modify);
+		abar.setCustomView(viewActionBar, params);
+		abar.setDisplayShowCustomEnabled(true);
+		abar.setDisplayShowTitleEnabled(false);
+		abar.setDisplayHomeAsUpEnabled(true);
+		// abar.setIcon(R.color.transparent);
+		abar.setHomeButtonEnabled(true);
 	}
 
 	// 사진 가져오는 함수

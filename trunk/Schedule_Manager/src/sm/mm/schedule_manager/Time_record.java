@@ -29,6 +29,8 @@ public class Time_record extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.time_record);
 		
+		customActionBar();
+		
 		moncb[0] = (CheckBox) findViewById(R.id.mon_rb1);
 		moncb[1] = (CheckBox) findViewById(R.id.mon_rb2);
 		moncb[2] = (CheckBox) findViewById(R.id.mon_rb3);
@@ -74,20 +76,58 @@ public class Time_record extends Activity {
 		fricb[6] = (CheckBox) findViewById(R.id.fri_rb7);
 		fricb[7] = (CheckBox) findViewById(R.id.fri_rb8);
 		
-		
-		time_finish = (Button) findViewById(R.id.time_finish);
-		time_finish.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				Intent intent = new Intent(Time_record.this, Main.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-				finish();
-			}
-		});
 	
 
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.profile_modify, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, Main.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			finish();
+			break;
+		case R.id.action_ok:
+			intent = new Intent(Time_record.this, Main.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+			finish();
+			
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void customActionBar() {
+		// Customize the ActionBar
+		final ActionBar abar = getActionBar();
+		abar.setBackgroundDrawable(new ColorDrawable(Color
+				.parseColor("#67C6E5")));
+		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
+		// under the action bar
+		View viewActionBar = getLayoutInflater().inflate(
+				R.layout.actionbar_layout, null);
+		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+				// Center the textview in the ActionBar !
+				ActionBar.LayoutParams.WRAP_CONTENT,
+				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
+		TextView textviewTitle = (TextView) viewActionBar
+				.findViewById(R.id.actionbar_textview);
+		textviewTitle.setText(R.string.title_activity_time_menu);
+		abar.setCustomView(viewActionBar, params);
+		abar.setDisplayShowCustomEnabled(true);
+		abar.setDisplayShowTitleEnabled(false);
+		abar.setDisplayHomeAsUpEnabled(true);
+		// abar.setIcon(R.color.transparent);
+		abar.setHomeButtonEnabled(true);
 	}
 }
 

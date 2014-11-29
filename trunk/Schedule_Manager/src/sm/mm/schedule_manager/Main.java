@@ -3,6 +3,7 @@ package sm.mm.schedule_manager;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ public class Main extends Activity {
 		initializePushNotification();
 
 		Profile.db = new Database(this);
+		ActionBar actionBar = getActionBar();
+		actionBar.hide();
 
 		time_btn = (Button) findViewById(R.id.time_btn);
 		time_btn.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +79,13 @@ public class Main extends Activity {
 		info_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				Intent intent = new Intent(Main.this, Developer.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
+				finish();
+
 
 			}
 		});

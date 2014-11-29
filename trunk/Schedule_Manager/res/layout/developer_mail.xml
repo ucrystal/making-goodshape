@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeebeb"
-    android:orientation="vertical" >
+    android:background="#67C6E5" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#67c6e5"
         android:orientation="vertical" >
 
         <ImageView
-            android:id="@+id/profilePhoto"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/profile_default" />
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ask" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
         android:orientation="vertical" >
 
         <TextView
@@ -34,75 +31,77 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
-            android:text="이름"
-            android:textColor="#67C6E5"
+            android:text="제목"
+            android:textColor="#f8f8f8"
             android:textSize="15dp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editName"
+            android:id="@+id/editSubject"
             android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_design"
+            android:background="@drawable/border2"
             android:ems="5"
             android:inputType="text"
-            android:textColor="#000000" />
+            android:textColor="#000000" >
+
+            <requestFocus />
+        </EditText>
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
-            android:text="학교"
+            android:text="보내는이 메일주소"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#67C6E5"
+            android:textColor="#f8f8f8"
             android:textSize="15dp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editUniv"
+            android:id="@+id/editMail"
             android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="12.46"
-            android:background="@drawable/edit_text_design"
-            android:ems="3"
-            android:inputType="text"
-            android:hint="   대학교명을 입력해주세요."
-            android:textColor="#000000" >
-        </EditText>
+            android:background="@drawable/border2"
+            android:ems="5"
+            android:hint="  abc@sookmyung.ac.kr"
+            android:inputType="textEmailAddress"
+            android:textColor="#000000"
+            />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
-            android:text="핸드폰번호"
+            android:text="내용"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#67C6E5"
+            android:textColor="#f8f8f8"
             android:textSize="15dp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editPhone"
+            android:id="@+id/editContext"
             android:layout_width="315dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_weight="12.46"
-            android:background="@drawable/edit_text_design"
+            android:background="@drawable/border2"
             android:ems="3"
-             android:hint="   8210 뒤에 '-'없이 입력해주세요."
-            android:inputType="number"
+            android:hint="우리 지금 만나 덕분에 친구와 약속잡기가 편해졌어요!"
+            android:inputType="textMultiLine"
             android:textColor="#000000" />
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
