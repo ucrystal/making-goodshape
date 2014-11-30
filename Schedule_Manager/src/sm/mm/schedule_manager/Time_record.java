@@ -1,11 +1,14 @@
 package sm.mm.schedule_manager;
 
+import java.util.Arrays;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +18,18 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 public class Time_record extends Activity {
+	private Boolean mon[] = new Boolean[8];
+	private Boolean tue[] = new Boolean[8];
+	private Boolean wed[] = new Boolean[8];
+	private Boolean thu[] = new Boolean[8];
+	private Boolean fri[] = new Boolean[8];
+
+	Toast parseToast;
 
 	Button time_finish;
 	CheckBox moncb[] = new CheckBox[8];
@@ -23,13 +37,28 @@ public class Time_record extends Activity {
 	CheckBox wedcb[] = new CheckBox[8];
 	CheckBox thucb[] = new CheckBox[8];
 	CheckBox fricb[] = new CheckBox[8];
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.time_record);
-		
+		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
+				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
+		findCheckBoxId();	
 		customActionBar();
+	}
+
+	void checkBoxToBool() {
+		for (int i = 0; i < 8; i++) {
+			mon[i] = moncb[i].isChecked();
+			tue[i] = tuecb[i].isChecked();
+			wed[i] = wedcb[i].isChecked();
+			thu[i] = thucb[i].isChecked();
+			fri[i] = fricb[i].isChecked();
+		}
+	}
+
+	void findCheckBoxId() {
 		
 		moncb[0] = (CheckBox) findViewById(R.id.mon_rb1);
 		moncb[1] = (CheckBox) findViewById(R.id.mon_rb2);
@@ -39,7 +68,7 @@ public class Time_record extends Activity {
 		moncb[5] = (CheckBox) findViewById(R.id.mon_rb6);
 		moncb[6] = (CheckBox) findViewById(R.id.mon_rb7);
 		moncb[7] = (CheckBox) findViewById(R.id.mon_rb8);
-		
+
 		tuecb[0] = (CheckBox) findViewById(R.id.tue_rb1);
 		tuecb[1] = (CheckBox) findViewById(R.id.tue_rb2);
 		tuecb[2] = (CheckBox) findViewById(R.id.tue_rb3);
@@ -48,7 +77,7 @@ public class Time_record extends Activity {
 		tuecb[5] = (CheckBox) findViewById(R.id.tue_rb6);
 		tuecb[6] = (CheckBox) findViewById(R.id.tue_rb7);
 		tuecb[7] = (CheckBox) findViewById(R.id.tue_rb8);
-		
+
 		wedcb[0] = (CheckBox) findViewById(R.id.wed_rb1);
 		wedcb[1] = (CheckBox) findViewById(R.id.wed_rb2);
 		wedcb[2] = (CheckBox) findViewById(R.id.wed_rb3);
@@ -57,7 +86,7 @@ public class Time_record extends Activity {
 		wedcb[5] = (CheckBox) findViewById(R.id.wed_rb6);
 		wedcb[6] = (CheckBox) findViewById(R.id.wed_rb7);
 		wedcb[7] = (CheckBox) findViewById(R.id.wed_rb8);
-		
+
 		thucb[0] = (CheckBox) findViewById(R.id.thu_rb1);
 		thucb[1] = (CheckBox) findViewById(R.id.thu_rb2);
 		thucb[2] = (CheckBox) findViewById(R.id.thu_rb3);
@@ -75,8 +104,6 @@ public class Time_record extends Activity {
 		fricb[5] = (CheckBox) findViewById(R.id.fri_rb6);
 		fricb[6] = (CheckBox) findViewById(R.id.fri_rb7);
 		fricb[7] = (CheckBox) findViewById(R.id.fri_rb8);
-		
-	
 
 	}
 	
@@ -97,6 +124,41 @@ public class Time_record extends Activity {
 			finish();
 			break;
 		case R.id.action_ok:
+			
+			// checkbox가 체크되어있는 여부에 따라 true or false값으로 저장
+			checkBoxToBool();
+
+			ParseUser user = ParseUser.getCurrentUser();
+			//먼저 데이터에 저장된 값이 있으면 지우고 다시 저장한다.
+			if(user.has("monday")) {
+				user.remove("monday");
+				user.remove("tuesday");
+				user.remove("wednesday");
+				user.remove("thursday");
+				user.remove("friday");
+			}
+			user.saveInBackground();
+			// parse의 user객체의 값들 없데이트
+			// ParseQuery<ParseUser> query = ParseUser.getQuery();
+			if (user != null) {
+				user.addAll("monday", Arrays.asList(mon[0], mon[1], mon[2],	mon[3], mon[4], mon[5], mon[6], mon[7]));
+				user.addAll("tuesday", Arrays.asList(tue[0], tue[1],tue[2], tue[3], tue[4], tue[5], tue[6], tue[7]));
+				user.addAll("wednesday", Arrays.asList(wed[0], wed[1],wed[2], wed[3], wed[4], wed[5], wed[6], wed[7]));
+				user.addAll("thursday", Arrays.asList(thu[0], thu[1],thu[2], thu[3], thu[4], thu[5], thu[6], thu[7]));
+				user.addAll("friday", Arrays.asList(fri[0], fri[1], fri[2],	fri[3], fri[4], fri[5], fri[6], fri[7]));
+				user.saveInBackground(new SaveCallback() {
+					public void done(com.parse.ParseException e) {
+						if (e == null) {
+							// Save was successful!
+							Log.v("test", "Succesfully Updated!");
+						} else {
+							// Save failed. Inspect e for details.
+							Log.v("test", e.getMessage());
+						}
+					}
+				});
+			}
+			
 			intent = new Intent(Time_record.this, Main.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
@@ -130,4 +192,3 @@ public class Time_record extends Activity {
 		abar.setHomeButtonEnabled(true);
 	}
 }
-

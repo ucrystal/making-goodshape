@@ -40,7 +40,7 @@ public class Find_list extends Activity {
 		ArrayList<Person> m_orders = new ArrayList<Person>();
 		//mList = new ArrayList<Recommend_list_model>();
 
-		Person p1 = new Person("유수정", "010-4274-6727");
+		Person p1 = new Person("유수정", "010-9662-6727");
 		// 리스트에 추가할 객체입니다.
 		Person p2 = new Person("허예슬", "010-4274-6727");
 		// 리스트에 추가할 객체입니다.

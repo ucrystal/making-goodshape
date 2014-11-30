@@ -1,31 +1,10 @@
 package sm.mm.schedule_manager;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-
-import com.parse.FunctionCallback;
-import com.parse.ParseCloud;
-import com.parse.ParseException;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -33,33 +12,46 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FunctionCallback;
+import com.parse.Parse;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class Profile_modify extends Activity implements OnClickListener {
-
+	static String s_objectId;
 	Button button_con;
 
-	String Univ;
-	String Phone;
-	String Name = "프로필을 입력해주세요.";
+	String univ;
+	String phone;
+	String name = "프로필을 입력해주세요.";
+	String email;
 
 	// 수정했는지 검사하는 과정
 	static int checkInt = 0;
@@ -70,6 +62,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 	EditText editUniv;
 	EditText editPhone;
 	EditText editName;
+	EditText editEmail;
 	Toast toast;
 
 	byte[] imageInByte;
@@ -85,16 +78,20 @@ public class Profile_modify extends Activity implements OnClickListener {
 	List<ProfileData> profileDatas;
 	ProfileData pm_pd;
 
+	private Toast parseToast;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_modify);
+		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
+				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
 
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
 
 		customActionBar();
-		
+
 		if (profileDatas.size() != 0) {
 			pm_pd = profileDatas.get(profileDatas.size() - 1);
 		}
@@ -103,15 +100,15 @@ public class Profile_modify extends Activity implements OnClickListener {
 		editUniv = (EditText) findViewById(R.id.editUniv);
 		editPhone = (EditText) findViewById(R.id.editPhone);
 		editName = (EditText) findViewById(R.id.editName);
-
+		// deitEmail = (EditText) findViewById(R.id.editEmail);
 		// 프로필 사진을 클릭하면 사진을 입력할 수 있도록
 		profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
 		profilePhoto.setOnClickListener(this);
 
 		if (Profile.db.checkTable() == 0) {
 
-			Univ = null;
-			Phone = null;
+			univ = null;
+			phone = null;
 
 		} else if (Profile.db.checkTable() == 1) {
 
@@ -130,10 +127,11 @@ public class Profile_modify extends Activity implements OnClickListener {
 			}
 
 		}
-				
 
+		if (name.getBytes().length <= 0)
+			name = "이름";
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -151,17 +149,17 @@ public class Profile_modify extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.action_ok:
-			
-			Univ = editUniv.getText().toString();
-			Phone = editPhone.getText().toString();
-			Name = editName.getText().toString();
 
-			Univ = Univ.trim();
-			Phone = Phone.trim();
-			Name = Name.trim();
+			univ = editUniv.getText().toString();
+			phone = editPhone.getText().toString();
+			name = editName.getText().toString();
 
-			if (Name.getBytes().length <= 0)
-				Name = "홍길동";
+			univ = univ.trim();
+			phone = phone.trim();
+			name = name.trim();
+
+			if (name.getBytes().length <= 0)
+				name = "홍길동";
 
 			if (profileDatas.size() > 0) {
 				if (pm_pd.getPhoto() != null && imageInByte == null) {
@@ -170,15 +168,15 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			}
 
-			if (Univ.getBytes().length <= 0 || Phone.getBytes().length <= 0
+			if (univ.getBytes().length <= 0 || phone.getBytes().length <= 0
 					|| imageInByte == null) {
 
 				String toast_s = "";
 
-				if (Univ.getBytes().length <= 0) {
+				if (univ.getBytes().length <= 0) {
 					toast_s += " 학교";
 				}
-				if (Phone.getBytes().length <= 0) {
+				if (phone.getBytes().length <= 0) {
 					toast_s += " 번호";
 				}
 				if (imageInByte == null) {
@@ -199,6 +197,28 @@ public class Profile_modify extends Activity implements OnClickListener {
 			text = "우지만과 함께라면 편리한 공강 비교!!";
 
 			if (profileDatas.size() == 0) {
+				// parse db에 저장하기--> 처음 프로필 저장 시에 수행됨
+				final ParseUser user = new ParseUser();
+				user.setUsername(name);
+				user.setPassword("");
+				user.put("phoneNumber",phone);
+				user.signUpInBackground(new SignUpCallback() {
+					public void done(ParseException e) {
+						if (e == null) {
+							parseToast = Toast.makeText(getApplicationContext(), "서버에 저장되었습니다",Toast.LENGTH_LONG);
+							parseToast.show();
+							String objectId = user.getObjectId();
+							if (objectId != null) {
+								s_objectId = objectId;
+								Log.v("test", objectId);
+							} else
+								Log.v("test", "NONONONONONO");
+						} else {
+							parseToast = Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG);
+							parseToast.show();
+						}
+					}
+				});
 
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				ParseCloud.callFunctionInBackground("notify", params,
@@ -210,14 +230,32 @@ public class Profile_modify extends Activity implements OnClickListener {
 								}
 							}
 						});
-
 			}
-
-			// db에 값 저장하기
-			ProfileData pd = new ProfileData(Name, Univ,
-					Phone, imageInByte);
-			Profile.db.addProfileData(pd);
+			//프로필을 수정하는 게 처음이 아닐 경우
+			else {
+				//가장 최근 유저를 불러옴
+				ParseUser currentUser = ParseUser.getCurrentUser();
+				if (currentUser != null) {
+					try {
+						//로컬디비에 저장된 이전 프로필의 이름(namebefore)을 검색
+						ProfileData namebefore = profileDatas.get(profileDatas.size() - 2);
+						currentUser = ParseUser.logIn(namebefore.getName(), ""); //이름 & 패스워드
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					currentUser.setUsername(name); //현재 사용자가 입력한 값 저장
+					currentUser.put("phoneNumber", phone);
+					currentUser.saveInBackground(); // This succeeds, since the user was authenticated on the device
+				} else {
+					parseToast = Toast.makeText(getApplicationContext(), "프로필이 서버에 저장되지 않았습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
+					parseToast.show();					
+				}
+			}
 			
+			//local db에 값 저장하기
+			ProfileData pd = new ProfileData(name, univ, phone, imageInByte);
+			Profile.db.addProfileData(pd);
+
 			intent = new Intent(Profile_modify.this, Profile.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter,
@@ -266,8 +304,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 		startActivityForResult(intent, PICK_FROM_CAMERA);
 
 	}
-
-	
 
 	// 앨범에서 이미지 가져오기
 

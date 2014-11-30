@@ -159,7 +159,10 @@
             </intent-filter>
         </activity>
         
-        
+        <activity
+            android:name=".Time_check"
+            android:label="@string/title_activity_time_check" >
+        </activity>
 
         <service android:name="com.parse.PushService" />
 

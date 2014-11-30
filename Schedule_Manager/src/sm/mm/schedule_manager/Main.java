@@ -1,20 +1,16 @@
 package sm.mm.schedule_manager;
 
-import com.parse.Parse;
-import com.parse.ParseInstallation;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import com.parse.Parse;
+import com.parse.ParseInstallation;
 
 public class Main extends Activity {
-
 	Button time_btn, find_btn, list_btn, profile_btn, info_btn;
 
 	@Override
@@ -22,7 +18,9 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1", "fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
+		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m", "g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
+		//Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1", "fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
+
 		initializePushNotification();
  
 		Profile.db = new Database(this);
@@ -99,9 +97,8 @@ public class Main extends Activity {
 	public void initializePushNotification() {
 		ParseInstallation installation = ParseInstallation
 				.getCurrentInstallation();
-		installation.put("phoneNumber", "821042746727");
+		installation.put("phoneNumber", "821096627226");
 		installation.put("wantPush", true);
 		installation.saveInBackground();
 	}
-
 }

@@ -82,7 +82,7 @@ public class Find_plus extends Activity {
 		        String msg_s = n+"님이 "+d+"요일 "+t+"교시에 "+f+"님과 약속을 잡았습니다.";
 		        
 		        HashMap<String, Object> params = new HashMap<String, Object>();
-		        params.put("targetPhoneNumber", "821042746727");
+		        params.put("targetPhoneNumber", "821096627226");
 		        params.put("msg", msg_s);
 		        ParseCloud.callFunctionInBackground("testSms", params, new FunctionCallback<String>() {
 		            public void done(String result, ParseException e) {
