@@ -198,27 +198,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			if (profileDatas.size() == 0) {
 				// parse db에 저장하기--> 처음 프로필 저장 시에 수행됨
-				final ParseUser user = new ParseUser();
-				user.setUsername(name);
-				user.setPassword("");
-				user.put("phoneNumber",phone);
-				user.signUpInBackground(new SignUpCallback() {
-					public void done(ParseException e) {
-						if (e == null) {
-							parseToast = Toast.makeText(getApplicationContext(), "서버에 저장되었습니다",Toast.LENGTH_LONG);
-							parseToast.show();
-							String objectId = user.getObjectId();
-							if (objectId != null) {
-								s_objectId = objectId;
-								Log.v("test", objectId);
-							} else
-								Log.v("test", "NONONONONONO");
-						} else {
-							parseToast = Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG);
-							parseToast.show();
-						}
-					}
-				});
 
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				ParseCloud.callFunctionInBackground("notify", params,
@@ -231,6 +210,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 							}
 						});
 			}
+			/*
 			//프로필을 수정하는 게 처음이 아닐 경우
 			else {
 				//가장 최근 유저를 불러옴
@@ -250,7 +230,29 @@ public class Profile_modify extends Activity implements OnClickListener {
 					parseToast = Toast.makeText(getApplicationContext(), "프로필이 서버에 저장되지 않았습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
 					parseToast.show();					
 				}
-			}
+			}*/
+			
+			final ParseUser user = new ParseUser();
+			user.setUsername(name);
+			user.setPassword("");
+			user.put("phoneNumber",phone);
+			user.signUpInBackground(new SignUpCallback() {
+				public void done(ParseException e) {
+					if (e == null) {
+						parseToast = Toast.makeText(getApplicationContext(), "서버에 저장되었습니다",Toast.LENGTH_LONG);
+						parseToast.show();
+						String objectId = user.getObjectId();
+						if (objectId != null) {
+							s_objectId = objectId;
+							Log.v("test", objectId);
+						} else
+							Log.v("test", "NONONONONONO");
+					} else {
+						parseToast = Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG);
+						parseToast.show();
+					}
+				}
+			});
 			
 			//local db에 값 저장하기
 			ProfileData pd = new ProfileData(name, univ, phone, imageInByte);
