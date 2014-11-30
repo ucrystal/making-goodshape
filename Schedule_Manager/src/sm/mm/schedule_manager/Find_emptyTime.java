@@ -201,17 +201,9 @@ public class Find_emptyTime extends Activity {
 							wednesdayCommon.setText(dayString+" 교시");
 						else if(dayName=="thursday")
 							thursdayCommon.setText(dayString+" 교시");
-						else if(dayName=="friday") {
-							fridayCommon.setText(dayString+" 교시");
-					}
-							
-					} else if (dayList_currentuser == null) {
-						parseToast = Toast.makeText(getApplicationContext(), "시간표를 입력하고 다시 시도하세요.",Toast.LENGTH_LONG);
-						parseToast.show();
-					} else if (dayList_searcheduser == null) {
-						parseToast = Toast.makeText(getApplicationContext(), "상대방이 시간표를 입력하지 않았습니다.",Toast.LENGTH_LONG);
-						parseToast.show();
-					}
+						else if(dayName=="friday")
+							fridayCommon.setText(dayString+" 교시");					
+					} 
 				} else {
 					Log.v("test", "Error: " + e.getMessage());
 					// Alert.alertOneBtn(getActivity(),"Something went wrong!");
