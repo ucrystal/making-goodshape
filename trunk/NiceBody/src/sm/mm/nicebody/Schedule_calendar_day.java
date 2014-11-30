@@ -5,6 +5,7 @@ public class Schedule_calendar_day {
 	private String day;
 	private boolean isToday = false;
 	private boolean inMonth = false;
+	private boolean infoGym = false;
 
 	// 날짜 반환
 	public String getDay() {
@@ -34,6 +35,16 @@ public class Schedule_calendar_day {
 	// 이번달의 날짜인지 정보를 저장
 	public void setInMonth(boolean inMonth) {
 		this.inMonth = inMonth;
+	}
+
+	// 운동정보가 존재하는 날인지 정보를 반환 
+	public boolean isInfoGym() {
+		return infoGym;
+	}
+	
+	// 운동정보가 존재하는지 저장
+	public void setInfoGym(boolean infoGym) {
+		this.infoGym = infoGym;
 	}
 
 }

@@ -88,19 +88,13 @@ public class Schedule_calendar_adapter extends BaseAdapter {
 
 			if (day.isInMonth()) {
 				dayViewHolder.Day.setTextColor(Color.BLACK);
-				//List<FreeData> InfoByDate = Profile.db.getFreeDatasByDate("'"
-				 //+ day.getInfo() + day.getDay() + "'");
-				// 디비에 정보가 있으면 동그라미표시해주기
-				//Log.v("check", day.getInfo()+day.getDay());
-				// String a = day.getInfo()+day.getDay();
-
-				// if(a.size()==true){
-				// dayViewHolder.Background
-				// .setBackgroundColor(Color.RED);
+				if (day.isInfoGym() && day.isToday() != true) {
+					dayViewHolder.Background
+					.setBackgroundResource(R.drawable.circle2);
+				}
+			} else {
+				dayViewHolder.Day.setTextColor(Color.LTGRAY);
 			}
-
-		} else {
-			dayViewHolder.Day.setTextColor(Color.LTGRAY);
 		}
 
 		return convertView;
