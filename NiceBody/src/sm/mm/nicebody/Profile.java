@@ -63,7 +63,7 @@ public class Profile extends Activity {
 			
 			tv_height.setText("  00 cm");
 			tv_weight.setText("  00 kg");
-			tv_name.setText(" 홍길동 ");
+			tv_name.setText(" 이름을 입력하세요 ");
 
 			Profile.db.dropProfileTable();
 			Profile.db.dropFreeTable();
