@@ -228,7 +228,10 @@
                 android:id="@+id/textNameResult_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
+                android:textSize="20sp"
                 android:text="친구명  " />
 
             <TextView
@@ -238,7 +241,7 @@
                 android:layout_below="@+id/linearLayout1"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp"
-                android:text="과의 공통공강시간입니다!"
+                android:text="님과의 공통공강시간입니다!"
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>

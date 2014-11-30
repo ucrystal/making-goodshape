@@ -6,10 +6,12 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -34,13 +36,43 @@ public class Time_check extends Activity {
 
 	List<ProfileData> profileDatas;
 
+	private Handler mHandler;
+    private ProgressDialog mProgressDialog;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.time_check);
 		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
 				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-
+		//로딩
+		mHandler = new Handler();
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mProgressDialog = ProgressDialog.show(Time_check.this,"", 
+                        "잠시만 기다려 주세요.",true);
+                mHandler.postDelayed( new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            if (mProgressDialog!=null&&mProgressDialog.isShowing()){
+                                mProgressDialog.dismiss();
+                            }
+                        }
+                        catch ( Exception e )
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 3000);
+            }
+        } );
 		customActionBar();
 		
 		profileDatas = new LinkedList<ProfileData>();
@@ -125,6 +157,19 @@ public class Time_check extends Activity {
 								int j = i+1;
 								dayString += "  " + j;
 							}
+						}
+						if(dayString=="") {
+							if(dayName=="monday")
+								mondayTxt.setText("");
+							else if(dayName=="tuesday")
+								tuesdayTxt.setText("");
+							else if(dayName=="wednesday")
+								wednesdayTxt.setText("");
+							else if(dayName=="thursday")
+								thursdayTxt.setText("");
+							else if(dayName=="friday")
+								fridayTxt.setText("");
+							return;
 						}
 						if(dayName=="monday")
 							mondayTxt.setText(dayString+" 교시");
