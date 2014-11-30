@@ -6,10 +6,12 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -36,6 +38,10 @@ public class Find_emptyTime extends Activity {
 	List<ProfileData> profileDatas;
 	private Toast parseToast;
 	private TextView searchedName;
+	
+	private Handler mHandler;
+    private ProgressDialog mProgressDialog;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +50,34 @@ public class Find_emptyTime extends Activity {
 		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
 				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
 
+		//로딩
+		mHandler = new Handler();
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mProgressDialog = ProgressDialog.show(Find_emptyTime.this,"", 
+                        "잠시만 기다려 주세요.",true);
+                mHandler.postDelayed( new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            if (mProgressDialog!=null&&mProgressDialog.isShowing()){
+                                mProgressDialog.dismiss();
+                            }
+                        }
+                        catch ( Exception e )
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, 3000);
+            }
+        } );
 		customActionBar();
 		
 		profileDatas = new LinkedList<ProfileData>();
@@ -63,6 +97,7 @@ public class Find_emptyTime extends Activity {
 		compareUserSchedule("wednesday",Find.search_name);
 		compareUserSchedule("thursday",Find.search_name);
 		compareUserSchedule("friday",Find.search_name);
+		
 	}
 
 	@Override
@@ -142,30 +177,33 @@ public class Find_emptyTime extends Activity {
 							//각 요일필드에 저장된 값을 불러올 때 true인 값의 인덱스+1을 출력
 							if (dayList_searcheduser.get(i) == false && dayList_currentuser.get(i) == false) {
 								j = i+1;
-								dayString += "  " + j;
-							} else {
-								if (dayName == "monday")
-									mondayCommon.setText("공강없음");
-								else if (dayName == "tuesday")
-									tuesdayCommon.setText("공강없음");
-								else if (dayName == "wednesday")
-									wednesdayCommon.setText("공강없음");
-								else if (dayName == "thursday")
-									thursdayCommon.setText("공강없음");
-								else if (dayName == "friday")	
-									fridayCommon.setText("공강없음");
+								dayString += "  "+ j;
 							}
 						}
+						if(dayString=="") {
 							if(dayName=="monday")
-								mondayCommon.setText(dayString+" 교시");
+								mondayCommon.setText("");
 							else if(dayName=="tuesday")
-								tuesdayCommon.setText(dayString+" 교시");
+								tuesdayCommon.setText("");
 							else if(dayName=="wednesday")
-								wednesdayCommon.setText(dayString+" 교시");
+								wednesdayCommon.setText("");
 							else if(dayName=="thursday")
-								thursdayCommon.setText(dayString+" 교시");
+								thursdayCommon.setText("");
 							else if(dayName=="friday")
-								fridayCommon.setText(dayString+" 교시");
+								fridayCommon.setText("");
+							return;
+						}
+						if(dayName=="monday")
+							mondayCommon.setText(dayString+" 교시");
+						else if(dayName=="tuesday")
+							tuesdayCommon.setText(dayString+" 교시");
+						else if(dayName=="wednesday")
+							wednesdayCommon.setText(dayString+" 교시");
+						else if(dayName=="thursday")
+							thursdayCommon.setText(dayString+" 교시");
+						else if(dayName=="friday") {
+							fridayCommon.setText(dayString+" 교시");
+					}
 							
 					} else if (dayList_currentuser == null) {
 						parseToast = Toast.makeText(getApplicationContext(), "시간표를 입력하고 다시 시도하세요.",Toast.LENGTH_LONG);
