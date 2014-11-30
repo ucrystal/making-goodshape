@@ -42,7 +42,7 @@ public class Time_menu extends Activity {
 			public void onClick(View v) {
 
 
-				Intent intent = new Intent(Time_menu.this, Main.class);
+				Intent intent = new Intent(Time_menu.this, Time_check.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 				finish();

@@ -51,7 +51,7 @@ public class Profile extends Activity {
 
 			tv_univ.setText("  우지만대학교");
 			tv_phone.setText("  821012346789");
-			tv_name.setText(" 홍길동 ");
+			tv_name.setText(" 이름 ");
 
 			Profile.db.dropProfileTable();
 			Profile.db.createProfileTable();

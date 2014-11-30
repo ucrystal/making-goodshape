@@ -9,9 +9,11 @@
     <string name=" title_activity_developer">developer</string>
     <string name=" title_activity_developer_mail">developer</string>
     <string name=" title_activity_time_menu">time table</string>
+
     <string name=" title_activity_find">search friends</string>
-    
     <string name="action_modify">modify</string>
     <string name="action_ok">ok</string>
+    <string name="title_activity_time_check">Time_check</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
