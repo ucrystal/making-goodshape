@@ -62,7 +62,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
-	
+
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
 
@@ -142,6 +142,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 			DayList.add(day);
 		}
+
 		for (int i = 1; i <= thisMonthLastDay; i++) {
 			day = new Schedule_calendar_day();
 			String Info_year = String.valueOf(ThisMonthCalendar
@@ -262,36 +263,34 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 						+ totalCount1 + "회"));
 			}
 			if (totalCount2 != 0) {
-				resultList.add(String
-						.valueOf("자유운동 : 닐링 레그 리프트     "
-								+ totalCount2 + "회"));
+				resultList.add(String.valueOf("자유운동 : 닐링 레그 리프트     "
+						+ totalCount2 + "회"));
 			}
 			if (totalCount3 != 0) {
 				resultList.add(String.valueOf("자유운동 : 레그레이즈      "
 						+ totalCount3 + "회"));
 			}
-			
+
 			String rec_s = "";
-			
-			if(Schedule_result_r.size() > 1){
-				
+
+			if (Schedule_result_r.size() > 1) {
+
 				for (int i = 1; i < Schedule_result_r.size(); i++) {
 
-					if (i < Schedule_result_r.size()-1)
-						rec_s += Schedule_result_r.get(i).getId()-1 + ", ";
-					else if (i == Schedule_result_r.size()-1)
-						rec_s += Schedule_result_r.get(i).getId()-1 + " ";
+					if (i < Schedule_result_r.size() - 1)
+						rec_s += Schedule_result_r.get(i).getId() - 1 + ", ";
+					else if (i == Schedule_result_r.size() - 1)
+						rec_s += Schedule_result_r.get(i).getId() - 1 + " ";
 				}
 
-				if(Schedule_result_r.size() > 1){
+				if (Schedule_result_r.size() > 1) {
 					resultList.add(String.valueOf("추천운동 성공 :              "
-							+ rec_s +"단계"));
+							+ rec_s + "단계"));
 				}
-			
+
 			}
-			
+
 		}
-		;
 
 		// 갱신
 		list_adapter.notifyDataSetChanged();
@@ -354,12 +353,10 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	@Override
 	public void finish() {
 		super.finish();
 	}
-
 
 	public void customActionBar() {
 		// Customize the ActionBar
@@ -385,10 +382,10 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
-	
+
 	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
+	public void onBackPressed() {
+		// super.onBackPressed();
+		backPressCloseHandler.onBackPressed();
+	}
 }
