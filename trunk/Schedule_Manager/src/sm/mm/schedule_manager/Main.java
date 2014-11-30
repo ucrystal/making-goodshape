@@ -48,6 +48,12 @@ public class Main extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				
+				Intent intent = new Intent(Main.this, Find.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
+				finish();
 
 			}
 		});
