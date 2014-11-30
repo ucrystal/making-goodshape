@@ -88,7 +88,7 @@ public class Schedule_calendar_adapter extends BaseAdapter {
 
 			if (day.isInMonth()) {
 				dayViewHolder.Day.setTextColor(Color.BLACK);
-				if (day.isInfoGym() && day.isToday() != true) {
+				if ((day.isInfoGym() == true) && (day.isToday() != true)) {
 					dayViewHolder.Background
 					.setBackgroundResource(R.drawable.circle2);
 				}
