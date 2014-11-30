@@ -144,16 +144,29 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		}
 		for (int i = 1; i <= thisMonthLastDay; i++) {
 			day = new Schedule_calendar_day();
+			String Info_year = String.valueOf(ThisMonthCalendar
+					.get(Calendar.YEAR));
+			String Info_month = String.valueOf(ThisMonthCalendar
+					.get(Calendar.MONTH) + 1);
+			String Info_date = Info_year + Info_month + String.valueOf(i);
+			List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
+					+ Info_date + "'");
+
 			day.setDay(Integer.toString(i));
 
 			ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
 			day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
 
 			day.setInMonth(true);
-
 			DayList.add(day);
 
+			if (Info_gym.size() > 0) {
+
+				day.setInfoGym(true);
+			}
+
 		}
+
 		for (int i = 1; i < 42 - (thisMonthLastDay + dayOfMonth - 1) + 1; i++) {
 			day = new Schedule_calendar_day();
 			day.setDay(Integer.toString(i));
@@ -339,6 +352,12 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+
+	@Override
+	public void finish() {
+		super.finish();
 	}
 
 
