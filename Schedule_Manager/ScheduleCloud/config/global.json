@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Univ_Schedule_Manager": {
+            "applicationId": "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m", 
+            "masterKey": "rue4OToxebta9NsZvCthBOH5GcqNs8u7LYmNuXZ1"
+        }, 
+        "_default": {
+            "link": "Univ_Schedule_Manager"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.2"
+    }
+}
