@@ -33,7 +33,7 @@ public class Find_question extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				Intent intent = new Intent(Find_question.this, Find_plus.class);
+				Intent intent = new Intent(Find_question.this, Find_emptyTime.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
