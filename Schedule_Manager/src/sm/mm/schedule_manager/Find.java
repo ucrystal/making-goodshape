@@ -1,5 +1,7 @@
 package sm.mm.schedule_manager;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,16 +13,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class Find extends Activity {
 
 	Button search_btn;
 	EditText search_et;
 	static String search_name;
-
+	private Toast parseToast;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,16 +44,32 @@ public class Find extends Activity {
 				
 				search_name = search_et.getText().toString();
 
-				Intent intent = new Intent(Find.this, Find_list.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter,
-						R.anim.default_start_exit);
-				finish();
-			}
+				ParseQuery<ParseUser> query = ParseUser.getQuery();
+				query.whereEqualTo("username",search_name.toString());
+				query.findInBackground(new FindCallback<ParseUser>() {
+					@Override
+					public void done(List<ParseUser> userList, ParseException e) {
+						if (e == null) {
+							if(userList.size()==0) {
+								parseToast = Toast.makeText(getApplicationContext(), "찾는 이름이 없습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
+								parseToast.show();
+								return;
+							}
+							Intent intent = new Intent(Find.this, Find_list.class);
+							startActivity(intent);
+							overridePendingTransition(R.anim.default_start_enter,
+									R.anim.default_start_exit);
+							finish();
+							
+						}
+					}
+				});
+					
+				}
 		});
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

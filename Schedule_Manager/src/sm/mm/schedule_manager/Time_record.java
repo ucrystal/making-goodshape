@@ -1,6 +1,8 @@
 package sm.mm.schedule_manager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -37,7 +41,9 @@ public class Time_record extends Activity {
 	CheckBox wedcb[] = new CheckBox[8];
 	CheckBox thucb[] = new CheckBox[8];
 	CheckBox fricb[] = new CheckBox[8];
-
+	
+	List<ProfileData> profileDatas;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,15 +134,21 @@ public class Time_record extends Activity {
 			// checkbox가 체크되어있는 여부에 따라 true or false값으로 저장
 			checkBoxToBool();
 
+			//ProfileData namebefore = profileDatas.get(profileDatas.size() - 1);
 			ParseUser user = ParseUser.getCurrentUser();
-			//먼저 데이터에 저장된 값이 있으면 지우고 다시 저장한다.
-			if(user.has("monday")) {
+			/*try {
+				user = ParseUser.logIn(namebefore.getName(), "");
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}*/
+			if(user.getList("monday")!=null) {
 				user.remove("monday");
 				user.remove("tuesday");
 				user.remove("wednesday");
 				user.remove("thursday");
 				user.remove("friday");
 			}
+			
 			user.saveInBackground();
 			// parse의 user객체의 값들 없데이트
 			// ParseQuery<ParseUser> query = ParseUser.getQuery();
