@@ -23,8 +23,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.parse.FunctionCallback;
+import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.PushService;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -92,6 +96,13 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
+		
+		Parse.initialize(this, "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried",
+				"AmAEA69L21vTTntYMLTInbiynU4DrsRtBGeXeuYL");
+		// Save the current Installation to Parse.
+		PushService.setDefaultPushCallback(this, Profile_modify.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+			
 
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
@@ -217,6 +228,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 			
 			
 			if (profileDatas.size() == 0) {
+				
+				initializePushNotification();
 				
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				// params.put("phoneNumber", "820142746727");
@@ -379,5 +392,14 @@ public class Profile_modify extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		// super.onBackPressed();
 		backPressCloseHandler.onBackPressed();
+	}
+	
+	public void initializePushNotification() {
+		ParseInstallation installation = ParseInstallation
+				.getCurrentInstallation();
+		
+		installation.put("phoneNumber", "821042746727");
+		installation.put("wantPush", true);
+		installation.saveInBackground();
 	}
 }

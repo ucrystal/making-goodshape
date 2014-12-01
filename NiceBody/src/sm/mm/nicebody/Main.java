@@ -7,6 +7,7 @@ import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.PushService;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -62,19 +63,17 @@ public class Main extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		
-	    Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1", "fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
-        initializePushNotification();
-
 		Profile.db = new FreeDatabase(this);
-
+		
+	
 		free_btn = (Button) findViewById(R.id.free_btn);
 		free_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
 				if (Profile.db.checkTable() == 0) {
-					mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용",
-							Toast.LENGTH_LONG);
+					mainToast = Toast.makeText(getApplicationContext(),
+							"프로필을 입력해주세용", Toast.LENGTH_LONG);
 					mainToast.show();
 					return;
 				}
@@ -92,14 +91,14 @@ public class Main extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				if (Profile.db.checkTable() == 0) {
-					mainToast = Toast.makeText(getApplicationContext(), "프로필을 입력해주세용",
-							Toast.LENGTH_LONG);
+					mainToast = Toast.makeText(getApplicationContext(),
+							"프로필을 입력해주세용", Toast.LENGTH_LONG);
 					mainToast.show();
 					return;
 				}
-				
+
 				Intent intent = new Intent(Main.this, Recommend_list.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
@@ -142,19 +141,11 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	public void initializePushNotification(){
-	    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-	    installation.put("phoneNumber","821042746727");
-	    installation.put("wantPush",true);
-	    installation.saveInBackground();
-	}
+
+
 
 	/*
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		android.os.Process.killProcess(android.os.Process.myPid());
-	}
-	*/
+	 * @Override public void onDestroy() { super.onDestroy();
+	 * android.os.Process.killProcess(android.os.Process.myPid()); }
+	 */
 }
