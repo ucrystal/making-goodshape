@@ -97,12 +97,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
 		
-		Parse.initialize(this, "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried",
-				"AmAEA69L21vTTntYMLTInbiynU4DrsRtBGeXeuYL");
-		// Save the current Installation to Parse.
-		PushService.setDefaultPushCallback(this, Profile_modify.class);
-		ParseInstallation.getCurrentInstallation().saveInBackground();
-			
 
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
