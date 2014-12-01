@@ -61,7 +61,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		setContentView(R.layout.schedule_calendar);
 
 		customActionBar();
-		backPressCloseHandler = new BackPressCloseHandler(this);
+		//backPressCloseHandler = new BackPressCloseHandler(this);
 
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
@@ -428,9 +428,4 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		abar.setHomeButtonEnabled(true);
 	}
 
-	@Override
-	public void onBackPressed() {
-		// super.onBackPressed();
-		backPressCloseHandler.onBackPressed();
-	}
 }

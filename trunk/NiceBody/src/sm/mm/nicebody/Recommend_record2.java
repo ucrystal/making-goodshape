@@ -20,11 +20,11 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 	private static final int MILLISINFUTURE = 50 * 1000;
 	private static final int COUNT_DOWN_INTERVAL = 1000;
 
-	int[][] arr = { { 1, 2, 1 }, { 2, 4, 3 }, { 3, 4, 4 }, { 4, 7, 6 },
-			{ 5, 10, 10 }, { 10, 18, 15 } };
-
+	private int[][] arr = { { 2, 2, 3 }, { 4, 5, 8 }, { 6, 8, 13 }, { 8, 11, 18 },
+			{ 10, 14, 23 }, { 12, 17, 28 } };
+	private int[] count = { 10, 20, 30, 40,	60, 80 };
 	private int playCheck = 0;
-	private int count = 50;
+	private int countShow;
 	private TextView countTxt;
 	private CountDownTimer countDownTimer;
 
@@ -52,6 +52,7 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
+									countDownTimer.cancel();
 									Intent intent = new Intent(Recommend_record2.this,
 											Recommend_fail.class);
 									startActivity(intent);
@@ -75,50 +76,25 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 		mSound = new Sound(this, R.raw.sound);
 		
 		countTxt = (TextView) findViewById(R.id.countTxt2);
-		countTxt.setText(String.valueOf(count) + "초");
 
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
 		fixedNum2 = (TextView) findViewById(R.id.fixedNum2);
 		fixedNum3 = (TextView) findViewById(R.id.fixedNum3);
+
 		if (Recommend_list.choiceCh == 1){
-			fixedNum1.setText("상체 " + arr[0][0]);
-			fixedNum2.setText(" 복부 " + arr[0][1]);
-			fixedNum3.setText(" 하체 " + arr[0][2]);
-		}else if (Recommend_list.choiceCh == 2){
-			fixedNum1.setText("상체 " + arr[1][0]);
-			fixedNum2.setText(" 복부 " + arr[1][1]);
-			fixedNum3.setText(" 하체 " + arr[1][2]);
-		}else if (Recommend_list.choiceCh == 3){
-			fixedNum1.setText("상체 " + arr[2][0]);
-			fixedNum2.setText(" 복부 " + arr[2][1]);
-			fixedNum3.setText(" 하체 " + arr[2][2]);
-		}else if (Recommend_list.choiceCh == 4){
-			fixedNum1.setText("상체 " + arr[3][0]);
-			fixedNum2.setText(" 복부 " + arr[3][1]);
-			fixedNum3.setText(" 하체 " + arr[3][2]);
-		}else if (Recommend_list.choiceCh == 5){
-			fixedNum1.setText("상체 " + arr[4][0]);
-			fixedNum2.setText(" 복부 " + arr[4][1]);
-			fixedNum3.setText(" 하체 " + arr[4][2]);
-		}else if (Recommend_list.choiceCh == 6){
-			fixedNum1.setText("상체 " + arr[5][0]);
-			fixedNum2.setText(" 복부 " + arr[5][1]);
-			fixedNum3.setText(" 하체 " + arr[5][2]);
+			countDownStart(1);
+		} else if (Recommend_list.choiceCh == 2){
+			countDownStart(2);
+		} else if (Recommend_list.choiceCh == 3){
+			countDownStart(3);
+		} else if (Recommend_list.choiceCh == 4){
+			countDownStart(4);
+		} else if (Recommend_list.choiceCh == 5){
+			countDownStart(5);
+		} else if (Recommend_list.choiceCh == 6){
+			countDownStart(6);
 		}
-
-		countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
-			public void onTick(long millisUntilFinished) {
-				playCheck = 1;
-				countTxt.setText(String.valueOf(count) + "초");
-				count--;
-			}
-
-			public void onFinish() {
-				playCheck = 2;
-				countTxt.setText(String.valueOf("도전실패"));
-			}
-		};
-
+		
 		start_btn = (Button) findViewById(R.id.recommend_play_btn2);
 		start_btn.setClickable(true);
 		start_btn.setOnClickListener(new Button.OnClickListener() {
@@ -204,72 +180,17 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 						
 						if (Recommend_list.choiceCh == 1) {
 							// 상체운동 성공 시 하체운동 페이지로 이동
-							if (printNum == arr[0][1]) {
-								recommend_countNum.setText("0" + printNum);
-								countDownTimer.cancel();
-								Intent intent = new Intent(
-										Recommend_record2.this,
-										Recommend_record3.class);
-								startActivity(intent);
-								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-								finish();
-							}
+							challengeSuccess(1);
 						} else if (Recommend_list.choiceCh == 2) {
-							if (printNum == arr[1][1]) {
-								recommend_countNum.setText("0" + printNum);
-								countDownTimer.cancel();
-								Intent intent = new Intent(
-										Recommend_record2.this,
-										Recommend_record3.class);
-								startActivity(intent);
-								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-								finish();
-							}
+							challengeSuccess(2);
 						} else if (Recommend_list.choiceCh == 3) {
-							if (printNum == arr[2][1]) {
-								recommend_countNum.setText("0" + printNum);
-								countDownTimer.cancel();
-								Intent intent = new Intent(
-										Recommend_record2.this,
-										Recommend_record3.class);
-								startActivity(intent);
-								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-								finish();
-							}
+							challengeSuccess(3);
 						} else if (Recommend_list.choiceCh == 4) {
-							if (printNum == arr[3][1]) {
-								recommend_countNum.setText("0" + printNum);
-								countDownTimer.cancel();
-								Intent intent = new Intent(
-										Recommend_record2.this,
-										Recommend_record3.class);
-								startActivity(intent);
-								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-								finish();
-							}
-
+							challengeSuccess(4);
 						} else if (Recommend_list.choiceCh == 5) {
-							if (printNum == arr[4][1]) {
-								recommend_countNum.setText("0" + printNum);
-								countDownTimer.cancel();
-								Intent intent = new Intent(
-										Recommend_record2.this,
-										Recommend_record3.class);
-								startActivity(intent);
-								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-								finish();
-							}
+							challengeSuccess(5);
 						} else if (Recommend_list.choiceCh == 6) {
-							if (printNum == arr[5][1]) {
-								recommend_countNum.setText("0" + printNum);
-								countDownTimer.cancel();
-								Intent intent = new Intent(
-										Recommend_record2.this,
-										Recommend_record3.class);
-								startActivity(intent);
-								overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-								finish();
-							}
+							challengeSuccess(6);
 						}
 
 						// 출력모양 설정
@@ -293,6 +214,40 @@ public class Recommend_record2 extends Activity implements SensorEventListener {
 			}
 		}
 
+	}
+	
+	void countDownStart(int choiceNb) {
+		final int index = choiceNb-1;
+		countShow = count[index];
+		fixedNum1.setText("상체 " + arr[index][0]);
+		fixedNum2.setText(" 복부 " + arr[index][1]);
+		fixedNum3.setText(" 하체 " + arr[index][2]);
+		countTxt.setText(String.valueOf(countShow) + "초");
+		
+		countDownTimer = new CountDownTimer(count[index]*1000, COUNT_DOWN_INTERVAL) {
+			public void onTick(long millisUntilFinished) {
+				playCheck = 1;
+				count[index]--;
+				countTxt.setText(String.valueOf(count[index]) + "초"); 
+			}
+
+			public void onFinish() {
+				playCheck = 2;
+				countTxt.setText(String.valueOf("도전실패"));
+			}
+		};
+	}
+
+	void challengeSuccess(int choiceNb) {
+		int index = choiceNb-1;
+		if (printNum == arr[index][1]) {
+			recommend_countNum.setText("0" + printNum);
+			countDownTimer.cancel();
+			Intent intent = new Intent(Recommend_record2.this,Recommend_record3.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+			finish();
+		}
 	}
 	
 
