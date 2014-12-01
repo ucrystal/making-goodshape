@@ -16,15 +16,13 @@ import android.widget.TextView;
 public class Free_explain extends Activity {
 
 	Button free_explain_next_btn;
-	private BackPressCloseHandler backPressCloseHandler;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		customActionBar();
-		backPressCloseHandler = new BackPressCloseHandler(this);
-
+		
 		if (Free_menu.choiceEx == 1)
 			setContentView(R.layout.free_pushup_explain);
 		else if (Free_menu.choiceEx == 2)
@@ -104,9 +102,5 @@ public class Free_explain extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
-	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
+
 }

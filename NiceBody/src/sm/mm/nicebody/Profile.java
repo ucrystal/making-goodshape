@@ -41,7 +41,7 @@ public class Profile extends Activity {
 		setContentView(R.layout.profile);
 
 		customActionBar();
-		backPressCloseHandler = new BackPressCloseHandler(this);
+		//backPressCloseHandler = new BackPressCloseHandler(this);
 	
 		tv_height = (TextView) findViewById(R.id.textView_height);
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
@@ -155,9 +155,4 @@ public class Profile extends Activity {
 		abar.setHomeButtonEnabled(true);
 	}
 
-	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
 }

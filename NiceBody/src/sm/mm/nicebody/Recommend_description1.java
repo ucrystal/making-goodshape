@@ -40,7 +40,7 @@ public class Recommend_description1 extends Activity {
 		backPressCloseHandler = new BackPressCloseHandler(this);
 		
 		recommend_btn1 = (Button)findViewById(R.id.recommendlist_btn1);
-		recommend_btn1.setBackgroundResource(R.drawable.btn_start);
+		//recommend_btn1.setBackgroundResource(R.drawable.btn_start);
 		recommend_btn1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {

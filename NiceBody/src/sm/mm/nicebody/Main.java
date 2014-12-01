@@ -82,7 +82,7 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				finish();
+				//finish();
 			}
 		});
 
@@ -103,7 +103,7 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				finish();
+				//finish();
 			}
 		});
 
@@ -116,7 +116,7 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				finish();
+				//finish();
 			}
 		});
 
@@ -129,7 +129,7 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				finish();
+				//finish();
 			}
 		});
 

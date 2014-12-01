@@ -56,7 +56,7 @@ public class Recommend_list extends Activity {
 		
 		customActionBar();
 
-		backPressCloseHandler = new BackPressCloseHandler(this);
+		//backPressCloseHandler = new BackPressCloseHandler(this);
 		
 		mLvData = (ListView) findViewById(R.id.ListView1);
 		mList = new ArrayList<Recommend_list_model>();
@@ -240,9 +240,5 @@ public class Recommend_list extends Activity {
 		abar.setHomeButtonEnabled(true);
 	}
 	
-	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
+
 }
