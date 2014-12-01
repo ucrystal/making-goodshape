@@ -142,7 +142,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 			DayList.add(day);
 		}
-		
 
 		for (int i = 1; i <= thisMonthLastDay; i++) {
 			day = new Schedule_calendar_day();
@@ -151,42 +150,54 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			String Info_month = String.valueOf(ThisMonthCalendar
 					.get(Calendar.MONTH) + 1);
 
-			if (i < 10) {
-				String Info_date = Info_year + Info_month + "0"
+			if (i < 10 && ThisMonthCalendar.get(Calendar.MONTH) < 10) {
+				String Info_date = Info_year + "0" + Info_month + "0"
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
-
-				day.setDay(Integer.toString(i));
-
-				ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
-				day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
-
-				day.setInMonth(true);
-				DayList.add(day);
 
 				if (Info_gym.size() > 0) {
 
 					day.setInfoGym(true);
 				}
-			} else if (i >= 10) {
-				String Info_date = Info_year + Info_month + String.valueOf(i);
+			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) < 10) {
+				String Info_date = Info_year + "0" + Info_month
+						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
 
-				day.setDay(Integer.toString(i));
+				if (Info_gym.size() > 0) {
 
-				ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
-				day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
+					day.setInfoGym(true);
+				}
+			} else if (i < 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
+				String Info_date = Info_year + Info_month + "0"
+						+ String.valueOf(i);
+				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
+						+ Info_date + "'");
 
-				day.setInMonth(true);
-				DayList.add(day);
+				if (Info_gym.size() > 0) {
+
+					day.setInfoGym(true);
+				}
+			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
+				String Info_date = Info_year + Info_month + String.valueOf(i);
+				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
+						+ Info_date + "'");
 
 				if (Info_gym.size() > 0) {
 
 					day.setInfoGym(true);
 				}
 			}
+
+			day.setDay(Integer.toString(i));
+
+			ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
+			day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
+
+			day.setInMonth(true);
+			DayList.add(day);
 
 		}
 
@@ -245,18 +256,21 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			String year = String.valueOf(ThisMonthCalendar.get(Calendar.YEAR));
 			String month = String
 					.valueOf(ThisMonthCalendar.get(Calendar.MONTH) + 1);
-			
+
 			String date_result = null;
-			if (Integer.parseInt(date) < 10 && Integer.parseInt(month) <10) {
+			if (Integer.parseInt(date) < 10 && Integer.parseInt(month) < 10) {
 				date_result = year + "0" + month + "0" + date;
-			}else if (Integer.parseInt(date) >= 10 && Integer.parseInt(month) <10) {
-				date_result = year + "0"+ month  + date;
-			}else if (Integer.parseInt(date) < 10 && Integer.parseInt(month) >= 10) {
+			} else if (Integer.parseInt(date) >= 10
+					&& Integer.parseInt(month) < 10) {
+				date_result = year + "0" + month + date;
+			} else if (Integer.parseInt(date) < 10
+					&& Integer.parseInt(month) >= 10) {
 				date_result = year + month + "0" + date;
-			}else if (Integer.parseInt(date) >= 10 && Integer.parseInt(month) >= 10) {
+			} else if (Integer.parseInt(date) >= 10
+					&& Integer.parseInt(month) >= 10) {
 				date_result = year + month + date;
 			}
-			
+
 			List<FreeData> Schedule_result = Profile.db.getFreeDatasByDate("'"
 					+ date_result + "'");
 

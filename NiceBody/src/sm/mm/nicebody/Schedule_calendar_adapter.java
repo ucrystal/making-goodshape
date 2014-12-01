@@ -90,7 +90,7 @@ public class Schedule_calendar_adapter extends BaseAdapter {
 				dayViewHolder.Day.setTextColor(Color.BLACK);
 				if ((day.isInfoGym() == true) && (day.isToday() != true)) {
 					dayViewHolder.Background
-					.setBackgroundResource(R.drawable.circle2);
+							.setBackgroundResource(R.drawable.circle2);
 				}
 			} else {
 				dayViewHolder.Day.setTextColor(Color.LTGRAY);
