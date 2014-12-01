@@ -142,6 +142,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 			DayList.add(day);
 		}
+		
 
 		for (int i = 1; i <= thisMonthLastDay; i++) {
 			day = new Schedule_calendar_day();
