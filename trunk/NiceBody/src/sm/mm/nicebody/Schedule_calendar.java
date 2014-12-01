@@ -149,21 +149,42 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 					.get(Calendar.YEAR));
 			String Info_month = String.valueOf(ThisMonthCalendar
 					.get(Calendar.MONTH) + 1);
-			String Info_date = Info_year + Info_month + String.valueOf(i);
-			List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
-					+ Info_date + "'");
 
-			day.setDay(Integer.toString(i));
+			if (i < 10) {
+				String Info_date = Info_year + Info_month + "0"
+						+ String.valueOf(i);
+				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
+						+ Info_date + "'");
 
-			ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
-			day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
+				day.setDay(Integer.toString(i));
 
-			day.setInMonth(true);
-			DayList.add(day);
+				ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
+				day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
 
-			if (Info_gym.size() > 0) {
+				day.setInMonth(true);
+				DayList.add(day);
 
-				day.setInfoGym(true);
+				if (Info_gym.size() > 0) {
+
+					day.setInfoGym(true);
+				}
+			} else if (i >= 10) {
+				String Info_date = Info_year + Info_month + String.valueOf(i);
+				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
+						+ Info_date + "'");
+
+				day.setDay(Integer.toString(i));
+
+				ThisMonthCalendar.set(Calendar.DAY_OF_MONTH, i);
+				day.setIsToday(isToday(todayCalendar, ThisMonthCalendar));
+
+				day.setInMonth(true);
+				DayList.add(day);
+
+				if (Info_gym.size() > 0) {
+
+					day.setInfoGym(true);
+				}
 			}
 
 		}
@@ -223,9 +244,18 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			String year = String.valueOf(ThisMonthCalendar.get(Calendar.YEAR));
 			String month = String
 					.valueOf(ThisMonthCalendar.get(Calendar.MONTH) + 1);
-
-			String date_result = year + month + date;
-
+			
+			String date_result = null;
+			if (Integer.parseInt(date) < 10 && Integer.parseInt(month) <10) {
+				date_result = year + "0" + month + "0" + date;
+			}else if (Integer.parseInt(date) >= 10 && Integer.parseInt(month) <10) {
+				date_result = year + "0"+ month  + date;
+			}else if (Integer.parseInt(date) < 10 && Integer.parseInt(month) >= 10) {
+				date_result = year + month + "0" + date;
+			}else if (Integer.parseInt(date) >= 10 && Integer.parseInt(month) >= 10) {
+				date_result = year + month + date;
+			}
+			
 			List<FreeData> Schedule_result = Profile.db.getFreeDatasByDate("'"
 					+ date_result + "'");
 

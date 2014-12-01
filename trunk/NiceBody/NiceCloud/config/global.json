@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "NiceBody": {
+            "applicationId": "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried", 
+            "masterKey": "tsAtoEJWMcJONKYsvBEn1HXXI8m3BkTnlpW4b7wC"
+        }, 
+        "_default": {
+            "link": "NiceBody"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.2"
+    }
+}
