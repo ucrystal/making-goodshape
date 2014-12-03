@@ -5,7 +5,7 @@ public class PromiseData {
 	private int id;
 	String name;
 	String p_day;
-	static String p_time;
+	String p_time;
 
 	public PromiseData(){}
 
@@ -37,7 +37,7 @@ public class PromiseData {
 		this.p_day = day;
 	}
 
-	public static String getTime() {
+	public String getTime() {
 		return p_time;
 	}
 	

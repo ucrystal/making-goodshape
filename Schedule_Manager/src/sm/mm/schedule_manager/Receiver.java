@@ -54,8 +54,8 @@ public class Receiver extends ParsePushBroadcastReceiver {
 				intent, 0);
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				context).setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle(Profile_modify.title)
-				.setContentText(Profile_modify.text);
+				.setContentTitle("우리 지금 만나")
+				.setContentText("우지만과 함께라면 편리한 공강 비교!!");
 		mBuilder.setContentIntent(contentIntent);
 		mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 		mBuilder.setAutoCancel(true);
