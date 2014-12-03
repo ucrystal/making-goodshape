@@ -29,7 +29,7 @@ public class Profile extends Activity {
 	TextView tv_weight;
 	TextView tv_name;
 
-	static FreeDatabase db;
+	static Database db;
 	static ImageView profilePhoto_default;
 
 	Button modifyPro_btn;

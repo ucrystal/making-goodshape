@@ -24,10 +24,8 @@ public class Pushinit extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-		//PushService.setDefaultPushCallback(this, Profile_modify.class);
-		//PushService.subscribe(this, "push", Profile_modify.class);
+		Parse.initialize(this, "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried",
+				"AmAEA69L21vTTntYMLTInbiynU4DrsRtBGeXeuYL");
 		ParseInstallation.getCurrentInstallation().saveInBackground();
 		
 	
