@@ -8,7 +8,9 @@ import com.parse.FunctionCallback;
 import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+
 
 
 import android.app.ActionBar;
@@ -37,6 +39,11 @@ public class Find_plus extends Activity {
 		setContentView(R.layout.find_plus);
 		
 		ParseObject testObject;
+		
+		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
+				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+		
 
         testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");

@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -33,6 +35,11 @@ public class Find extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find);
+		
+		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
+				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+		
 		
 		customActionBar();
 		search_et = (EditText) findViewById(R.id.editFind);
