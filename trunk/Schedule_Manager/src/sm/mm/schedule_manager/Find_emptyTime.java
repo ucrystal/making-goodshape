@@ -52,10 +52,6 @@ public class Find_emptyTime extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_emptytime);
-		
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-
 		//·Îµù
 		mHandler = new Handler();
         runOnUiThread(new Runnable()
