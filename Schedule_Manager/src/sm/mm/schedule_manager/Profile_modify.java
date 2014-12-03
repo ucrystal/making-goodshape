@@ -236,7 +236,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 							}
 						});
 			}
-			//프로필을 수정하는 게 처음이 아닐 경우
+		/*	//프로필을 수정하는 게 처음이 아닐 경우
 			else {
 				//가장 최근 유저를 불러옴
 				ParseUser currentUser = ParseUser.getCurrentUser();
@@ -255,7 +255,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 					parseToast = Toast.makeText(getApplicationContext(), "프로필이 서버에 저장되지 않았습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
 					parseToast.show();					
 				}
-			}
+			}*/
 			
 			//local db에 값 저장하기
 			ProfileData pd = new ProfileData(name, univ, phone, imageInByte);

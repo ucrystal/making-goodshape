@@ -53,8 +53,14 @@ public class Find extends Activity {
 					@Override
 					public void done(List<ParseUser> userList, ParseException e) {
 						if (e == null) {
+							ParseUser currentUser = ParseUser.getCurrentUser();
 							if(userList.size()==0) {
 								parseToast = Toast.makeText(getApplicationContext(), "찾는 이름이 없습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
+								parseToast.show();
+								return;
+							}
+							if (userList.get(0).getString("username")==currentUser.getString("username")) {
+								parseToast = Toast.makeText(getApplicationContext(), "본인계정입니다. 다시 시도하세요.",Toast.LENGTH_LONG);
 								parseToast.show();
 								return;
 							}

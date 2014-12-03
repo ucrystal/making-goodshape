@@ -54,47 +54,58 @@ public class Find_question extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_question);
-		
+
 		customActionBar();
 		name_result = (TextView)findViewById(R.id.textNameResult);
 		name_result.setText(Find.search_name);
-		
-		String searchName = Find.search_name;
-		searchName.trim();
-		
-		ParseQuery<ParseUser> query = ParseUser.getQuery();
-		query.whereEqualTo("username",searchName.toString());
-		query.findInBackground(new FindCallback<ParseUser>() {
-			@Override
-			public void done(List<ParseUser> userList, ParseException e) {
 				
-				if (e == null) {
-					for(int i=0; i<userList.size(); i++) {
-						String otherUsername, otherUserPhone;
-						ParseObject p = userList.get(i);
-						info_s[1] = p.getString("username");
-						info_s[2] = p.getString("phoneNumber");
-						
-					}
-				} else {
-					Log.v("test", "Error: " + e.getMessage());
-					// Alert.alertOneBtn(getActivity(),"Something went wrong!");
-				}
-
-						
-			}
-		});
-		
 		search_result_btn = (Button) findViewById(R.id.result_btn);
 		search_result_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
-				Intent intent = new Intent(Find_question.this, Find_emptyTime.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter,
-						R.anim.default_start_exit);
-				finish();
+				String searchName = Find.search_name;
+				searchName.trim();
+				ParseQuery<ParseUser> query = ParseUser.getQuery();
+				query.whereEqualTo("username",searchName.toString());
+				query.findInBackground(new FindCallback<ParseUser>() {
+					@Override
+					public void done(List<ParseUser> userList, ParseException e) {
+						
+						if (e == null) {
+							ParseUser currentUser = ParseUser.getCurrentUser();
+							//for(int i=0; i<userList.size(); i++) {
+								ParseObject p = userList.get(0);
+								info_s[1] = p.getString("username");
+								info_s[2] = p.getString("phoneNumber");
+								if (p.getList("monday")==null&&p.getList("tuesday")==null&&p.getList("wednesday")==null&&p.getList("thursday")==null&&p.getList("friday")==null) {
+
+									parseToast = Toast.makeText(
+											getApplicationContext(),
+											"상대방이 시간표를 입력하지 않았습니다.",
+											Toast.LENGTH_SHORT);
+									parseToast.show();
+									return;
+
+								}
+
+								if (currentUser.getList("monday")==null&&currentUser.getList("tuesday")==null&&currentUser.getList("wednesday")==null&&currentUser.getList("thursday")==null&&currentUser.getList("friday")==null) {
+									parseToast = Toast.makeText(
+											getApplicationContext(),
+											"시간표를 입력하고 다시 시도하세요.",
+											Toast.LENGTH_SHORT);
+									parseToast.show();
+									return;
+								}
+								Intent intent = new Intent(Find_question.this,
+										Find_emptyTime.class);
+								startActivity(intent);
+								overridePendingTransition(
+										R.anim.default_start_enter,
+										R.anim.default_start_exit);
+								finish();
+							}
+						}
+					});
 			}
 		});
 		
