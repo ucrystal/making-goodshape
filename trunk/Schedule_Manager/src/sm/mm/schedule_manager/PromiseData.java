@@ -3,9 +3,9 @@ package sm.mm.schedule_manager;
 public class PromiseData {
 	
 	private int id;
-	private String name;
-	private String p_day;
-	private String p_time;
+	String name;
+	String p_day;
+	static String p_time;
 
 	public PromiseData(){}
 
@@ -37,7 +37,7 @@ public class PromiseData {
 		this.p_day = day;
 	}
 
-	public String getTime() {
+	public static String getTime() {
 		return p_time;
 	}
 	

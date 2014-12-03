@@ -1,5 +1,6 @@
 package sm.mm.schedule_manager;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,77 +41,99 @@ public class Find_emptyTime extends Activity {
 
 	private Button make_app;
 	List<ProfileData> profileDatas;
+	List<PromiseData> promiseDatas;
 	private Toast parseToast;
 	private TextView searchedName;
 	static String emptyDay, emptyTime;
 
-	
 	private Handler mHandler;
-    private ProgressDialog mProgressDialog;
-    
+	private ProgressDialog mProgressDialog;
+
+	List<Boolean> dayarr;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_emptytime);
-		//로딩
+
+		// 로딩
 		mHandler = new Handler();
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                mProgressDialog = ProgressDialog.show(Find_emptyTime.this,"", 
-                        "잠시만 기다려 주세요.",true);
-                mHandler.postDelayed( new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        try
-                        {
-                            if (mProgressDialog!=null&&mProgressDialog.isShowing()){
-                                mProgressDialog.dismiss();
-                            }
-                        }
-                        catch ( Exception e )
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 3000);
-            }
-        } );
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mProgressDialog = ProgressDialog.show(Find_emptyTime.this, "",
+						"잠시만 기다려 주세요.", true);
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							if (mProgressDialog != null
+									&& mProgressDialog.isShowing()) {
+								mProgressDialog.dismiss();
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}, 3000);
+			}
+		});
 		customActionBar();
+
+		dayarr = new ArrayList<Boolean>();
 		
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
 
+		promiseDatas = new LinkedList<PromiseData>();
+		promiseDatas = Profile.db.getAllPromiseDatas();
+		
 		mondayCommon = (TextView) findViewById(R.id.mon_common);
 		tuesdayCommon = (TextView) findViewById(R.id.tue_common);
 		wednesdayCommon = (TextView) findViewById(R.id.wed_common);
 		thursdayCommon = (TextView) findViewById(R.id.thu_common);
 		fridayCommon = (TextView) findViewById(R.id.fri_common);
-		
-		make_app = (Button)findViewById(R.id.make_app);
-		empty_ed = (EditText)findViewById(R.id.empty_editDay);
-		empty_et = (EditText)findViewById(R.id.empty_editTime);
-		
-		compareUserSchedule("monday",Find.search_name);
-		compareUserSchedule("tuesday",Find.search_name);
-		compareUserSchedule("wednesday",Find.search_name);
-		compareUserSchedule("thursday",Find.search_name);
-		compareUserSchedule("friday",Find.search_name);
-		
+
+		make_app = (Button) findViewById(R.id.make_app);
+		empty_ed = (EditText) findViewById(R.id.empty_editDay);
+		empty_et = (EditText) findViewById(R.id.empty_editTime);
+
+		compareUserSchedule("monday", Find.search_name);
+		compareUserSchedule("tuesday", Find.search_name);
+		compareUserSchedule("wednesday", Find.search_name);
+		compareUserSchedule("thursday", Find.search_name);
+		compareUserSchedule("friday", Find.search_name);
+
 		make_app = (Button) findViewById(R.id.make_app);
 		make_app.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				emptyDay = empty_ed.getText().toString();
 				emptyTime = empty_et.getText().toString();
+
+				PromiseData promiseData = new PromiseData(Find_question.info_s[1], emptyDay, emptyTime);
+				PromiseData promiseBefore = promiseDatas.get(0);
 				
-				PromiseData promiseData = new PromiseData(Find_question.info_s[1],emptyDay,emptyTime);
+				if(promiseDatas.size() != 0) {
+					for(int i=0; i<promiseDatas.size(); i++) {
+						promiseBefore = promiseDatas.get(i);
+						if(promiseBefore.getDay().toString().equals(promiseData.getDay().toString()) && promiseBefore.getTime().toString().equals(promiseData.getTime().toString())) {
+							parseToast = Toast.makeText(getApplicationContext(), "같은 시간에 약속이 잡혀있습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
+							parseToast.show();
+							return;	
+						}
+					}
+				}
+				/*dayarr = arrayOfCommonSchedule("monday", Find.search_name);
+				int index = Integer.parseInt(PromiseData.getTime());
+				Log.v("test",dayarr.get(index).toString());
+				if(dayarr != null && dayarr.get(index-1) != false) {
+					parseToast = Toast.makeText(getApplicationContext(), "공통공강시간이 아닙니다. 다시 시도하세요.",Toast.LENGTH_LONG);
+					parseToast.show();
+					return;	
+				}*/
 				Profile.db.addPromiseData(promiseData);
+				
 				
 				Intent intent = new Intent(Find_emptyTime.this, Find_plus.class);
 				startActivity(intent);
@@ -119,7 +142,7 @@ public class Find_emptyTime extends Activity {
 				finish();
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -165,14 +188,15 @@ public class Find_emptyTime extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
-	
+
 	void compareUserSchedule(final String dayName, String searchName) {
-		//현재 로컬사용자의 프로필 받아와서 이름 비교
-		final ProfileData namebefore = profileDatas.get(profileDatas.size() - 1);
-		
+		// 현재 로컬사용자의 프로필 받아와서 이름 비교
+		final ProfileData namebefore = profileDatas
+				.get(profileDatas.size() - 1);
+
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
-		
-		//query.whereEqualTo("username", namebefore.getName());
+
+		// query.whereEqualTo("username", namebefore.getName());
 		query.whereEqualTo("username", searchName);
 		query.findInBackground(new FindCallback<ParseUser>() {
 			@Override
@@ -184,61 +208,104 @@ public class Find_emptyTime extends Activity {
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					
+
+					List<Boolean> dayList_searcheduser = new ArrayList<Boolean>();
+					List<Boolean> dayList_currentuser = new ArrayList<Boolean>();
+
+					ParseObject p = userList.get(0);
+					dayList_searcheduser = p.getList(dayName);
+					dayList_currentuser = currentUser.getList(dayName);
+
+					String dayString = ""; // 출력될 값 저장하는 스트링변수 초기화
+					int j = 0;
+					if (dayList_searcheduser != null && dayList_currentuser != null) {
+						for (int i = 0; i < 8; i++) {
+							// 각 요일필드에 저장된 값을 불러올 때 true인 값의 인덱스+1을 출력
+							if (dayList_searcheduser.get(i) == false && dayList_currentuser.get(i) == false) {
+								j = i + 1;
+								dayString += "  " + j;
+							}
+						}
+						if (dayString == "") {
+							if (dayName == "monday")
+								mondayCommon.setText("");
+							else if (dayName == "tuesday")
+								tuesdayCommon.setText("");
+							else if (dayName == "wednesday")
+								wednesdayCommon.setText("");
+							else if (dayName == "thursday")
+								thursdayCommon.setText("");
+							else if (dayName == "friday")
+								fridayCommon.setText("");
+							return;
+						}
+						if (dayName == "monday")
+							mondayCommon.setText(dayString + " 교시");
+						else if (dayName == "tuesday")
+							tuesdayCommon.setText(dayString + " 교시");
+						else if (dayName == "wednesday")
+							wednesdayCommon.setText(dayString + " 교시");
+						else if (dayName == "thursday")
+							thursdayCommon.setText(dayString + " 교시");
+						else if (dayName == "friday") {
+							fridayCommon.setText(dayString + " 교시");
+						}
+					} else {
+						Log.v("test", "Error: " + e.getMessage());
+						// Alert.alertOneBtn(getActivity(),"Something went wrong!");
+					}
+				}
+			}
+		});
+	}
+	
+	List<Boolean> arrayOfCommonSchedule(final String dayName, String searchName) {
+		// 현재 로컬사용자의 프로필 받아와서 이름 비교
+		final ProfileData namebefore = profileDatas.get(profileDatas.size() - 1);
+		final List<Boolean> resultarr = new ArrayList<Boolean>();
+		ParseQuery<ParseUser> query = ParseUser.getQuery();
+
+		query.whereEqualTo("username", searchName);
+		query.findInBackground(new FindCallback<ParseUser>() {
+			@SuppressWarnings("null")
+			@Override
+			public void done(List<ParseUser> userList, ParseException e) {
+				if (e == null) {
+					ParseUser currentUser = ParseUser.getCurrentUser();
+					try {
+						currentUser = ParseUser.logIn(namebefore.getName(), "");
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+
 					List<Boolean> dayList_searcheduser = new ArrayList<Boolean>();
 					List<Boolean> dayList_currentuser = new ArrayList<Boolean>();
 					
 					ParseObject p = userList.get(0);
 					dayList_searcheduser = p.getList(dayName);
 					dayList_currentuser = currentUser.getList(dayName);
-					
-					String dayString = ""; //출력될 값 저장하는 스트링변수 초기화
-					int j = 0;
+
+					//String dayString = ""; // 출력될 값 저장하는 스트링변수 초기화
+					//int j = 0;
 					if (dayList_searcheduser != null && dayList_currentuser != null) {
 						for (int i = 0; i < 8; i++) {
-							//각 요일필드에 저장된 값을 불러올 때 true인 값의 인덱스+1을 출력
+							// 각 요일필드에 저장된 값을 불러올 때 true인 값의 인덱스+1을 출력
 							if (dayList_searcheduser.get(i) == false && dayList_currentuser.get(i) == false) {
-								j = i+1;
-								dayString += "  "+ j;
-							}
+								//j = i + 1;
+								resultarr.add(i, false);
+								
+								//dayString += "  " + j;
+							} else
+								resultarr.add(i, true);
 						}
-						if(dayString=="") {
-							if(dayName=="monday")
-								mondayCommon.setText("");
-							else if(dayName=="tuesday")
-								tuesdayCommon.setText("");
-							else if(dayName=="wednesday")
-								wednesdayCommon.setText("");
-							else if(dayName=="thursday")
-								thursdayCommon.setText("");
-							else if(dayName=="friday")
-								fridayCommon.setText("");
-							return;
-						}
-						if(dayName=="monday")
-							mondayCommon.setText(dayString+" 교시");
-						else if(dayName=="tuesday")
-							tuesdayCommon.setText(dayString+" 교시");
-						else if(dayName=="wednesday")
-							wednesdayCommon.setText(dayString+" 교시");
-						else if(dayName=="thursday")
-							thursdayCommon.setText(dayString+" 교시");
-						else if(dayName=="friday") {
-							fridayCommon.setText(dayString+" 교시");
+						
+					} else {
+						Log.v("test", "Error: " + e.getMessage());
+						// Alert.alertOneBtn(getActivity(),"Something went wrong!");
 					}
-							
-					} else if (dayList_currentuser == null) {
-						parseToast = Toast.makeText(getApplicationContext(), "시간표를 입력하고 다시 시도하세요.",Toast.LENGTH_LONG);
-						parseToast.show();
-					} else if (dayList_searcheduser == null) {
-						parseToast = Toast.makeText(getApplicationContext(), "상대방이 시간표를 입력하지 않았습니다.",Toast.LENGTH_LONG);
-						parseToast.show();
-					}
-				} else {
-					Log.v("test", "Error: " + e.getMessage());
-					// Alert.alertOneBtn(getActivity(),"Something went wrong!");
 				}
 			}
 		});
+		return resultarr;
 	}
 }
