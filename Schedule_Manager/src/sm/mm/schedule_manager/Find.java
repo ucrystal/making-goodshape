@@ -55,7 +55,7 @@ public class Find extends Activity {
 								parseToast.show();
 								return;
 							}
-							Intent intent = new Intent(Find.this, Find_list.class);
+							Intent intent = new Intent(Find.this, Find_question.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.default_start_enter,
 									R.anim.default_start_exit);

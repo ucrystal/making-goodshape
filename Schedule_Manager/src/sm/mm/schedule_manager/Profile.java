@@ -54,7 +54,9 @@ public class Profile extends Activity {
 			tv_name.setText(" ¿Ã∏ß ");
 
 			Profile.db.dropProfileTable();
+			Profile.db.dropPromiseTable();
 			Profile.db.createProfileTable();
+			Profile.db.createPromiseTable();
 
 		} else if (db.checkTable() == 1) {
 

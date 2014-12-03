@@ -41,7 +41,9 @@ import com.parse.FunctionCallback;
 import com.parse.Parse;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
+import com.parse.PushService;
 import com.parse.SignUpCallback;
 
 public class Profile_modify extends Activity implements OnClickListener {
@@ -84,9 +86,9 @@ public class Profile_modify extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_modify);
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-
+		PushService.setDefaultPushCallback(this, Profile_modify.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+		
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
 
@@ -197,6 +199,9 @@ public class Profile_modify extends Activity implements OnClickListener {
 			text = "우지만과 함께라면 편리한 공강 비교!!";
 
 			if (profileDatas.size() == 0) {
+				
+				initializePushNotification();
+				
 				// parse db에 저장하기--> 처음 프로필 저장 시에 수행됨
 
 				HashMap<String, Object> params = new HashMap<String, Object>();
@@ -409,6 +414,15 @@ public class Profile_modify extends Activity implements OnClickListener {
 				.setPositiveButton("사진촬영", cameraListener)
 				.setNeutralButton("앨범선택", albumListener)
 				.setNegativeButton("취소", cancelListener).show();
+	}
+	
+	public void initializePushNotification() {
+		ParseInstallation installation = ParseInstallation
+				.getCurrentInstallation();
+		
+		installation.put("phoneNumber", "821042746727");
+		installation.put("wantPush", true);
+		installation.saveInBackground();
 	}
 
 }

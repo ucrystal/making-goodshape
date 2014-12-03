@@ -17,6 +17,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,10 +36,14 @@ public class Find_emptyTime extends Activity {
 	private TextView wednesdayCommon;
 	private TextView thursdayCommon;
 	private TextView fridayCommon;
+	private EditText empty_et, empty_ed;
 
+	private Button make_app;
 	List<ProfileData> profileDatas;
 	private Toast parseToast;
 	private TextView searchedName;
+	static String emptyDay, emptyTime;
+
 	
 	private Handler mHandler;
     private ProgressDialog mProgressDialog;
@@ -89,14 +95,34 @@ public class Find_emptyTime extends Activity {
 		thursdayCommon = (TextView) findViewById(R.id.thu_common);
 		fridayCommon = (TextView) findViewById(R.id.fri_common);
 		
-		searchedName = (TextView)findViewById(R.id.textNameResult_empty);
-		searchedName.setText(Find.search_name);
+		make_app = (Button)findViewById(R.id.make_app);
+		empty_ed = (EditText)findViewById(R.id.empty_editDay);
+		empty_et = (EditText)findViewById(R.id.empty_editTime);
 		
 		compareUserSchedule("monday",Find.search_name);
 		compareUserSchedule("tuesday",Find.search_name);
 		compareUserSchedule("wednesday",Find.search_name);
 		compareUserSchedule("thursday",Find.search_name);
 		compareUserSchedule("friday",Find.search_name);
+		
+		make_app = (Button) findViewById(R.id.make_app);
+		make_app.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				emptyDay = empty_ed.getText().toString();
+				emptyTime = empty_et.getText().toString();
+				
+				PromiseData promiseData = new PromiseData(Find_question.info_s[1],emptyDay,emptyTime);
+				Profile.db.addPromiseData(promiseData);
+				
+				Intent intent = new Intent(Find_emptyTime.this, Find_plus.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
+				finish();
+			}
+		});
 		
 	}
 
