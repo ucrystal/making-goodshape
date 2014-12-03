@@ -73,8 +73,9 @@ public class Find_list extends Activity {
 		if(PromiseDatas.size() != 0){
 			
 			int p_size = PromiseDatas.size() - 1;
-			PromiseData promise_d = PromiseDatas.get(p_size);
 			for(int i =0; i<PromiseDatas.size(); i++){
+				
+				PromiseData promise_d = PromiseDatas.get(i);
 				
 				Person p1 = new Person(String.valueOf(promise_d.getId()), promise_d.getName(), promise_d.getDay(), promise_d.getTime());
 				m_orders.add(p1);
