@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import java.util.HashMap;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -45,31 +50,49 @@ public class Find_list extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_list);
+		
+		/*
+		//restApi();
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("date", "2014-12-03T13:30:00Z");
+		//12월 3일 22시 10분 - 12월 3일 13시 10분
+		//12월 4일 7시 10분 - 12월 3일 22시 10분
+		
+		ParseCloud.callFunctionInBackground("testPush", params, new FunctionCallback<String>() {
+            public void done(String result, ParseException e) {
+                if (e == null) {
+                    Log.v("parseTest", "sms result: <" + result + ">");
+                }else{
+                	 Log.v("parseTest", "sms result: <" + result + ">");
+                }
+            }
+        });
 
+*/
 		customActionBar();
 
 		lv_name = (ListView) findViewById(R.id.ListView1);
 		selectedImageId = 0;
 
 		final ArrayList<Person> m_orders = new ArrayList<Person>();
-		
+
 		PromiseDatas = new LinkedList<PromiseData>();
 		PromiseDatas = Profile.db.getAllPromiseDatas();
 
-		if(PromiseDatas.size() != 0){
-			
+		if (PromiseDatas.size() != 0) {
+
 			int p_size = PromiseDatas.size() - 1;
-			for(int i =0; i<PromiseDatas.size(); i++){
-				
+			for (int i = 0; i < PromiseDatas.size(); i++) {
+
 				PromiseData promise_d = PromiseDatas.get(i);
-				
-				Person p1 = new Person(String.valueOf(promise_d.getId()), promise_d.getName(), promise_d.getDay(), promise_d.getTime());
+
+				Person p1 = new Person(String.valueOf(promise_d.getId()),
+						promise_d.getName(), promise_d.getDay(),
+						promise_d.getTime());
 				m_orders.add(p1);
 			}
 
-			
 		}
-		
 		final PersonAdapter m_adapter = new PersonAdapter(Find_list.this,
 				R.layout.row, m_orders);
 
@@ -77,8 +100,9 @@ public class Find_list extends Activity {
 		lv_name.setAdapter(m_adapter);
 
 		lv_name.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-				
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+
 				name_tvfl = m_orders.get(position).getName();
 				Log.v("test", name_tvfl);
 				final String value = m_orders.get(position).getId();
@@ -86,7 +110,16 @@ public class Find_list extends Activity {
 				DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						 Profile.db.deletePromise(value); 
+						Log.v("삭제 확인", value+"값");
+						
+						Profile.db.deletePromise(value);
+						
+						PromiseDatas = new LinkedList<PromiseData>();
+						PromiseDatas = Profile.db.getAllPromiseDatas();
+						for(int i =0; i<PromiseDatas.size(); i++){
+							Log.v("삭제 확인", PromiseDatas.get(i).getName());
+						}
+						
 					}
 				};
 
@@ -97,11 +130,11 @@ public class Find_list extends Activity {
 					}
 				};
 
-				new AlertDialog.Builder(Find_list.this).setTitle("약속을 삭제하시겠습니까?")
+				new AlertDialog.Builder(Find_list.this)
+						.setTitle("약속을 삭제하시겠습니까?")
 						.setNeutralButton("약속 삭제", albumListener)
 						.setNegativeButton("삭제 취소", cancelListener).show();
-				
-				
+
 			}
 		});
 
@@ -132,7 +165,8 @@ public class Find_list extends Activity {
 					tt.setText(p.getName());
 				}
 				if (bt != null) {
-					bt.setText(p.getDay()+"요일, "+p.getTime()+"교시에 약속이 잡혀있습니다.");
+					bt.setText(p.getDay() + "요일, " + p.getTime()
+							+ "교시에 약속이 잡혀있습니다.");
 				}
 			}
 			return v;
@@ -156,7 +190,7 @@ public class Find_list extends Activity {
 		public String getId() {
 			return Name;
 		}
-		
+
 		public String getName() {
 			return Name;
 		}
@@ -164,7 +198,7 @@ public class Find_list extends Activity {
 		public String getDay() {
 			return Day;
 		}
-		
+
 		public String getTime() {
 			return Time;
 		}
@@ -214,5 +248,6 @@ public class Find_list extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+
 
 }

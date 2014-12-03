@@ -193,8 +193,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			// Profile.profilePhoto_default.setImageBitmap(photo);
 
-			title = "우리 지금 만나";
-			text = "우지만과 함께라면 편리한 공강 비교!!";
 
 			if (profileDatas.size() == 0) {
 				
