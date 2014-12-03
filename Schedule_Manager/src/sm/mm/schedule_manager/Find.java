@@ -35,11 +35,7 @@ public class Find extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find);
-		
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-		ParseInstallation.getCurrentInstallation().saveInBackground();
-		
+
 		
 		customActionBar();
 		search_et = (EditText) findViewById(R.id.editFind);

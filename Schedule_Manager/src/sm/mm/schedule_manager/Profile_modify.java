@@ -51,7 +51,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 	Button button_con;
 
 	String univ;
-	String phone;
+	static String phone;
 	String name = "프로필을 입력해주세요.";
 	String email;
 
@@ -86,10 +86,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_modify);
-
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-		ParseInstallation.getCurrentInstallation().saveInBackground();
 		
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
@@ -227,7 +223,9 @@ public class Profile_modify extends Activity implements OnClickListener {
 					}
 				});
 
+				
 				HashMap<String, Object> params = new HashMap<String, Object>();
+				params.put( "request", phone );
 				ParseCloud.callFunctionInBackground("notify", params,
 						new FunctionCallback<String>() {
 							public void done(String result, ParseException e) {
@@ -420,7 +418,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 		ParseInstallation installation = ParseInstallation
 				.getCurrentInstallation();
 		
-		installation.put("phoneNumber", "821042746727");
+		installation.put("phoneNumber", phone);
 		installation.put("wantPush", true);
 		installation.saveInBackground();
 	}

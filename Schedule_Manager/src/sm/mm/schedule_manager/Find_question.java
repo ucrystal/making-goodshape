@@ -55,11 +55,6 @@ public class Find_question extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_question);
 		
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-		
-		
-		
 		customActionBar();
 		name_result = (TextView)findViewById(R.id.textNameResult);
 		name_result.setText(Find.search_name);
