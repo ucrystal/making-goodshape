@@ -69,7 +69,7 @@ public class Find_list extends Activity {
 
 			
 		}
-	
+		
 		final PersonAdapter m_adapter = new PersonAdapter(Find_list.this,
 				R.layout.row, m_orders);
 
