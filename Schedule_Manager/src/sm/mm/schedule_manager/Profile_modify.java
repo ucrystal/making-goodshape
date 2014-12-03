@@ -225,7 +225,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 				
 				HashMap<String, Object> params = new HashMap<String, Object>();
-				params.put( "request", phone );
+				params.put( "phone", phone );
 				ParseCloud.callFunctionInBackground("notify", params,
 						new FunctionCallback<String>() {
 							public void done(String result, ParseException e) {
