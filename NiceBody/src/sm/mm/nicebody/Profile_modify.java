@@ -218,9 +218,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			title = "¸ö¸Å°¡ ¿¹»µgym";
 			text = "¿ì¸®¿Í ÇÔ²² °Ç°­ÇÑ ¸ö¸Å ¸¸µé¾îºÁ¿ä ^0^";
-
-			
-			
 			if (profileDatas.size() == 0) {
 				
 				initializePushNotification();

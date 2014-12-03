@@ -63,7 +63,7 @@ public class Main extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		
-		Profile.db = new FreeDatabase(this);
+		Profile.db = new Database(this);
 		
 	
 		free_btn = (Button) findViewById(R.id.free_btn);
