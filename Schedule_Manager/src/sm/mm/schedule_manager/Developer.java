@@ -5,18 +5,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Developer extends Activity{
 	
 	Button ask_btn;
+	ImageView developerBg;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,6 +27,18 @@ public class Developer extends Activity{
 		
 		customActionBar();
 
+		developerBg = (ImageView) findViewById (R.id.developer_page);
+		developerBg.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				Uri uri = Uri.parse("http://www.sookmyung.ac.kr");
+				 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				 startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				finish();
+			}
+		});
 		ask_btn = (Button) findViewById(R.id.ask_btn);
 		ask_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
