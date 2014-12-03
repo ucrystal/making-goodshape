@@ -11,10 +11,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 
 
-
-
-
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -51,6 +47,8 @@ public class Find_plus extends Activity {
         plus_time = (TextView)findViewById(R.id.plus_time);
         
         plus_name.setText(Find_list.info_s[1]);
+        plus_day.setText(Find_emptyTime.emptyDay);
+        plus_time.setText(Find_emptyTime.emptyTime);
 
 
 		customActionBar();
@@ -68,6 +66,7 @@ public class Find_plus extends Activity {
 		                }
 		            }
 		        });
+		        
 		        
 		        List<ProfileData> ProfileDatas = new LinkedList<ProfileData>();
 				ProfileDatas = Profile.db.getAllProfileDatas();
@@ -146,4 +145,7 @@ public class Find_plus extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
+
+
+	
 }

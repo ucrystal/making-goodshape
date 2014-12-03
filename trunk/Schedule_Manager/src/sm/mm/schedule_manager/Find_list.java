@@ -1,12 +1,13 @@
 package sm.mm.schedule_manager;
 
 import java.util.ArrayList;
-
-
-
-
-
+import java.util.LinkedList;
 import java.util.List;
+
+
+
+
+
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -17,8 +18,10 @@ import com.parse.ParseUser;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -41,73 +44,77 @@ import android.widget.AdapterView.OnItemClickListener;
 public class Find_list extends Activity {
 
 	ListView lv_name;
+	int selectedImageId;
+	String name_tvfl;
+	List<PromiseData> PromiseDatas;
 
 	ArrayList<String> arrList;
 	ArrayAdapter<String> myAdapter;
-	static String info_s[] = new String [3]; 
-	//id, 이름, 전화번호 저장하기 -> 나중에 데이터 비교용으로 쓰일 것
+	static String info_s[] = new String[3];
+	// id, 이름, 전화번호 저장하기 -> 나중에 데이터 비교용으로 쓰일 것
 
 	private Toast parseToast;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_list);
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m",
-				"g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-		
+
 		customActionBar();
-		
+
 		lv_name = (ListView) findViewById(R.id.ListView1);
+		selectedImageId = 0;
+
+		final ArrayList<Person> m_orders = new ArrayList<Person>();
 		
-		String searchName = Find.search_name;
-		searchName.trim();
-		
-		ParseQuery<ParseUser> query = ParseUser.getQuery();
-		query.whereEqualTo("username",searchName.toString());
-		query.findInBackground(new FindCallback<ParseUser>() {
-			@Override
-			public void done(List<ParseUser> userList, ParseException e) {
-				ArrayList<Person> m_orders = new ArrayList<Person>();
-				if (e == null) {
-					for(int i=0; i<userList.size(); i++) {
-						String otherUsername, otherUserPhone;
-						ParseObject p = userList.get(i);
-						otherUsername = p.getString("username");
-						Log.v("test",otherUsername);
-						otherUserPhone = p.getString("phoneNumber");
-						Person p1 = new Person(otherUsername, otherUserPhone);
-						
-						m_orders.add(p1);
-					}
-				} else {
-					Log.v("test", "Error: " + e.getMessage());
-					// Alert.alertOneBtn(getActivity(),"Something went wrong!");
-				}
-				final PersonAdapter m_adapter = new PersonAdapter(Find_list.this, R.layout.row, m_orders);
-				//mCustomAdapter = new Recommend_Adapter(this, R.layout.recommend_list_item, mList);
-				// 어댑터를 생성합니다.
-				lv_name.setAdapter(m_adapter);
+		PromiseDatas = new LinkedList<PromiseData>();
+		PromiseDatas = Profile.db.getAllPromiseDatas();
+
+		if(PromiseDatas.size() != 0){
+			
+			int p_size = PromiseDatas.size() - 1;
+			PromiseData promise_d = PromiseDatas.get(p_size);
+			for(int i =0; i<PromiseDatas.size(); i++){
 				
-				lv_name.setOnItemClickListener(new OnItemClickListener() {
-					public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-						
-						//Person choice_p = m_orders.get(position);
-						Person choice_p = m_adapter.items.get(position);
+				Person p1 = new Person(String.valueOf(promise_d.getId()), promise_d.getName(), promise_d.getDay(), promise_d.getTime());
+				m_orders.add(p1);
+			}
 
-						info_s[0] = "1";
-						info_s[1] =choice_p.getName(); 
-						info_s[2] =choice_p.getNumber(); 
+			
+		}
+	
+		final PersonAdapter m_adapter = new PersonAdapter(Find_list.this,
+				R.layout.row, m_orders);
 
-						
-						Intent intent = new Intent(Find_list.this, Find_question.class);
-						startActivity(intent);
-						overridePendingTransition(R.anim.default_start_enter,
-								R.anim.default_start_exit);
-						finish();
+		// 어댑터를 생성합니다.
+		lv_name.setAdapter(m_adapter);
 
+		lv_name.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+				
+				name_tvfl = m_orders.get(position).getName();
+				Log.v("test", name_tvfl);
+				final String value = m_orders.get(position).getId();
+
+				DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						 Profile.db.deletePromise(value); 
 					}
-				});
+				};
+
+				DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				};
+
+				new AlertDialog.Builder(Find_list.this).setTitle("약속을 삭제하시겠습니까?")
+						.setNeutralButton("약속 삭제", albumListener)
+						.setNegativeButton("삭제 취소", cancelListener).show();
+				
+				
 			}
 		});
 
@@ -138,7 +145,7 @@ public class Find_list extends Activity {
 					tt.setText(p.getName());
 				}
 				if (bt != null) {
-					bt.setText("전화번호: " + p.getNumber());
+					bt.setText(p.getDay()+"요일, "+p.getTime()+"교시에 약속이 잡혀있습니다.");
 				}
 			}
 			return v;
@@ -147,24 +154,36 @@ public class Find_list extends Activity {
 
 	class Person {
 
+		private String id;
 		private String Name;
-		private String Number;
+		private String Day;
+		private String Time;
 
-		public Person(String _Name, String _Number) {
+		public Person(String id, String _Name, String _Day, String _Time) {
+			this.id = id;
 			this.Name = _Name;
-			this.Number = _Number;
+			this.Day = _Day;
+			this.Time = _Time;
 		}
 
+		public String getId() {
+			return Name;
+		}
+		
 		public String getName() {
 			return Name;
 		}
 
-		public String getNumber() {
-			return Number;
+		public String getDay() {
+			return Day;
+		}
+		
+		public String getTime() {
+			return Time;
 		}
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -208,5 +227,5 @@ public class Find_list extends Activity {
 		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
-	
+
 }

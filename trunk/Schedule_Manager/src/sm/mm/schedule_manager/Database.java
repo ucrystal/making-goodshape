@@ -26,7 +26,9 @@ public class Database extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), univ VARCHAR(10), phone VARCHAR(10), photo BLOB)";
+		String CREATE_PROMISE_TABLE = "CREATE TABLE IF NOT EXISTS promises (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), p_day VARCHAR(10), p_time VARCHAR(10))";
 		db.execSQL(CREATE_PROFILE_TABLE);
+		db.execSQL(CREATE_PROMISE_TABLE);
 	}
 
 	// 테이블 존재 여부 확인
@@ -68,6 +70,13 @@ public class Database extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS profiles");
 		db.close();
 	}
+	
+	public void dropPromiseTable() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS promises");
+		db.close();
+	}
+
 
 	public void createIndex() {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -77,7 +86,14 @@ public class Database extends SQLiteOpenHelper {
 
 	public void createProfileTable() {
 		SQLiteDatabase db = this.getWritableDatabase();
-		String CREATE_PROFILE_TABLE = "CREATE TABLE profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), univ VARCHAR(10), phone INTEGER VARCHAR(10), photo BLOB)";
+		String CREATE_PROFILE_TABLE = "CREATE TABLE profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), univ VARCHAR(10), phone VARCHAR(10), photo BLOB)";
+		db.execSQL(CREATE_PROFILE_TABLE);
+		db.close();
+	}
+	
+	public void createPromiseTable() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String CREATE_PROFILE_TABLE = "CREATE TABLE promises (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), p_day VARCHAR(3), p_time VARCHAR(3))";
 		db.execSQL(CREATE_PROFILE_TABLE);
 		db.close();
 	}
@@ -151,6 +167,56 @@ public class Database extends SQLiteOpenHelper {
 		}
 		return ProfileDatas;
 	}
+	
+	////약속 함수 생성
+	
+	private static final String TABLE_PROMISES = "promises";
+	private static final String KEY_DAY = "p_day";
+	private static final String KEY_TIME = "p_time";
+
+	// private static final String[] P_COLUMNS = { KEY_ID,
+	// KEY_TYPE, KEY_COUNT, KEY_DATE };
+
+	public void addPromiseData(PromiseData promiseData) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_NAME, promiseData.getName());
+		values.put(KEY_DAY, promiseData.getDay());
+		values.put(KEY_TIME, promiseData.getTime());
+		db.insert(TABLE_PROMISES, null, values);
+		db.close();
+	}
+	
+	public List<PromiseData> getAllPromiseDatas() {
+		List<PromiseData> PromiseDatas = new LinkedList<PromiseData>();
+		String query = "SELECT  * FROM " + TABLE_PROMISES;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		PromiseData PromiseData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				PromiseData= new PromiseData();
+				PromiseData.setName(cursor.getString(1));
+				PromiseData.setDay(cursor.getString(2));
+				PromiseData.setTime(cursor.getString(3));
+	
+				PromiseDatas.add(PromiseData);
+			} while (cursor.moveToNext());
+		}
+		return PromiseDatas;
+	}
+
+	public void deletePromise(String id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_PROMISES,
+				KEY_ID+" = ?",
+				new String[] { id });
+		db.close();
+	}
+
 
 
 }

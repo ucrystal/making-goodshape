@@ -1,27 +1,27 @@
 package sm.mm.schedule_manager;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
 public class Main extends Activity {
 	Button time_btn, find_btn, list_btn, profile_btn, info_btn;
+	Toast mainToast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		Parse.initialize(this, "JSemUvMrzikXlTudSXUZEqpwhpJomzymZIXnMK0m", "g244BplyVOkZ5tZc0fkXKoDHz2SjXfC6iAXaYH8l");
-		//Parse.initialize(this, "X5FUfboYlxLwgVL0DO6b2TXVJOPtc6Yj3TSs7Un1", "fUqCluAQOhwRyxGCE5y5mb7cuu8HVCMabxw6nlz4");
-
-		initializePushNotification();
  
 		Profile.db = new Database(this);
 		ActionBar actionBar = getActionBar();
@@ -31,6 +31,14 @@ public class Main extends Activity {
 		time_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+
+				if (Profile.db.checkTable() == 0) {
+					mainToast = Toast.makeText(getApplicationContext(),
+							"프로필을 입력해주세용", Toast.LENGTH_LONG);
+					mainToast.show();
+					return;
+				}
 				
 				Intent intent = new Intent(Main.this, Time_menu.class);
 				startActivity(intent);
@@ -47,6 +55,14 @@ public class Main extends Activity {
 			@Override
 			public void onClick(View v) {
 				
+
+				if (Profile.db.checkTable() == 0) {
+					mainToast = Toast.makeText(getApplicationContext(),
+							"프로필을 입력해주세용", Toast.LENGTH_LONG);
+					mainToast.show();
+					return;
+				}
+				
 				Intent intent = new Intent(Main.this, Find.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
@@ -60,6 +76,20 @@ public class Main extends Activity {
 		list_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				List<PromiseData> PromiseDatas = new LinkedList<PromiseData>();
+				PromiseDatas = Profile.db.getAllPromiseDatas();
+				
+				if(PromiseDatas.size() == 0){
+					mainToast = Toast.makeText(getApplicationContext(),
+							"예정된 약속이 없습니다.", Toast.LENGTH_LONG);
+					mainToast.show();
+					return;
+				}
+				Intent intent = new Intent(Main.this, Find_list.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 
 			}
 		});
@@ -94,11 +124,4 @@ public class Main extends Activity {
 		});
 	}
 
-	public void initializePushNotification() {
-		ParseInstallation installation = ParseInstallation
-				.getCurrentInstallation();
-		installation.put("phoneNumber", "821096627226");
-		installation.put("wantPush", true);
-		installation.saveInBackground();
-	}
 }

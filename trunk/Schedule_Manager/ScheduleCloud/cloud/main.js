@@ -29,7 +29,7 @@ Parse.Cloud.define("testSms", function(request, callback){
 
 Parse.Cloud.define("notify", function(request, response){
 	var query = new Parse.Query(Parse.Installation);
-	query.equalTo('phoneNumber', '821042746727');
+	query.equalTo('phoneNumber', '821096627226');
 	query.equalTo('wantPush', true);
 	Parse.Push.send(
 		{
