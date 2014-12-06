@@ -3,8 +3,8 @@ package sm.mm.schedule_manager;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import java.util.HashMap;
+
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -51,24 +51,6 @@ public class Find_list extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_list);
 		
-		/*
-		//restApi();
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("date", "2014-12-03T13:30:00Z");
-		//12월 3일 22시 10분 - 12월 3일 13시 10분
-		//12월 4일 7시 10분 - 12월 3일 22시 10분
-		
-		ParseCloud.callFunctionInBackground("testPush", params, new FunctionCallback<String>() {
-            public void done(String result, ParseException e) {
-                if (e == null) {
-                    Log.v("parseTest", "sms result: <" + result + ">");
-                }else{
-                	 Log.v("parseTest", "sms result: <" + result + ">");
-                }
-            }
-        });
-
-*/
 		customActionBar();
 
 		lv_name = (ListView) findViewById(R.id.ListView1);
@@ -85,14 +67,19 @@ public class Find_list extends Activity {
 			for (int i = 0; i < PromiseDatas.size(); i++) {
 
 				PromiseData promise_d = PromiseDatas.get(i);
-
-				Person p1 = new Person(String.valueOf(promise_d.getId()),
+				String is =String.valueOf(promise_d.getId());
+				Log.v("삭제 확인", "id값"+is);
+				
+				Person p1 = new Person(is,
 						promise_d.getName(), promise_d.getDay(),
 						promise_d.getTime());
 				m_orders.add(p1);
 			}
 
 		}
+		
+		Log.v("삭제 확인", "값"+m_orders.size());
+		
 		final PersonAdapter m_adapter = new PersonAdapter(Find_list.this,
 				R.layout.row, m_orders);
 
@@ -105,6 +92,7 @@ public class Find_list extends Activity {
 
 				name_tvfl = m_orders.get(position).getName();
 				Log.v("test", name_tvfl);
+				Log.v("삭제 확인", "값"+m_orders.get(position).getId());
 				final String value = m_orders.get(position).getId();
 
 				DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
@@ -112,13 +100,21 @@ public class Find_list extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						Log.v("삭제 확인", value+"값");
 						
-						Profile.db.deletePromise(value);
-						
 						PromiseDatas = new LinkedList<PromiseData>();
 						PromiseDatas = Profile.db.getAllPromiseDatas();
-						for(int i =0; i<PromiseDatas.size(); i++){
-							Log.v("삭제 확인", PromiseDatas.get(i).getName());
-						}
+						Log.v("삭제 전", "삭제전:"+PromiseDatas.size());
+						
+						Profile.db.deletePromise(value);
+						
+						PromiseDatas = Profile.db.getAllPromiseDatas();
+						Log.v("삭제 후", "삭제후:"+PromiseDatas.size());
+						
+						Intent intent = new Intent(Find_list.this, Find_list.class);
+						startActivity(intent);
+						overridePendingTransition(R.anim.default_start_enter,
+								R.anim.default_start_exit);
+						finish();
+						
 						
 					}
 				};
@@ -188,7 +184,7 @@ public class Find_list extends Activity {
 		}
 
 		public String getId() {
-			return Name;
+			return id;
 		}
 
 		public String getName() {

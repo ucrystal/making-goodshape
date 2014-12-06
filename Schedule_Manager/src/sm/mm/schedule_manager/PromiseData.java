@@ -2,7 +2,7 @@ package sm.mm.schedule_manager;
 
 public class PromiseData {
 	
-	private int id;
+	int id;
 	String name;
 	String p_day;
 	String p_time;
