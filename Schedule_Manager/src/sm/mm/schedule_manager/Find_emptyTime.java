@@ -112,10 +112,11 @@ public class Find_emptyTime extends Activity {
 				emptyTime = empty_et.getText().toString();
 
 				PromiseData promiseData = new PromiseData(Find_question.info_s[1], emptyDay, emptyTime);
-				PromiseData promiseBefore = promiseDatas.get(0);
+				//PromiseData promiseBefore = promiseDatas.get(0);
 				
 				if(promiseDatas.size() != 0) {
 					for(int i=0; i<promiseDatas.size(); i++) {
+						PromiseData promiseBefore;
 						promiseBefore = promiseDatas.get(i);
 						if(promiseBefore.getDay().toString().equals(promiseData.getDay().toString()) && promiseBefore.getTime().toString().equals(promiseData.getTime().toString())) {
 							parseToast = Toast.makeText(getApplicationContext(), "같은 시간에 약속이 잡혀있습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
