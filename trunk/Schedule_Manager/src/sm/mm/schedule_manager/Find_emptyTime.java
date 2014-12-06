@@ -115,6 +115,7 @@ public class Find_emptyTime extends Activity {
 				//PromiseData promiseBefore = promiseDatas.get(0);
 				
 				if(promiseDatas.size() != 0) {
+					//PromiseData promiseBefore = promiseDatas.get(0);
 					for(int i=0; i<promiseDatas.size(); i++) {
 						PromiseData promiseBefore;
 						promiseBefore = promiseDatas.get(i);
