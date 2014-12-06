@@ -197,31 +197,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 			if (profileDatas.size() == 0) {
 				
 				initializePushNotification();
-				
-				// parse db에 저장하기--> 처음 프로필 저장 시에 수행됨
-				final ParseUser user = new ParseUser();
-				user.setUsername(name);
-				user.setPassword("");
-				user.put("phoneNumber",phone);
-				user.signUpInBackground(new SignUpCallback() {
-					public void done(ParseException e) {
-						if (e == null) {
-							parseToast = Toast.makeText(getApplicationContext(), "서버에 저장되었습니다",Toast.LENGTH_LONG);
-							parseToast.show();
-							String objectId = user.getObjectId();
-							if (objectId != null) {
-								s_objectId = objectId;
-								Log.v("test", objectId);
-							} else
-								Log.v("test", "NONONONONONO");
-						} else {
-							parseToast = Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG);
-							parseToast.show();
-						}
-					}
-				});
-
-				
+					
 				HashMap<String, Object> params = new HashMap<String, Object>();
 				params.put( "phone", phone );
 				ParseCloud.callFunctionInBackground("notify", params,
@@ -255,10 +231,36 @@ public class Profile_modify extends Activity implements OnClickListener {
 				}
 			}*/
 			
+			// parse db에 저장하기--> 처음 프로필 저장 시에 수행됨
+			final ParseUser user = new ParseUser();
+			user.setUsername(name);
+			user.setPassword("");
+			user.put("phoneNumber",phone);
+			user.signUpInBackground(new SignUpCallback() {
+				public void done(ParseException e) {
+					if (e == null) {
+						parseToast = Toast.makeText(getApplicationContext(), "서버에 저장되었습니다",Toast.LENGTH_LONG);
+						parseToast.show();
+						String objectId = user.getObjectId();
+						if (objectId != null) {
+							s_objectId = objectId;
+							Log.v("test", objectId);
+						} else
+							Log.v("test", "NONONONONONO");
+					} else {
+						parseToast = Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG);
+						parseToast.show();
+						Intent intent = new Intent(Profile_modify.this, Profile_modify.class);
+						startActivity(intent);
+						finish();
+					}
+				}
+			});
+			
+	
 			//local db에 값 저장하기
 			ProfileData pd = new ProfileData(name, univ, phone, imageInByte);
 			Profile.db.addProfileData(pd);
-
 			intent = new Intent(Profile_modify.this, Profile.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter,
