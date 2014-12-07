@@ -23,10 +23,13 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
  
+		
 		Profile.db = new Database(this);
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
+		//Profile.db.dropPromiseTable();
+		//Profile.db.createPromiseTable();
 		time_btn = (Button) findViewById(R.id.time_btn);
 		time_btn.setOnClickListener(new View.OnClickListener() {
 			@Override

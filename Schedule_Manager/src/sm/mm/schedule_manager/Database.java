@@ -199,6 +199,7 @@ public class Database extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				PromiseData= new PromiseData();
+				PromiseData.setId(Integer.parseInt(cursor.getString(0)));
 				PromiseData.setName(cursor.getString(1));
 				PromiseData.setDay(cursor.getString(2));
 				PromiseData.setTime(cursor.getString(3));
@@ -211,6 +212,7 @@ public class Database extends SQLiteOpenHelper {
 
 	public void deletePromise(String id) {
 		SQLiteDatabase db = this.getWritableDatabase();
+		
 		db.delete(TABLE_PROMISES,
 				KEY_ID+" = ?",
 				new String[] { id });
