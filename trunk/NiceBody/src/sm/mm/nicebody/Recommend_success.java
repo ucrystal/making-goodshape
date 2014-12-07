@@ -49,6 +49,9 @@ public class Recommend_success extends Activity {
 		if (Recommend_result.size() == 0) {
 			RecommendData recommendData = new RecommendData(1);
 			Profile.db.openNext(recommendData);
+			
+			List<RecommendData> Recommend_results = Profile.db.getAllRecommendDatas();
+			Log.v("Test", "리스트 사이즈 : "+Recommend_results.size());
 		}
 		
 		Log.v("Test", "추천운동성공여부는"+Recommend_result.size());
