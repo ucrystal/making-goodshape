@@ -11,9 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.parse.Parse;
-import com.parse.ParseInstallation;
-
 public class Main extends Activity {
 	Button time_btn, find_btn, list_btn, profile_btn, info_btn;
 	Toast mainToast;
