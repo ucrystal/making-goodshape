@@ -67,6 +67,9 @@ public class Profile_modify extends Activity implements OnClickListener {
 	EditText editEmail;
 	Toast toast;
 
+	// 0은 오류가 없는 경우
+	static int check_e;
+
 	byte[] imageInByte;
 
 	// 사진 가져오는 변수
@@ -86,7 +89,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile_modify);
-		
+
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
 
@@ -193,13 +196,12 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			// Profile.profilePhoto_default.setImageBitmap(photo);
 
-
 			if (profileDatas.size() == 0) {
-				
+
 				initializePushNotification();
-					
+
 				HashMap<String, Object> params = new HashMap<String, Object>();
-				params.put( "phone", phone );
+				params.put("phone", phone);
 				ParseCloud.callFunctionInBackground("notify", params,
 						new FunctionCallback<String>() {
 							public void done(String result, ParseException e) {
@@ -210,36 +212,35 @@ public class Profile_modify extends Activity implements OnClickListener {
 							}
 						});
 			}
-		/*	//프로필을 수정하는 게 처음이 아닐 경우
-			else {
-				//가장 최근 유저를 불러옴
-				ParseUser currentUser = ParseUser.getCurrentUser();
-				if (currentUser != null) {
-					try {
-						//로컬디비에 저장된 이전 프로필의 이름(namebefore)을 검색
-						ProfileData namebefore = profileDatas.get(profileDatas.size() - 2);
-						currentUser = ParseUser.logIn(namebefore.getName(), ""); //이름 & 패스워드
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					currentUser.setUsername(name); //현재 사용자가 입력한 값 저장
-					currentUser.put("phoneNumber", phone);
-					currentUser.saveInBackground(); // This succeeds, since the user was authenticated on the device
-				} else {
-					parseToast = Toast.makeText(getApplicationContext(), "프로필이 서버에 저장되지 않았습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
-					parseToast.show();					
-				}
-			}*/
+			/*
+			 * //프로필을 수정하는 게 처음이 아닐 경우 else { //가장 최근 유저를 불러옴 ParseUser
+			 * currentUser = ParseUser.getCurrentUser(); if (currentUser !=
+			 * null) { try { //로컬디비에 저장된 이전 프로필의 이름(namebefore)을 검색 ProfileData
+			 * namebefore = profileDatas.get(profileDatas.size() - 2);
+			 * currentUser = ParseUser.logIn(namebefore.getName(), ""); //이름 &
+			 * 패스워드 } catch (ParseException e) { e.printStackTrace(); }
+			 * currentUser.setUsername(name); //현재 사용자가 입력한 값 저장
+			 * currentUser.put("phoneNumber", phone);
+			 * currentUser.saveInBackground(); // This succeeds, since the user
+			 * was authenticated on the device } else { parseToast =
+			 * Toast.makeText(getApplicationContext(),
+			 * "프로필이 서버에 저장되지 않았습니다. 다시 시도하세요.",Toast.LENGTH_LONG);
+			 * parseToast.show(); } }
+			 */
 			
+			
+
+			check_e = 0;
 			// parse db에 저장하기--> 처음 프로필 저장 시에 수행됨
 			final ParseUser user = new ParseUser();
 			user.setUsername(name);
 			user.setPassword("");
-			user.put("phoneNumber",phone);
+			user.put("phoneNumber", phone);
 			user.signUpInBackground(new SignUpCallback() {
 				public void done(ParseException e) {
 					if (e == null) {
-						parseToast = Toast.makeText(getApplicationContext(), "서버에 저장되었습니다",Toast.LENGTH_LONG);
+						parseToast = Toast.makeText(getApplicationContext(),
+								"서버에 저장되었습니다", Toast.LENGTH_LONG);
 						parseToast.show();
 						String objectId = user.getObjectId();
 						if (objectId != null) {
@@ -247,25 +248,67 @@ public class Profile_modify extends Activity implements OnClickListener {
 							Log.v("test", objectId);
 						} else
 							Log.v("test", "NONONONONONO");
-					} else {
-						parseToast = Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_LONG);
-						parseToast.show();
-						Intent intent = new Intent(Profile_modify.this, Profile_modify.class);
+
+						ProfileData pd = new ProfileData(name, univ, phone,
+								imageInByte);
+						Profile.db.addProfileData(pd);
+						Log.v("test", "디비저장되니 : " + check_e);
+						Intent intent = new Intent(Profile_modify.this,
+								Profile.class);
 						startActivity(intent);
-						finish();
+						overridePendingTransition(R.anim.default_start_enter,
+								R.anim.default_start_exit);
+
+					} else {
+						// parseToast = Toast.makeText(getApplicationContext(),
+						// e.getMessage(),Toast.LENGTH_LONG);
+
+						List<ProfileData> ProfileDatas = new LinkedList<ProfileData>();
+						ProfileDatas = Profile.db.getAllProfileDatas();
+						int d_size = ProfileDatas.size() - 1;
+						ProfileData profile_pd = ProfileDatas.get(d_size);
+						if (profile_pd.getName().equals(name)) {
+							
+							ParseUser currentUser = ParseUser.getCurrentUser();
+							try {
+								currentUser = ParseUser.logIn(name, "");
+								currentUser.put("phoneNumber", phone);
+								currentUser.saveInBackground();
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
+							Intent intent = new Intent(Profile_modify.this,
+									Profile.class);
+							startActivity(intent);
+							overridePendingTransition(
+									R.anim.default_start_enter,
+									R.anim.default_start_exit);
+						} else {
+							parseToast = Toast.makeText(
+									getApplicationContext(),
+									"동일한 사용자가 존재합니다. 다른 이름을 입력해주세요!",
+									Toast.LENGTH_LONG);
+							parseToast.show();
+							check_e = 1;
+							Log.v("test", "테스트1 : " + check_e);
+						}
+
 					}
 				}
 			});
-			
-	
-			//local db에 값 저장하기
-			ProfileData pd = new ProfileData(name, univ, phone, imageInByte);
-			Profile.db.addProfileData(pd);
-			intent = new Intent(Profile_modify.this, Profile.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.default_start_enter,
-					R.anim.default_start_exit);
-			finish();
+			/*
+			 * if (check_e == 0) { // local db에 값 저장하기 ProfileData pd = new
+			 * ProfileData(name, univ, phone, imageInByte);
+			 * Profile.db.addProfileData(pd); Log.v("test", "디비저장되니 : " +
+			 * check_e); intent = new Intent(Profile_modify.this,
+			 * Profile.class); startActivity(intent);
+			 * overridePendingTransition(R.anim.default_start_enter,
+			 * R.anim.default_start_exit); finish(); } else if (check_e == 1) {
+			 * Log.v("test", "브레이크안뜨니 : " + check_e); break; } Log.v("test",
+			 * "테스트2 : " + check_e);
+			 */
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -413,11 +456,11 @@ public class Profile_modify extends Activity implements OnClickListener {
 				.setNeutralButton("앨범선택", albumListener)
 				.setNegativeButton("취소", cancelListener).show();
 	}
-	
+
 	public void initializePushNotification() {
 		ParseInstallation installation = ParseInstallation
 				.getCurrentInstallation();
-		
+
 		installation.put("phoneNumber", phone);
 		installation.put("wantPush", true);
 		installation.saveInBackground();
