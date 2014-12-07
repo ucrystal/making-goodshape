@@ -125,6 +125,7 @@ public class Free_record extends Activity implements SensorEventListener {
 				
 				ch.setBase(SystemClock.elapsedRealtime());
 				timeWhenStopped = 0;
+				ch.stop();
 			}
 		});
 

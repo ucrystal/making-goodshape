@@ -5,7 +5,6 @@ public class Calorie{
 	private static double calCalorie;
 	static ProfileData cal_pd = Profile.db.getProfileData(); 
 	
-	
 	public static double cal_fushUp(int exerciseNum) {
 
 		calCalorie = cal_pd.getHeight() / 100

@@ -61,7 +61,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		setContentView(R.layout.schedule_calendar);
 
 		customActionBar();
-		//backPressCloseHandler = new BackPressCloseHandler(this);
+		// backPressCloseHandler = new BackPressCloseHandler(this);
 
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
@@ -276,6 +276,8 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 			List<RecommendData> Schedule_result_r = Profile.db
 					.getRecommendDatasByDate("'" + date_result + "'");
+			List<RecommendData> Schedule_check = Profile.db
+					.getAllRecommendDatas();
 
 			// Log.i("gym", "onItemClick()");
 			// Log.i("gym", "position =" + position);
@@ -317,21 +319,24 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			}
 
 			String rec_s = "";
+			Log.v("Test", "스케줄러 사이즈 :" + Schedule_result_r.size());
 
-			if (Schedule_result_r.size() > 1) {
+			if (Schedule_check.size() > 1) {
 
-				for (int i = 1; i < Schedule_result_r.size(); i++) {
+				for (int i = 0; i < Schedule_result_r.size(); i++) {
 
-					if (i < Schedule_result_r.size() - 1)
-						rec_s += Schedule_result_r.get(i).getId() - 1 + ", ";
-					else if (i == Schedule_result_r.size() - 1)
-						rec_s += Schedule_result_r.get(i).getId() - 1 + " ";
+					if(Schedule_result_r.get(i).getId() != 0){
+						if (i < Schedule_result_r.size() - 1 && Schedule_result_r.get(i).getId() != 1)
+							rec_s += Schedule_result_r.get(i).getId()-1 + ", ";
+						else if (i == Schedule_result_r.size() - 1)
+							rec_s += Schedule_result_r.get(i).getId()-1 + " ";
+					}
 				}
 
-				if (Schedule_result_r.size() > 1) {
-					resultList.add(String.valueOf("추천운동 :              "
-							+ rec_s + "단계 성공"));
-				}
+
+				resultList.add(String.valueOf("추천운동 성공 :              " + rec_s
+						+ "단계"));
+
 
 			}
 
