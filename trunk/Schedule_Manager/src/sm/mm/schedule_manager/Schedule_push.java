@@ -9,7 +9,7 @@ public class Schedule_push {
 
 	public int plusDay(int today, String day) {
 		// 월, 화, 수, 목, 금, 토, 일
-		// 1, 2, 3, 4, 5, 6, 7
+		// 2, 3, 4, 5, 6, 7, 1
 	
 		int plus = 0;
 		int choice = 0;

@@ -126,14 +126,7 @@ public class Find_emptyTime extends Activity {
 						}
 					}
 				}
-				/*dayarr = arrayOfCommonSchedule("monday", Find.search_name);
-				int index = Integer.parseInt(PromiseData.getTime());
-				Log.v("test",dayarr.get(index).toString());
-				if(dayarr != null && dayarr.get(index-1) != false) {
-					parseToast = Toast.makeText(getApplicationContext(), "공통공강시간이 아닙니다. 다시 시도하세요.",Toast.LENGTH_LONG);
-					parseToast.show();
-					return;	
-				}*/
+				
 				Profile.db.addPromiseData(promiseData);
 				
 				

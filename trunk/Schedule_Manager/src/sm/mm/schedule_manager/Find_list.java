@@ -44,7 +44,7 @@ public class Find_list extends Activity {
 	static String info_s[] = new String[3];
 	// id, 이름, 전화번호 저장하기 -> 나중에 데이터 비교용으로 쓰일 것
 
-	private Toast parseToast;
+	private Toast listToast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,9 @@ public class Find_list extends Activity {
 
 				PromiseData promise_d = PromiseDatas.get(i);
 				String is =String.valueOf(promise_d.getId());
-				Log.v("삭제 확인", "id값"+is);
+				String ns =promise_d.getName();
+				String ds =promise_d.getDay();
+				Log.v("삭제 확인", "id값"+is +",이름"+ns+", 요일"+ds);
 				
 				Person p1 = new Person(is,
 						promise_d.getName(), promise_d.getDay(),
@@ -91,28 +93,30 @@ public class Find_list extends Activity {
 					int position, long id) {
 
 				name_tvfl = m_orders.get(position).getName();
-				Log.v("test", name_tvfl);
-				Log.v("삭제 확인", "값"+m_orders.get(position).getId());
+
 				final String value = m_orders.get(position).getId();
+				final String name_value = m_orders.get(position).getName();
+				
 
 				DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Log.v("삭제 확인", value+"값");
 						
 						PromiseDatas = new LinkedList<PromiseData>();
 						PromiseDatas = Profile.db.getAllPromiseDatas();
-						Log.v("삭제 전", "삭제전:"+PromiseDatas.size());
-						
 						Profile.db.deletePromise(value);
 						
 						PromiseDatas = Profile.db.getAllPromiseDatas();
-						Log.v("삭제 후", "삭제후:"+PromiseDatas.size());
+						
+						String ls = name_value +"님과의 약속이 삭제되었습니다!";
+						
+						listToast = Toast.makeText(getApplicationContext(),
+								ls, Toast.LENGTH_LONG);
+						listToast.show();
+						
 						
 						Intent intent = new Intent(Find_list.this, Find_list.class);
 						startActivity(intent);
-						overridePendingTransition(R.anim.default_start_enter,
-								R.anim.default_start_exit);
 						finish();
 						
 						
