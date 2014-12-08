@@ -336,7 +336,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				}
 			}
 
-            if (Schedule_result_r.size() > 0) {
+            if (Schedule_result_r.size() > 0 && Schedule_check.size() > 1 ) {
                 resultList.add(String.valueOf("추천운동 :              "
                                 + rec_s + "단계 성공"));
             }
