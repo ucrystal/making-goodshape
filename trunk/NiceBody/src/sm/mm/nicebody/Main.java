@@ -1,21 +1,11 @@
 package sm.mm.nicebody;
 
-import java.util.HashMap;
-
-import com.parse.FunctionCallback;
-import com.parse.Parse;
-import com.parse.ParseCloud;
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.PushService;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
