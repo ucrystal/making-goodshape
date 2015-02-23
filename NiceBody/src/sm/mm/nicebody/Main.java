@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class Main extends Activity {
 
 	ImageView logoImageview;
-	Button free_btn, recommend_btn, schedule_btn, profile_btn, test_btn;
+	Button free_btn, recommend_btn, personal_btn;
 	Toast mainToast;
 
 	@Override
@@ -30,9 +30,7 @@ public class Main extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									// ActivityManager activityManager =
-									// (ActivityManager)
-									// getSystemService(ACTIVITY_SERVICE);
+									// ActivityManager activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
 									// activityManager.killBackgroundProcesses("sm.mm.nicebody");
 									moveTaskToBack(true);
 									finish();
@@ -97,29 +95,15 @@ public class Main extends Activity {
 			}
 		});
 
-		schedule_btn = (Button) findViewById(R.id.schedule_btn);
+		personal_btn = (Button) findViewById(R.id.personal_btn);
 
-		schedule_btn.setOnClickListener(new View.OnClickListener() {
+		personal_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Main.this, Schedule_calendar.class);
+				Intent intent = new Intent(Main.this, Personal_menu.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				//finish();
-			}
-		});
-
-		profile_btn = (Button) findViewById(R.id.profile_btn);
-		profile_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				Intent intent = new Intent(Main.this, Profile.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter,
-						R.anim.default_start_exit);
-				//finish();
 			}
 		});
 
@@ -131,8 +115,6 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
-
 
 	/*
 	 * @Override public void onDestroy() { super.onDestroy();

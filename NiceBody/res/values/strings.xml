@@ -42,5 +42,6 @@
     <string name="title_5">5단계</string>
     <string name="title_6">6단계</string>
     <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_persnoal_menu">Persnoal_menu</string>
 
 </resources>
