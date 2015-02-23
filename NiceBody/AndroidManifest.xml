@@ -218,7 +218,7 @@
 
         <activity
             android:name=".Personal_menu"
-            android:label="@string/title_activity_persnoal_menu" >
+            android:label="@string/title_activity_personal_menu" >
         </activity>
     </application>
 

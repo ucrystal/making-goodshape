@@ -41,7 +41,12 @@
     <string name="title_4">4단계</string>
     <string name="title_5">5단계</string>
     <string name="title_6">6단계</string>
+    <string name="title_7">7단계</string>
+    <string name="title_8">8단계</string>
+    <string name="title_9">9단계</string>
+    <string name="title_10">10단계</string>
+    
     <string name="title_activity_splash">Splash</string>
-    <string name="title_activity_persnoal_menu">Persnoal_menu</string>
+    <string name="title_activity_personal_menu">개인정보</string>
 
 </resources>

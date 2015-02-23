@@ -91,18 +91,16 @@ public class Personal_menu extends Activity {
 	public void customActionBar() {
 		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
-		abar.setBackgroundDrawable(new ColorDrawable(Color
-				.parseColor("#67C6E5")));
+		abar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#67C6E5")));
 		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
 		// under the action bar
-		View viewActionBar = getLayoutInflater().inflate(
-				R.layout.actionbar_layout, null);
+		View viewActionBar = getLayoutInflater().inflate(R.layout.actionbar_layout, null);
 		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
 				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.actionbar_textview);
-		textviewTitle.setText(R.string.title_activity_free_expain);
+		textviewTitle.setText(R.string.title_activity_personal_menu);
 		abar.setCustomView(viewActionBar, params);
 		abar.setDisplayUseLogoEnabled(true);
 		abar.setDisplayShowCustomEnabled(true);
