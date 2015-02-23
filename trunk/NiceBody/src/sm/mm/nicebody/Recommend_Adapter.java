@@ -63,12 +63,28 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 			tvTitle.setText(data.getTitle());
 		}
 		
-		List<RecommendData> Recommend_result = Profile.db
-				.getAllRecommendDatas();
-
-		if (Recommend_result.size() == 2) {
-			convertView.setBackgroundColor((position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
-					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
+		List<RecommendData> Recommend_result = Profile.db.getAllRecommendDatas();
+		
+		for(int i=0; i<Recommend_result.size(); i++) {
+			if(Recommend_result.size()==i+1) {
+				if(position<=i) convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
+				else convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
+			}
+		}
+		return convertView;
+		/*
+        if (Recommend_result.size() == 1) {
+        	if(position==1)
+				convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
+			else
+				convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
+        }
+		else if (Recommend_result.size() == 2) {
+			if(position==1|position==2)
+				convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
+			else
+				convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
+			//convertView.setBackgroundColor((position == mList.size() - 8 |position == mList.size() - 7 |position == mList.size() - 6 |position == mList.size() - 5 |position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ?Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
 		}
 		else if (Recommend_result.size() == 3) {
 			convertView.setBackgroundColor((position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
@@ -88,9 +104,7 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 			convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));			
 		}else
 			convertView.setBackgroundColor((position == mList.size() - 5 | position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
-					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
-
-		return convertView;
+					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));*/
 	}
 
 	@Override
@@ -99,20 +113,22 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 	}
 
 	@Override
-	public boolean isEnabled(int position) { /*
-											 * if position is last index or
-											 * second last index of mStrings
-											 * then return false
-											 */
+	public boolean isEnabled(int position) {
 	
-		List<RecommendData> Recommend_result = Profile.db
-				.getAllRecommendDatas();
-
+		List<RecommendData> Recommend_result = Profile.db.getAllRecommendDatas();
+		boolean result = true;
 		
-		if (Recommend_result.size() == 2) {
-			return (position == mList.size() - 4 | position == mList.size() - 3
-					| position == mList.size() - 2 | position == mList.size() - 1) ? false
-					: true;
+		for(int i=0; i<Recommend_result.size(); i++) {
+			if(position<=i) result = true;
+			else result = false;
+		}
+		return result;
+		
+		/*
+		if (Recommend_result.size() == 1) {
+			if(position==1) return false;
+			else return true;
+			//return (position == mList.size() - 4 | position == mList.size() - 3| position == mList.size() - 2 | position == mList.size() - 1) ? false: true;
 		}
 		else if (Recommend_result.size() == 3) {
 			return (position == mList.size() - 3 | position == mList.size() - 2 | position == mList
@@ -129,11 +145,11 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 			return true;
 		}else if (Recommend_result.size() == 7) {
 			return true;
-		} 
+		} else
 		
 		// ±âº»
-		return (position == mList.size() - 5 | position == mList.size() - 4
+			return (position == mList.size() - 5 | position == mList.size() - 4
 				| position == mList.size() - 3 | position == mList.size() - 2 | position == mList
-				.size() - 1) ? false : true;
+				.size() - 1) ? false : true;*/
 	}
 }
