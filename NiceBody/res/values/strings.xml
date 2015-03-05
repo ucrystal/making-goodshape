@@ -45,8 +45,32 @@
     <string name="title_8">8단계</string>
     <string name="title_9">9단계</string>
     <string name="title_10">10단계</string>
+
+    <!-- challenge description -->
+    <string name="ch1_2">연습삼아 운동해볼까요?</string>
+    <string name="ch2_2">슬슬 몸을 풀어볼까요?</string>
+    <string name="ch3_2">점점 어려워지고 있어요!</string>
+    <string name="ch4_2">포기하지 말고 도전해보세요.</string>
+    <string name="ch5_2">실력자만 도전하세요.</string>
+    <string name="ch6_2">쓰러질 지도 몰라요!</string>
+    <string name="ch7_2">용기내서 도전하세요!</string>
+    <string name="ch8_2">결코 쉽지 않을거에요.</string>
+    <string name="ch9_2">성공할 수 있을까요?</string>
+    <string name="ch10_2">꾸준히 연습해야 성공할 수 있어요.</string>
+    
+    <string name="ch1_3">상체2 - 복부3 - 하체 각 3</string>
+    <string name="ch2_3">상체4 - 복부6 - 하체 각 5</string>
+    <string name="ch3_3">상체6 - 복부9 - 하체 각 6</string>
+    <string name="ch4_3">상체8 - 복부12 - 하체 각 8</string>
+    <string name="ch5_3">상체10 - 복부15 - 하체 각 10</string>
+    <string name="ch6_3">상체12 - 복부15 - 하체 각 11</string>
+    <string name="ch7_3">상체14 - 복부18 - 하체 각 12</string>
+    <string name="ch8_3">상체14 - 복부20 - 하체 각 14</string>
+    <string name="ch9_3">상체16 - 복부20 - 하체 각 15</string>
+    <string name="ch10_3">상체20 - 복부24 - 하체 각 16</string>
     
     <string name="title_activity_splash">Splash</string>
     <string name="title_activity_personal_menu">개인정보</string>
+        <string name="title_activity_recommend_record4">하체운동</string>
 
 </resources>

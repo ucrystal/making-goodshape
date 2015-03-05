@@ -18,13 +18,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Recommend_record3 extends Activity implements SensorEventListener {
-	private static final int MILLISINFUTURE = 50 * 1000;
 	private static final int COUNT_DOWN_INTERVAL = 1000;
-	private int[] count = { 10, 20, 30, 40,	60, 80 };
+	int[][] arr = { {2, 3, 3, 3}, {4, 6, 5, 5}, {6, 9, 6, 6}, {8, 12, 8, 8}, {10, 15, 10, 10}, {12, 15, 11, 11}, {14, 18, 12, 12}, {14, 20, 14, 14}, {16, 20, 15, 15}, {20, 24, 16, 16} };
+	private static final int[] count = { 20, 40, 60, 80, 100, 120, 140, 160, 180, 200 };
 	private int countShow;
-	int[][] arr = { { 2, 2, 3 }, { 4, 5, 8 }, { 6, 8, 13 }, { 8, 11, 18 },
-			{ 10, 14, 23 }, { 12, 17, 28 } };
-
 	private int playCheck = 0;
 	private TextView countTxt;
 	private CountDownTimer countDownTimer;
@@ -38,7 +35,7 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 	static int countResult = 0;
 	static String timerResult = null;
 
-	private TextView fixedNum1, fixedNum2, fixedNum3;
+	private TextView fixedNum1, fixedNum2, fixedNum3, fixedNum4;
 
 	Button rec_sound_btn3;
 	Sound mSound;
@@ -82,19 +79,12 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
 		fixedNum2 = (TextView) findViewById(R.id.fixedNum2);
 		fixedNum3 = (TextView) findViewById(R.id.fixedNum3);
+		fixedNum4 = (TextView) findViewById(R.id.fixedNum4);
 		
-		if (Recommend_list.choiceCh == 1){
-			countDownStart(1);
-		}else if (Recommend_list.choiceCh == 2){
-			countDownStart(2);
-		}else if (Recommend_list.choiceCh == 3){
-			countDownStart(3);
-		}else if (Recommend_list.choiceCh == 4){
-			countDownStart(4);
-		}else if (Recommend_list.choiceCh == 5){
-			countDownStart(5);			
-		}else if (Recommend_list.choiceCh == 6){
-			countDownStart(6);
+		for(int i=1; i<11; i++) {
+			count[i-1] = 20*i;
+			if (Recommend_list.choiceCh == i)
+				countDownStart(i);
 		}
 		
 		rec_sound_btn3 = (Button) findViewById(R.id.button_sound_r3);
@@ -208,19 +198,9 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 						else
 							recommend_countNum.setText("" + printNum);
 						
-						if (Recommend_list.choiceCh == 1) {
-							// 상체운동 성공 시 하체운동 페이지로 이동
-							challengeSuccess(1);
-						} else if (Recommend_list.choiceCh == 2) {
-							challengeSuccess(2);
-						} else if (Recommend_list.choiceCh == 3) {
-							challengeSuccess(3);
-						} else if (Recommend_list.choiceCh == 4) {
-							challengeSuccess(4);
-						} else if (Recommend_list.choiceCh == 5) {
-							challengeSuccess(5);
-						} else if (Recommend_list.choiceCh == 6) {
-							challengeSuccess(6);
+						for(int i=1; i<11; i++) {
+							if (Recommend_list.choiceCh == i)
+								challengeSuccess(i);
 						}
 
 						// 출력모양 설정
@@ -250,7 +230,8 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		countShow = count[index];
 		fixedNum1.setText("상체 " + arr[index][0]);
 		fixedNum2.setText(" 복부 " + arr[index][1]);
-		fixedNum3.setText(" 하체 " + arr[index][2]);
+		fixedNum3.setText(" 하체R " + arr[index][2]);
+		fixedNum4.setText(" 하체L " + arr[index][3]);
 		countTxt.setText(String.valueOf(countShow) + "초");
 		
 		countDownTimer = new CountDownTimer(count[index]*1000, COUNT_DOWN_INTERVAL) {
@@ -272,7 +253,10 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		if (printNum == arr[index][2]) {
 			recommend_countNum.setText("0" + printNum);
 			countDownTimer.cancel();
-			Intent intent = new Intent(Recommend_record3.this,Recommend_success.class);
+			/*for(int i=0; i<11; i++) {
+				count[i] = 15*i;
+			}*/
+			Intent intent = new Intent(Recommend_record3.this,Recommend_record4.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
 			finish();

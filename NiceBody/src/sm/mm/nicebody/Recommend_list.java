@@ -55,16 +55,12 @@ public class Recommend_list extends Activity {
 	ImageView image;
 	TextView title_history;
 
-	private BackPressCloseHandler backPressCloseHandler;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recommend_list);
 		
 		customActionBar();
-
-		//backPressCloseHandler = new BackPressCloseHandler(this);
 		
 		mLvData = (ListView) findViewById(R.id.ListView1);
 		mList = new ArrayList<Recommend_list_model>();
