@@ -220,6 +220,10 @@
             android:name=".Personal_menu"
             android:label="@string/title_activity_personal_menu" >
         </activity>
+        <activity
+            android:name=".Recommend_record4"
+            android:label="@string/title_activity_recommend_record4" >
+        </activity>
     </application>
 
 </manifest>

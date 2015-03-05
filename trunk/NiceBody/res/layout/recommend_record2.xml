@@ -38,7 +38,7 @@
             android:layout_marginRight="4dp"
             android:text="상체 1"
             android:textColor="#ffffff"
-            android:textSize="15pt" />
+            android:textSize="12pt" />
 
         <TextView
             android:id="@+id/fixedNum2"
@@ -47,15 +47,23 @@
             android:layout_marginRight="4dp"
             android:text="복부 2"
             android:textColor="#ff1e5f"
-            android:textSize="15pt" />
+            android:textSize="12pt" />
 
         <TextView
             android:id="@+id/fixedNum3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="하체 1"
+            android:text="하체R 1"
             android:textColor="#ffffff"
-            android:textSize="15pt" />
+            android:textSize="12pt" />
+        
+        <TextView
+            android:id="@+id/fixedNum4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="하체L 1"
+            android:textColor="#ffffff"
+            android:textSize="12pt" />
     </LinearLayout>
 
     <TextView
