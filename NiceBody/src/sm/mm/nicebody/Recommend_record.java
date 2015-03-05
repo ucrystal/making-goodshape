@@ -40,6 +40,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 
 	private TextView fixedNum1, fixedNum2, fixedNum3;
 
+	Button rec_sound_btn1;
 	Sound mSound;
 	
 	@Override
@@ -74,12 +75,15 @@ public class Recommend_record extends Activity implements SensorEventListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recommend_record);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
+		
+		
 		mSound = new Sound(this, R.raw.sound);
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
 		fixedNum2 = (TextView) findViewById(R.id.fixedNum2);
@@ -101,6 +105,28 @@ public class Recommend_record extends Activity implements SensorEventListener {
 			countDownStart(6);
 		}
 
+		rec_sound_btn1 = (Button) findViewById(R.id.button_sound_r1);
+		if(Free_record.sound_ch%2 == 1){
+			rec_sound_btn1.setSelected(true);
+		}else if(Free_record.sound_ch%2 == 0){
+			rec_sound_btn1.setSelected(false);
+		}
+		rec_sound_btn1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				Free_record.sound_ch += 1;
+				
+				if(Free_record.sound_ch%2 == 1){
+					rec_sound_btn1.setSelected(true);
+				}else if(Free_record.sound_ch%2 == 0){
+					rec_sound_btn1.setSelected(false);
+				}
+				
+				
+			}
+		});
+		
 		start_btn = (Button) findViewById(R.id.recommend_play_btn);
 		start_btn.setClickable(true);
 		start_btn.setOnClickListener(new Button.OnClickListener() {
@@ -184,7 +210,10 @@ public class Recommend_record extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 						
-						mSound.play();
+						if(Free_record.sound_ch%2 == 0){
+							mSound.play();
+						}
+						
 						if (printNum < 10)
 							recommend_countNum.setText("0" + printNum);
 						else

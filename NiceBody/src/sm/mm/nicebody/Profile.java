@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +25,7 @@ import android.widget.Toast;
 
 public class Profile extends Activity {
 	private BackPressCloseHandler backPressCloseHandler;
-	
+
 	TextView tv_height;
 	TextView tv_weight;
 	TextView tv_name;
@@ -35,14 +36,16 @@ public class Profile extends Activity {
 	Button modifyPro_btn;
 	Button confirmPro_btn;
 
+	static int test_int = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile);
 
 		customActionBar();
-		//backPressCloseHandler = new BackPressCloseHandler(this);
-	
+		// backPressCloseHandler = new BackPressCloseHandler(this);
+
 		tv_height = (TextView) findViewById(R.id.textView_height);
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
 
@@ -55,12 +58,11 @@ public class Profile extends Activity {
 		// db에 접속여부 저장, 처음이라면 0 출려
 		// 프로필 값이 저장되어 있다면 1 출력
 
-		//Profile.db = new FreeDatabase(this);
-		//Profile.db.dropProfileTable();
-		
+		// Profile.db = new FreeDatabase(this);
+		// Profile.db.dropProfileTable();
 
 		if (db.checkTable() == 0) {
-			
+
 			tv_height.setText("  00 cm");
 			tv_weight.setText("  00 kg");
 			tv_name.setText(" 이름을 입력하세요 ");
@@ -68,37 +70,40 @@ public class Profile extends Activity {
 			Profile.db.dropProfileTable();
 			Profile.db.dropFreeTable();
 			Profile.db.dropRecommendTable();
+			Profile.db.dropRecordTable();
 			Profile.db.createProfileTable();
 			Profile.db.createFreeTable();
 			Profile.db.createRecommendTable();
-			
+			Profile.db.createRecordTable();
+
 			RecommendData recommendData = new RecommendData(1);
 			Profile.db.openNext(recommendData);
 
 		} else if (db.checkTable() == 1) {
 
+			/*
+			  RecordData rdtest = new RecordData(); rdtest =
+			  Profile.db.getRecordData();
+			  
+			  Log.v("test",String.valueOf(rdtest.getCheckInt()));
+			 */
 
-			List<ProfileData> ProfileDatas = new LinkedList<ProfileData>();
-			ProfileDatas = Profile.db.getAllProfileDatas();
-			int d_size = ProfileDatas.size()-1;
-			ProfileData profile_pd = ProfileDatas.get(d_size);
+			ProfileData profile_pd = Profile.db.getProfileData();
 			tv_name.setText("  " + profile_pd.getName());
-			tv_height.setText("  " + (int)profile_pd.getHeight() + " cm");
-			tv_weight.setText("  " + (int)profile_pd.getWeight() + " kg");
+			tv_height.setText("  " + (int) profile_pd.getHeight() + " cm");
+			tv_weight.setText("  " + (int) profile_pd.getWeight() + " kg");
 
 			profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
-			
-			
-			if(profile_pd.getPhoto() == null){
+
+			if (profile_pd.getPhoto() == null) {
 				profilePhoto_default = (ImageView) findViewById(R.id.profilePhoto_default);
-			}else if(profile_pd.getPhoto() != null){
-				byte[] drawableIconByteArray =  profile_pd.getPhoto();
-				Bitmap d = BitmapFactory.decodeByteArray(drawableIconByteArray, 0,
-						drawableIconByteArray.length);
-				
+			} else if (profile_pd.getPhoto() != null) {
+				byte[] drawableIconByteArray = profile_pd.getPhoto();
+				Bitmap d = BitmapFactory.decodeByteArray(drawableIconByteArray,
+						0, drawableIconByteArray.length);
+
 				profilePhoto_default.setImageBitmap(d);
 			}
-			
 
 		}
 
@@ -123,14 +128,15 @@ public class Profile extends Activity {
 		case R.id.action_modify:
 			intent = new Intent(this, Profile_modify.class);
 			startActivity(intent);
-			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+			overridePendingTransition(R.anim.default_start_enter,
+					R.anim.default_start_exit);
 			finish();
 			break;
 
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void customActionBar() {
 		// Customize the ActionBar
 		final ActionBar abar = getActionBar();

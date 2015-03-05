@@ -28,9 +28,11 @@ public class Database extends SQLiteOpenHelper {
 		String CREATE_FREE_TABLE = "CREATE TABLE IF NOT EXISTS frees ( id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, count INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP, photo BLOB)";
 		String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER)";
 		String CREATE_RECOMMEND_TABLE = "CREATE TABLE IF NOT EXISTS recommends (id INTEGER PRIMARY KEY AUTOINCREMENT, s_check INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP)";
+		String CREATE_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY AUTOINCREMENT, checkInt INTEGER)";
 		db.execSQL(CREATE_FREE_TABLE);
 		db.execSQL(CREATE_PROFILE_TABLE);
 		db.execSQL(CREATE_RECOMMEND_TABLE);
+		db.execSQL(CREATE_RECORD_TABLE);
 	}
 
 	// 테이블 존재 여부 확인
@@ -72,6 +74,12 @@ public class Database extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS frees");
 		db.close();
 	}
+	
+	public void dropRecordTable() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS records");
+		db.close();
+	}
 
 	public void dropProfileTable() {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -95,6 +103,13 @@ public class Database extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		String CREATE_FREE_TABLE = "CREATE TABLE frees (id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, count INTEGER, t VARCHAR(10))";
 		db.execSQL(CREATE_FREE_TABLE);
+		db.close();
+	}
+	
+	public void createRecordTable() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String CREATE_RECORD_TABLE = "CREATE TABLE records (id INTEGER PRIMARY KEY AUTOINCREMENT, checkInt INTEGER)";
+		db.execSQL(CREATE_RECORD_TABLE);
 		db.close();
 	}
 
@@ -251,6 +266,7 @@ public class Database extends SQLiteOpenHelper {
 
 	public ProfileData getProfileData() {
 
+		List<ProfileData> profileDatas = new LinkedList<ProfileData>();
 		String query = "SELECT  * FROM " + TABLE_PROFILES;
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -258,17 +274,23 @@ public class Database extends SQLiteOpenHelper {
 
 		ProfileData profileData = null;
 		if (cursor.moveToFirst()) {
-			profileData = new ProfileData();
-			profileData.setName(cursor.getString(1));
-			profileData.setHeight(Integer.parseInt(cursor.getString(2)));
-			profileData.setWeight(Integer.parseInt(cursor.getString(3)));
-
-			//int drawalbeColumnId = cursor.getColumnIndex(cursor.getString(4));
-			byte[] drawableIconByteArray = cursor.getBlob(4);
-
-			profileData.setPhoto(drawableIconByteArray);
+			do {
+				profileData= new ProfileData();
+				profileData.setName(cursor.getString(1));
+				profileData.setHeight(Integer.parseInt(cursor.getString(2)));
+				profileData.setWeight(Integer.parseInt(cursor.getString(3)));
+				profileData.setPhoto(cursor.getBlob(4));
+	
+				profileDatas.add(profileData);
+			} while (cursor.moveToNext());
 		}
-		return profileData;
+		
+		ProfileData n_profileData = null;
+		int r_size = profileDatas.size() -1;
+		Log.v("test", String.valueOf(r_size));
+
+		n_profileData = profileDatas.get(r_size);
+		return n_profileData;
 	}
 	
 	public List<ProfileData> getAllProfileDatas() {
@@ -399,5 +421,49 @@ public class Database extends SQLiteOpenHelper {
 		return recommendDatas;
 	}
 	
+	/*
+	 * 추천운동함수생성
+	 */
+
+	private static final String TABLE_RECORDS = "records";
+	private static final String KEY_CHECKINT = "checkInt";
+
+	// private static final String[] P_COLUMNS = { KEY_ID,
+	// KEY_TYPE, KEY_COUNT, KEY_DATE };
+	
+	public void addRecordData(RecordData recordData) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_CHECKINT, recordData.getCheckInt());
+		db.insert(TABLE_RECORDS, null, values);
+		db.close();
+	}
+
+	public RecordData getRecordData() {
+		
+		List<RecordData> recordDatas = new LinkedList<RecordData>();
+		String query = "SELECT  * FROM " + TABLE_RECORDS;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		RecordData recordData = null;
+		if (cursor.moveToFirst()) {
+			do {
+				recordData = new RecordData();
+				recordData.setId(Integer.parseInt(cursor.getString(0)));
+				recordData.setCheckInt(Integer.parseInt(cursor.getString(1)));
+
+				recordDatas.add(recordData);
+			} while (cursor.moveToNext());
+		}
+		
+		RecordData n_recordData = null;
+		int r_size = recordDatas.size() -1;
+
+		n_recordData = recordDatas.get(r_size);
+		return n_recordData;
+	}
 
 }
