@@ -40,6 +40,7 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 
 	private TextView fixedNum1, fixedNum2, fixedNum3;
 
+	Button rec_sound_btn3;
 	Sound mSound;
 	
 	@Override
@@ -95,6 +96,30 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		}else if (Recommend_list.choiceCh == 6){
 			countDownStart(6);
 		}
+		
+		rec_sound_btn3 = (Button) findViewById(R.id.button_sound_r3);
+		if(Free_record.sound_ch%2 == 1){
+			rec_sound_btn3.setSelected(true);
+		}else if(Free_record.sound_ch%2 == 0){
+			rec_sound_btn3.setSelected(false);
+		}
+		rec_sound_btn3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				Free_record.sound_ch += 1;
+				
+				if(Free_record.sound_ch%2 == 1){
+					rec_sound_btn3.setSelected(true);
+				}else if(Free_record.sound_ch%2 == 0){
+					rec_sound_btn3.setSelected(false);
+				}
+				
+				
+			}
+		});
+		
+		
 
 		start_btn = (Button) findViewById(R.id.recommend_play_btn3);
 		start_btn.setClickable(true);
@@ -174,7 +199,10 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 
-						mSound.play();
+						if(Free_record.sound_ch%2 == 0){
+							mSound.play();
+						}
+						
 						if (printNum < 10)
 							recommend_countNum.setText("0" + printNum);
 						else

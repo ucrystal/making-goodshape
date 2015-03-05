@@ -33,6 +33,7 @@ public class Free_record extends Activity implements SensorEventListener {
 	TextView free_countNum;
 	int printNum = 0;
 	int playCheck = 0;
+	static int sound_ch = 0;
 
 	static int countResult = 0;
 	static String timerResult = null;
@@ -41,6 +42,7 @@ public class Free_record extends Activity implements SensorEventListener {
 	Button free_play_btn;
 	Button free_pause_btn;
 	Button free_refresh_btn;
+	Button free_sound_btn;
 
 	Sound mSound;
 	long timeWhenStopped = 0;
@@ -57,6 +59,23 @@ public class Free_record extends Activity implements SensorEventListener {
 		
 		ch = (Chronometer)findViewById(R.id.chronometer_record);
 		mSound = new Sound(this, R.raw.sound);
+		
+		free_sound_btn = (Button) findViewById(R.id.button_sound);
+		free_sound_btn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				sound_ch += 1;
+				
+				if(sound_ch%2 == 1){
+					free_sound_btn.setSelected(true);
+				}else if(sound_ch%2 == 0){
+					free_sound_btn.setSelected(false);
+				}
+				
+				
+			}
+		});
 		
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
 		free_finish_btn.setOnClickListener(new View.OnClickListener() {		
@@ -87,12 +106,24 @@ public class Free_record extends Activity implements SensorEventListener {
 		free_play_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				playCheck = 1;
+				
+				/*
+				cSound.play();
+				try {
+					
+					Thread.sleep(4000);
+					
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+				
+				playCheck=1;
 				
 				ch.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
 				ch.start();
-
-				
+			
 				ch.setOnChronometerTickListener(new OnChronometerTickListener() {
 					@Override
 					public void onChronometerTick(Chronometer chronometer) {
@@ -185,8 +216,11 @@ public class Free_record extends Activity implements SensorEventListener {
 
 						printNum++;
 						countResult = printNum;
-
-						mSound.play();
+						
+						if(sound_ch%2 == 0){
+							mSound.play();
+						}
+						
 						if (printNum < 10)
 							free_countNum.setText("0" + printNum);
 						else

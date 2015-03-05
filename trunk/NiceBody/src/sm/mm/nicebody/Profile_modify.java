@@ -173,6 +173,16 @@ public class Profile_modify extends Activity implements OnClickListener {
 			break;
 		case R.id.action_ok:
 
+			/*
+			Profile.test_int ++;
+			
+			RecordData rd = new RecordData();
+			rd.setCheckInt(Profile.test_int);
+			
+			Profile.db.addRecordData(rd);
+			
+			*/
+			
 			Height = editHeight.getText().toString();
 			Weight = editWeight.getText().toString();
 			Name = editName.getText().toString();
