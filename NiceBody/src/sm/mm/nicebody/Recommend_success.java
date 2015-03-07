@@ -17,13 +17,25 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+
+
 public class Recommend_success extends Activity {
 	Button btn_backtomain;
+	Sound mSound;
 	private BackPressCloseHandler backPressCloseHandler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		
 		super.onCreate(savedInstanceState);
+		mSound = new Sound(this, R.raw.success);
+		if(Free_record.sound_ch%2 == 0){
+			mSound.play();
+		}
+		
+		
+		
 		if (Recommend_list.choiceCh == 1) {
 			setContentView(R.layout.recommend_success1);
 		} else if (Recommend_list.choiceCh == 2) {
