@@ -39,7 +39,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 
 	Button rec_sound_btn1;
 	Sound mSound;
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -75,6 +75,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		
 		
 		mSound = new Sound(this, R.raw.sound);
+		
 		fixedNum1 = (TextView) findViewById(R.id.fixedNum1);
 		fixedNum2 = (TextView) findViewById(R.id.fixedNum2);
 		fixedNum3 = (TextView) findViewById(R.id.fixedNum3);
@@ -259,6 +260,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 			Intent intent = new Intent(Recommend_record.this,Recommend_record2.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+			
 			finish();
 		}
 	}

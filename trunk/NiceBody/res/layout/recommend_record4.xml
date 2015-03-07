@@ -5,17 +5,25 @@
     android:layout_height="match_parent"
     android:background="#67c6e5"
     android:orientation="vertical" >
+    <Button
+        android:id="@+id/button_sound_r4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/sound_btn" />
 
     <TextView
         android:id="@+id/countTxt4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="00초"
         android:textColor="#ffffff"
         android:textSize="25pt" />
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

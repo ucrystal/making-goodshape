@@ -4,7 +4,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgmain_final"
+    android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".Recommend_description1" >
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="50dp"
         android:text="첫 번째 챌린지입니다."
         android:textSize="18sp" />
 
