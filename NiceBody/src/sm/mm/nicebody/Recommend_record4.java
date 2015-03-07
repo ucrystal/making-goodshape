@@ -187,7 +187,10 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 
-						mSound.play();
+						if(Free_record.sound_ch%2 == 0){
+							mSound.play();
+						}
+						
 						if (printNum < 10)
 							recommend_countNum.setText("0" + printNum);
 						else
