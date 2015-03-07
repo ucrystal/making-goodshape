@@ -14,7 +14,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/sound_btn" />
-
+        
     <TextView
         android:id="@+id/countTxt2"
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:text="00초"
         android:textColor="#ffffff"
         android:textSize="25pt" />
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_marginRight="4dp"
             android:text="상체 1"
             android:textColor="#ffffff"
-            android:textSize="12pt" />
+            android:textSize="15pt" />
 
         <TextView
             android:id="@+id/fixedNum2"
@@ -47,7 +47,7 @@
             android:layout_marginRight="4dp"
             android:text="복부 2"
             android:textColor="#ff1e5f"
-            android:textSize="12pt" />
+            android:textSize="15pt" />
 
         <TextView
             android:id="@+id/fixedNum3"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="하체R 1"
             android:textColor="#ffffff"
-            android:textSize="12pt" />
+            android:textSize="15pt" />
         
         <TextView
             android:id="@+id/fixedNum4"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:text="하체L 1"
             android:textColor="#ffffff"
-            android:textSize="12pt" />
+            android:textSize="15pt" />
     </LinearLayout>
 
     <TextView
@@ -80,34 +80,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp" >
+        android:layout_marginTop="30dp" 
+        >
 
-        <Button
-            android:id="@+id/recommend_play_btn2"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="31dp"
-            android:background="#93d5eb"
-            android:clickable="false"
-            android:text="도전 시작"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/recommend_finish_btn2"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="31dp"
-            android:background="#93d5eb"
-            android:text="도전 포기"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/recommend_play_btn2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="31dp"
+        android:layout_marginRight="4dp"
+        android:background="#93d5eb"
+        android:text="도전 시작"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:clickable="false" />
+    <Button
+        android:id="@+id/recommend_finish_btn2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="31dp"
+        android:layout_marginLeft="4dp"
+        android:background="#93d5eb"
+        android:text="도전 포기"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold" />
     </LinearLayout>
-
 </LinearLayout>
