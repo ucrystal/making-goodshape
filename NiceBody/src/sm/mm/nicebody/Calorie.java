@@ -10,7 +10,7 @@ public class Calorie{
 		cal_pd = Profile.db.getProfileData(); 
 		calCalorie = cal_pd.getHeight() / 100
 				* cal_pd.getWeight() * (0.0494) * 2
-				* exerciseNum;
+				* exerciseNum;  
 		return calCalorie;
 	}
 	
