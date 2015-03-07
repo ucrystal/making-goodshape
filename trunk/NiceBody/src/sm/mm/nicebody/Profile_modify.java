@@ -183,6 +183,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 			
 			*/
 			
+			Profile.db.updateRecordData(2);
+			
 			Height = editHeight.getText().toString();
 			Weight = editWeight.getText().toString();
 			Name = editName.getText().toString();

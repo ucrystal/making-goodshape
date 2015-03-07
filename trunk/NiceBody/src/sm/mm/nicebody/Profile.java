@@ -75,18 +75,21 @@ public class Profile extends Activity {
 			Profile.db.createFreeTable();
 			Profile.db.createRecommendTable();
 			Profile.db.createRecordTable();
+			
+			RecordData rd = new RecordData(0);
+			Profile.db.addRecordData(rd);
 
 			RecommendData recommendData = new RecommendData(1);
 			Profile.db.openNext(recommendData);
 
 		} else if (db.checkTable() == 1) {
 
-			/*
-			  RecordData rdtest = new RecordData(); rdtest =
-			  Profile.db.getRecordData();
+
+			  RecordData rdtest = new RecordData(); 
+			  rdtest = Profile.db.getRecordData();
 			  
-			  Log.v("test",String.valueOf(rdtest.getCheckInt()));
-			 */
+			  Log.v("test_check",String.valueOf(rdtest.getCheckInt()));
+
 
 			ProfileData profile_pd = Profile.db.getProfileData();
 			tv_name.setText("  " + profile_pd.getName());
