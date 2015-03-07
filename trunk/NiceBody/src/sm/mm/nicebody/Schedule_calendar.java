@@ -284,7 +284,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			int totalCount1 = 0;
 			int totalCount2 = 0;
 			int totalCount3 = 0;
-			int total_cal = 0;
+			double total_cal = 0;
 
 			if (date_result == null || date_result.equals(""))
 				return;
@@ -306,17 +306,17 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				// 리스트 객체에 데이터 추가
 				resultList.add(String.valueOf("자유운동 :   팔굽혀펴기      "
 						+ totalCount1 + "회"));
-				total_cal += (int)Calorie.cal_fushUp(totalCount1);
+				total_cal += Calorie.cal_fushUp(totalCount1);
 			}
 			if (totalCount2 != 0) {
 				resultList.add(String.valueOf("자유운동 :   닐링 레그 리프트     "
 						+ totalCount2 + "회"));
-				total_cal += (int)Calorie.cal_lunge(totalCount2); 
+				total_cal += Calorie.cal_lunge(totalCount2); 
 			}
 			if (totalCount3 != 0) {
 				resultList.add(String.valueOf("자유운동 :   레그레이즈      "
 						+ totalCount3 + "회"));
-				total_cal += (int)Calorie.cal_lunge(totalCount3); 
+				total_cal += Calorie.cal_legRaise(totalCount3); 
 			}
 
 			String rec_s = "";
@@ -333,16 +333,16 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 							rec_s += Schedule_result_r.get(i).getId() - 1
 									+ ", ";
 							
-							total_cal += (int)Calorie.cal_fushUp(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][0]) 
-							+ (int) Calorie.cal_lunge(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][1]) 
-							+ (int) Calorie.cal_legRaise(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][2] + Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][3]);
+							total_cal += Calorie.cal_fushUp(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][0]) 
+							+  Calorie.cal_lunge(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][1]) 
+							+  Calorie.cal_legRaise(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][2] + Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][3]);
 						
 						}else if (i == Schedule_result_r.size() - 1){
 							
 							rec_s += Schedule_result_r.get(i).getId() - 1 + " ";
-							total_cal += (int)Calorie.cal_fushUp(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][0]) 
-									+ (int) Calorie.cal_lunge(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][1]) 
-									+ (int) Calorie.cal_legRaise(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][2] + Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][3]);
+							total_cal += Calorie.cal_fushUp(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][0]) 
+									+  Calorie.cal_lunge(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][1]) 
+									+  Calorie.cal_legRaise(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][2] + Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][3]);
 						
 						}
 							
@@ -356,7 +356,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			}
 			
 			if(total_cal > 0){
-				resultList.add(String.valueOf("총 소비 칼로리 :                   "+ total_cal+ "cal"));
+				resultList.add(String.valueOf("총 소비 칼로리 :                   "+(int) total_cal+ "cal"));
 			}
 			
 
