@@ -15,41 +15,46 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 
 public class Recommend_success extends Activity {
 	Button btn_backtomain;
+	ImageView trophy;
 	Sound mSound;
 	private BackPressCloseHandler backPressCloseHandler;
+	Integer[] icon_trophy = { 
+			R.drawable.icon_trophy1, 
+			R.drawable.icon_trophy2, 
+			R.drawable.icon_trophy3,
+			R.drawable.icon_trophy4, 
+			R.drawable.icon_trophy5, 
+			R.drawable.icon_trophy6,
+			R.drawable.icon_trophy7,
+			R.drawable.icon_trophy8,
+			R.drawable.icon_trophy9,
+			R.drawable.icon_trophy10};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.recommend_success1);
+		
+		trophy = (ImageView)findViewById(R.id.imageView1);
+		
+		for(int i=1; i<11; i++){
+			if (Recommend_list.choiceCh == i) {
+				trophy.setImageResource(icon_trophy[i-1]);
+			}
+		}
 		mSound = new Sound(this, R.raw.success);
 		if(Free_record.sound_ch%2 == 0){
 			mSound.play();
 		}
 		
 		
-		
-		if (Recommend_list.choiceCh == 1) {
-			setContentView(R.layout.recommend_success1);
-		} else if (Recommend_list.choiceCh == 2) {
-			setContentView(R.layout.recommend_success2);
-		} else if (Recommend_list.choiceCh == 3) {
-			setContentView(R.layout.recommend_success3);
-		} else if (Recommend_list.choiceCh == 4) {
-			setContentView(R.layout.recommend_success4);
-		} else if (Recommend_list.choiceCh == 5) {
-			setContentView(R.layout.recommend_success5);
-		} else if (Recommend_list.choiceCh == 6) {
-			setContentView(R.layout.recommend_success6);
-		}
-
 		customActionBar();
 
 		backPressCloseHandler = new BackPressCloseHandler(this);
@@ -106,12 +111,6 @@ public class Recommend_success extends Activity {
 
 		case R.id.action_schedule:
 			intent = new Intent(this, Schedule_calendar.class);
-			startActivity(intent);
-			finish();
-			break;
-
-		case R.id.action_settings:
-			intent = new Intent(this, Main.class);
 			startActivity(intent);
 			finish();
 			break;

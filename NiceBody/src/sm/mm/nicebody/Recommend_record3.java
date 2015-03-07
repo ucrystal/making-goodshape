@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class Recommend_record3 extends Activity implements SensorEventListener {
 	private static final int COUNT_DOWN_INTERVAL = 1000;
 	int[][] arr = { {2, 3, 3, 3}, {4, 6, 5, 5}, {6, 9, 6, 6}, {8, 12, 8, 8}, {10, 15, 10, 10}, {12, 15, 11, 11}, {14, 18, 12, 12}, {14, 20, 14, 14}, {16, 20, 15, 15}, {20, 24, 16, 16} };
-	private static final int[] count = { 20, 40, 60, 80, 100, 120, 140, 160, 180, 200 };
+	private int[] count;
 	private int countShow;
 	private int playCheck = 0;
 	private TextView countTxt;
@@ -72,6 +72,8 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
+		count=Recommend_record.myApp.getCount();
+		
 		mSound = new Sound(this, R.raw.sound);
 		
 		countTxt = (TextView) findViewById(R.id.countTxt3);
@@ -82,7 +84,6 @@ public class Recommend_record3 extends Activity implements SensorEventListener {
 		fixedNum4 = (TextView) findViewById(R.id.fixedNum4);
 		
 		for(int i=1; i<11; i++) {
-			count[i-1] = 20*i;
 			if (Recommend_list.choiceCh == i)
 				countDownStart(i);
 		}

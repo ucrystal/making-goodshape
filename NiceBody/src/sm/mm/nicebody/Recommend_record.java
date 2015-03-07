@@ -11,7 +11,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +19,8 @@ import android.widget.TextView;
 public class Recommend_record extends Activity implements SensorEventListener {
 	private static final int COUNT_DOWN_INTERVAL = 1000;
 	int[][] arr = { {2, 3, 3, 3}, {4, 6, 5, 5}, {6, 9, 6, 6}, {8, 12, 8, 8}, {10, 15, 10, 10}, {12, 15, 11, 11}, {14, 18, 12, 12}, {14, 20, 14, 14}, {16, 20, 15, 15}, {20, 24, 16, 16} };
-	private static final int[] count = { 20, 40, 60, 80, 100, 120, 140, 160, 180, 200 };
+
 	private int playCheck = 0;
-	//private int countShow;
 	private TextView countTxt;
 	private CountDownTimer countDownTimer;
 
@@ -33,8 +31,10 @@ public class Recommend_record extends Activity implements SensorEventListener {
 	TextView recommend_countNum;
 	int printNum = 0;
 	static int countResult = 0;
+	static int[] count;
 	static String timerResult = null;
-
+	static Pushinit myApp;
+	
 	private TextView fixedNum1, fixedNum2, fixedNum3, fixedNum4;
 
 	Button rec_sound_btn1;
@@ -72,7 +72,8 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 		
-		
+		myApp = (Pushinit)getApplicationContext();
+		count = myApp.getCount();	
 		
 		mSound = new Sound(this, R.raw.sound);
 		
@@ -251,12 +252,6 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		if (printNum == arr[index][0]) {
 			recommend_countNum.setText("0" + printNum);
 			countDownTimer.cancel();
-			/*count[0] = 10;
-			count[1] = 20;
-			count[2] = 30;
-			count[3] = 40;
-			count[4] = 60;
-			count[5] = 80;*/
 			Intent intent = new Intent(Recommend_record.this,Recommend_record2.class);
 			startActivity(intent);
 			overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);

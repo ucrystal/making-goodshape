@@ -53,15 +53,12 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	ArrayList<String> resultList;
 	ArrayAdapter<String> list_adapter;
 
-	private BackPressCloseHandler backPressCloseHandler;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule_calendar);
 
 		customActionBar();
-		// backPressCloseHandler = new BackPressCloseHandler(this);
 
 		Button bLastMonth = (Button) findViewById(R.id.calendar_btn01);
 		Button bNextMonth = (Button) findViewById(R.id.calendar_btn02);
@@ -391,12 +388,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 		case R.id.action_schedule:
 			intent = new Intent(this, Schedule_calendar.class);
-			startActivity(intent);
-			finish();
-			break;
-
-		case R.id.action_settings:
-			intent = new Intent(this, Main.class);
 			startActivity(intent);
 			finish();
 			break;
