@@ -440,6 +440,14 @@ public class Database extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	public void updateRecordData(int input) {
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("UPDATE " + TABLE_RECORDS +" SET checkInt = "+input+" WHERE id = 1;");  
+		db.close();
+		
+	}
+
 	public RecordData getRecordData() {
 		
 		List<RecordData> recordDatas = new LinkedList<RecordData>();
