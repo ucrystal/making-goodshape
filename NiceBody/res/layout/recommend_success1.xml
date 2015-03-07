@@ -11,10 +11,30 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="30dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:src="@drawable/icon_trophy1" />
+
+    <TextView
+        android:id="@+id/text_cong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="축하합니다!" />
+
+    <TextView
+        android:id="@+id/text_cal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_cong"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:text="총 10cal를 소모하셨습니다." />
 
     <Button
         android:id="@+id/recommend_backtomain_btn"
