@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 public class Recommend_record extends Activity implements SensorEventListener {
 	private static final int COUNT_DOWN_INTERVAL = 1000;
-	int[][] arr = { {2, 3, 3, 3}, {4, 6, 5, 5}, {6, 9, 6, 6}, {8, 12, 8, 8}, {10, 15, 10, 10}, {12, 15, 11, 11}, {14, 18, 12, 12}, {14, 20, 14, 14}, {16, 20, 15, 15}, {20, 24, 16, 16} };
+	static int[][] arr = { {2, 3, 3, 3}, {4, 6, 5, 5}, {6, 9, 6, 6}, {8, 12, 8, 8}, {10, 15, 10, 10}, {12, 15, 11, 11}, {14, 18, 12, 12}, {14, 20, 14, 14}, {16, 20, 15, 15}, {20, 24, 16, 16} };
 
 	private int playCheck = 0;
 	private TextView countTxt;

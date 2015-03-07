@@ -24,6 +24,9 @@ public class Recommend_success extends Activity {
 	Button btn_backtomain;
 	ImageView trophy;
 	Sound mSound;
+	TextView text_cal;
+	double cal;
+	
 	private BackPressCloseHandler backPressCloseHandler;
 	Integer[] icon_trophy = { 
 			R.drawable.icon_trophy1, 
@@ -43,12 +46,31 @@ public class Recommend_success extends Activity {
 		setContentView(R.layout.recommend_success1);
 		
 		trophy = (ImageView)findViewById(R.id.imageView1);
+		text_cal = (TextView) findViewById(R.id.text_cal);
+		
+		
+		if(Recommend_list.choiceCh == 1){
+			cal = Calorie.cal_lunge(2);
+			Calorie.cal_fushUp(3);
+			Calorie.cal_legRaise(6);
+		}
+		
 		
 		for(int i=1; i<11; i++){
 			if (Recommend_list.choiceCh == i) {
+				
 				trophy.setImageResource(icon_trophy[i-1]);
+				
+				cal = Calorie.cal_fushUp(Recommend_record.arr[i-1][0]) 
+						+ Calorie.cal_lunge(Recommend_record.arr[i-1][1]) 
+						+ Calorie.cal_legRaise(Recommend_record.arr[i-1][2] + Recommend_record.arr[i-1][3]);
+				
+				text_cal.setText("ÃÑ "+ (int) cal + "cal¸¦ ¼Ò¸ðÇÏ¼Ì½À´Ï´Ù.");
+				
 			}
 		}
+		
+		
 		mSound = new Sound(this, R.raw.success);
 		if(Free_record.sound_ch%2 == 0){
 			mSound.play();
