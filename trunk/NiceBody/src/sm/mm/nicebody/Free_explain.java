@@ -69,12 +69,6 @@ public class Free_explain extends Activity {
 			startActivity(intent);
 			finish();
 			break;
-
-		case R.id.action_settings:
-			intent = new Intent(this, Main.class);
-			startActivity(intent);
-			finish();
-			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
