@@ -1,8 +1,13 @@
 package sm.mm.nicebody;
 
+import java.util.Calendar;
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +35,8 @@ public class Main extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									// ActivityManager activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
+									// ActivityManager
+									// activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
 									// activityManager.killBackgroundProcesses("sm.mm.nicebody");
 									moveTaskToBack(true);
 									finish();
@@ -50,10 +56,10 @@ public class Main extends Activity {
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
-		
+
 		Profile.db = new Database(this);
-		
-	
+
+
 		free_btn = (Button) findViewById(R.id.free_btn);
 		free_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -70,7 +76,7 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				//finish();
+				// finish();
 			}
 		});
 
@@ -91,7 +97,7 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				//finish();
+				// finish();
 			}
 		});
 

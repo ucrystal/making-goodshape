@@ -96,7 +96,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
-		
 
 		profileDatas = new LinkedList<ProfileData>();
 		profileDatas = Profile.db.getAllProfileDatas();
@@ -174,17 +173,14 @@ public class Profile_modify extends Activity implements OnClickListener {
 		case R.id.action_ok:
 
 			/*
-			Profile.test_int ++;
-			
-			RecordData rd = new RecordData();
-			rd.setCheckInt(Profile.test_int);
-			
-			Profile.db.addRecordData(rd);
-			
-			*/
-			
-			Profile.db.updateRecordData(2);
-			
+			 * Profile.test_int ++;
+			 * 
+			 * RecordData rd = new RecordData();
+			 * rd.setCheckInt(Profile.test_int);
+			 * 
+			 * Profile.db.addRecordData(rd);
+			 */
+
 			Height = editHeight.getText().toString();
 			Weight = editWeight.getText().toString();
 			Name = editName.getText().toString();
@@ -231,22 +227,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 			title = "몸매가 예뻐gym";
 			text = "우리와 함께 건강한 몸매 만들어봐요 ^0^";
 			if (profileDatas.size() == 0) {
-				
-				initializePushNotification();
-				
-				HashMap<String, Object> params = new HashMap<String, Object>();
-				// params.put("phoneNumber", "820142746727");
-				// params.put("msg", "wicked wednesday");
-				ParseCloud.callFunctionInBackground("notify", params,
-						new FunctionCallback<String>() {
-							public void done(String result, ParseException e) {
-								if (e == null) {
-									Log.v("parseTest", "sms result: <" + result
-											+ ">");
-								}
-							}
-						});
-				
+				// 운동여부 알람 서비스 실행
+				startService(new Intent("NiceBodyService"));
 			}
 
 			// db에 값 저장하기
@@ -396,11 +378,11 @@ public class Profile_modify extends Activity implements OnClickListener {
 		// super.onBackPressed();
 		backPressCloseHandler.onBackPressed();
 	}
-	
+
 	public void initializePushNotification() {
 		ParseInstallation installation = ParseInstallation
 				.getCurrentInstallation();
-		
+
 		installation.put("phoneNumber", "821042746727");
 		installation.put("wantPush", true);
 		installation.saveInBackground();

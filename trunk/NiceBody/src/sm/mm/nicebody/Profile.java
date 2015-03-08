@@ -82,6 +82,8 @@ public class Profile extends Activity {
 			RecommendData recommendData = new RecommendData(1);
 			Profile.db.openNext(recommendData);
 
+			
+			
 		} else if (db.checkTable() == 1) {
 
 
