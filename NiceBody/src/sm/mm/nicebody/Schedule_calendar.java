@@ -42,7 +42,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	private TextView calendar_title;
 	private GridView calendar_view;
 
-	private ArrayList<Schedule_calendar_day> DayList;
+	private static ArrayList<Schedule_calendar_day> DayList;
 	private Schedule_calendar_adapter Calendar_adapter;
 
 	Calendar LastMonthCalendar;
@@ -152,39 +152,53 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
+						+ Info_date + "'");
 
-				if (Info_gym.size() > 0) {
+				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
+					Profile.db.updateRecordData(0);
 				}
 			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) < 10) {
 				String Info_date = Info_year + "0" + Info_month
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
+						+ Info_date + "'");
 
-				if (Info_gym.size() > 0) {
+				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
+					Profile.db.updateRecordData(0);
 				}
 			} else if (i < 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
 				String Info_date = Info_year + Info_month + "0"
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
+						+ Info_date + "'");
 
-				if (Info_gym.size() > 0) {
+				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
+					Profile.db.updateRecordData(0);
 				}
+			
 			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
 				String Info_date = Info_year + Info_month + String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
 
-				if (Info_gym.size() > 0) {
+				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
+						+ Info_date + "'");
+
+				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
+					Profile.db.updateRecordData(0);
 				}
 			}
 
@@ -304,17 +318,17 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 			if (totalCount1 != 0) {
 				// 리스트 객체에 데이터 추가
-				resultList.add(String.valueOf("자유운동 :   팔굽혀펴기      "
+				resultList.add(String.valueOf("자유운동 :             팔굽혀펴기     "
 						+ totalCount1 + "회"));
 				total_cal += Calorie.cal_fushUp(totalCount1);
 			}
 			if (totalCount2 != 0) {
-				resultList.add(String.valueOf("자유운동 :   닐링 레그 리프트     "
+				resultList.add(String.valueOf("자유운동 :             닐링 레그 리프트    "
 						+ totalCount2 + "회"));
 				total_cal += Calorie.cal_neeling(totalCount2); 
 			}
 			if (totalCount3 != 0) {
-				resultList.add(String.valueOf("자유운동 :   레그레이즈      "
+				resultList.add(String.valueOf("자유운동 :             레그레이즈     "
 						+ totalCount3 + "회"));
 				total_cal += Calorie.cal_legRaise(totalCount3); 
 			}
@@ -350,15 +364,14 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				}
 			}
 
-			if (Schedule_result_r.size() > 0 && Schedule_check.size() > 1) {
-				resultList.add(String.valueOf("추천운동 :              " + rec_s
-						+ "단계 성공"));
-			}
+            if (Schedule_result_r.size() > 0 && Schedule_check.size() > 1 ) {
+                resultList.add(String.valueOf("추천운동 :              "
+                                + rec_s + "단계     성공"));
+            }
 			
 			if(total_cal > 0){
 				resultList.add(String.valueOf("총 소비 칼로리 :                   "+(int) total_cal+ "cal"));
 			}
-			
 
 		}
 
