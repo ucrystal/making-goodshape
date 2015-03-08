@@ -50,7 +50,7 @@ public class Recommend_success extends Activity {
 		
 		
 		if(Recommend_list.choiceCh == 1){
-			cal = Calorie.cal_lunge(2);
+			cal = Calorie.cal_neeling(2);
 			Calorie.cal_fushUp(3);
 			Calorie.cal_legRaise(6);
 		}
@@ -62,7 +62,7 @@ public class Recommend_success extends Activity {
 				trophy.setImageResource(icon_trophy[i-1]);
 				
 				cal = Calorie.cal_fushUp(Recommend_record.arr[i-1][0]) 
-						+ Calorie.cal_lunge(Recommend_record.arr[i-1][1]) 
+						+ Calorie.cal_neeling(Recommend_record.arr[i-1][1]) 
 						+ Calorie.cal_legRaise(Recommend_record.arr[i-1][2] + Recommend_record.arr[i-1][3]);
 				
 				text_cal.setText("ÃÑ "+ (int) cal + "cal¸¦ ¼Ò¸ðÇÏ¼Ì½À´Ï´Ù.");

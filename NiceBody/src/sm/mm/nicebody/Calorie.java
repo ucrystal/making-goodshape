@@ -14,11 +14,11 @@ public class Calorie{
 		return calCalorie;
 	}
 	
-	public static double cal_lunge(int exerciseNum) {
+	public static double cal_neeling(int exerciseNum) {
 
 		cal_pd = Profile.db.getProfileData(); 
 		calCalorie = cal_pd.getHeight() / 100
-				* cal_pd.getWeight() * (0.07639) * 2
+				* cal_pd.getWeight() * (0.05005263) * 2 * (4.2)
 				* exerciseNum;
 		return calCalorie;
 	}

@@ -56,7 +56,7 @@ public class Free_result extends Activity {
 
 		} else if (Free_menu.choiceEx == 2) {
 
-			calCalorie = Calorie.cal_lunge(Free_record.countResult);
+			calCalorie = Calorie.cal_neeling(Free_record.countResult);
 			free_resultCal.setText((int) calCalorie + " cal ¼Ò¸ð");
 
 		} else if (Free_menu.choiceEx == 3) {
