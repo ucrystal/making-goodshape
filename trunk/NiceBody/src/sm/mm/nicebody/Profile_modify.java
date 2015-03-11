@@ -228,7 +228,7 @@ public class Profile_modify extends Activity implements OnClickListener {
 			text = "우리와 함께 건강한 몸매 만들어봐요 ^0^";
 			if (profileDatas.size() == 0) {
 				// 운동여부 알람 서비스 실행
-				startService(new Intent("NiceBodyService"));
+				//startService(new Intent("NiceBodyService"));
 			}
 
 			// db에 값 저장하기

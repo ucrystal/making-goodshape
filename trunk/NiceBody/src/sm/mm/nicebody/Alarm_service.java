@@ -64,7 +64,7 @@ public class Alarm_service extends Service {
 					Alarm_service.this);
 			builder.setSmallIcon(R.drawable.ic_launcher)
 					.setContentTitle("몸매가 예뻐Gym")
-					.setContentText("3일 동안 운동을 하지 않았어요!").setAutoCancel(true); // 알림바에서
+					.setContentText("운동을 오랫동안 하지 않았어요!").setAutoCancel(true); // 알림바에서
 																				// 자동
 																				// 삭제
 

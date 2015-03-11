@@ -84,15 +84,13 @@ public class Profile extends Activity {
 
 		} else if (db.checkTable() == 1) {
 
-			/*
-			 * RecordData rdtest = new RecordData(); rdtest =
-			 * Profile.db.getRecordData();
-			 * 
-			 * Log.v("test_check",String.valueOf(rdtest.getCheckInt()));
-			 */
+			startService(new Intent("NiceBodyService"));
+		
+			  RecordData rdtest = new RecordData(); 
+			  rdtest = Profile.db.getRecordData();
+			  
+			  Log.v("test_check",String.valueOf(rdtest.getCheckInt()));
 
-			//startService(new Intent("NiceBodyService"));
-			
 			ProfileData profile_pd = Profile.db.getProfileData();
 			tv_name.setText("  " + profile_pd.getName());
 			tv_height.setText("  " + (int) profile_pd.getHeight() + " cm");
