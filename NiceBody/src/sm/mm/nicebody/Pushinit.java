@@ -27,6 +27,7 @@ public class Pushinit extends Application {
         return count;
     }
 
+    
 	@Override
 	public void onCreate() {
 		count = new int[] { 30, 60, 90, 120, 180, 210, 240, 300, 330, 360 };
