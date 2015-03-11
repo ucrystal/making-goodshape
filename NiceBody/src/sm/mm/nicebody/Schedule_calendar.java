@@ -158,7 +158,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
-					Profile.db.updateRecordData(0);
+					Profile.db.updateRecordData(0, Info_date);
 				}
 			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) < 10) {
 				String Info_date = Info_year + "0" + Info_month
@@ -171,7 +171,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
-					Profile.db.updateRecordData(0);
+					Profile.db.updateRecordData(0, Info_date);
 				}
 			} else if (i < 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
 				String Info_date = Info_year + Info_month + "0"
@@ -184,7 +184,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
-					Profile.db.updateRecordData(0);
+					Profile.db.updateRecordData(0, Info_date);
 				}
 			
 			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
@@ -198,7 +198,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
-					Profile.db.updateRecordData(0);
+					Profile.db.updateRecordData(0, Info_date);
 				}
 			}
 

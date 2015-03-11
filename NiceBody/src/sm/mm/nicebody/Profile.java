@@ -75,24 +75,24 @@ public class Profile extends Activity {
 			Profile.db.createFreeTable();
 			Profile.db.createRecommendTable();
 			Profile.db.createRecordTable();
-			
-			RecordData rd = new RecordData(0);
+
+			RecordData rd = new RecordData(0, "0");
 			Profile.db.addRecordData(rd);
 
 			RecommendData recommendData = new RecommendData(1);
 			Profile.db.openNext(recommendData);
 
-			
-			
 		} else if (db.checkTable() == 1) {
 
+			/*
+			 * RecordData rdtest = new RecordData(); rdtest =
+			 * Profile.db.getRecordData();
+			 * 
+			 * Log.v("test_check",String.valueOf(rdtest.getCheckInt()));
+			 */
 
-			  RecordData rdtest = new RecordData(); 
-			  rdtest = Profile.db.getRecordData();
-			  
-			  Log.v("test_check",String.valueOf(rdtest.getCheckInt()));
-
-
+			//startService(new Intent("NiceBodyService"));
+			
 			ProfileData profile_pd = Profile.db.getProfileData();
 			tv_name.setText("  " + profile_pd.getName());
 			tv_height.setText("  " + (int) profile_pd.getHeight() + " cm");
