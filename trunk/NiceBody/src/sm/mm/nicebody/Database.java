@@ -28,7 +28,7 @@ public class Database extends SQLiteOpenHelper {
 		String CREATE_FREE_TABLE = "CREATE TABLE IF NOT EXISTS frees ( id INTEGER PRIMARY KEY AUTOINCREMENT, type INTEGER, count INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP, photo BLOB)";
 		String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS profiles (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(10), height INTEGER, weight INTEGER)";
 		String CREATE_RECOMMEND_TABLE = "CREATE TABLE IF NOT EXISTS recommends (id INTEGER PRIMARY KEY AUTOINCREMENT, s_check INTEGER, t DATETIME DEFAULT CURRENT_TIMESTAMP)";
-		String CREATE_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY AUTOINCREMENT, checkInt INTEGER)";
+		String CREATE_RECORD_TABLE = "CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY AUTOINCREMENT, checkInt INTEGER, recordDate VARCHAR(10))";
 		db.execSQL(CREATE_FREE_TABLE);
 		db.execSQL(CREATE_PROFILE_TABLE);
 		db.execSQL(CREATE_RECOMMEND_TABLE);
@@ -108,7 +108,7 @@ public class Database extends SQLiteOpenHelper {
 	
 	public void createRecordTable() {
 		SQLiteDatabase db = this.getWritableDatabase();
-		String CREATE_RECORD_TABLE = "CREATE TABLE records (id INTEGER PRIMARY KEY AUTOINCREMENT, checkInt INTEGER)";
+		String CREATE_RECORD_TABLE = "CREATE TABLE records (id INTEGER PRIMARY KEY AUTOINCREMENT, checkInt INTEGER, recordDate VARCHAR(10))";
 		db.execSQL(CREATE_RECORD_TABLE);
 		db.close();
 	}
@@ -427,6 +427,7 @@ public class Database extends SQLiteOpenHelper {
 
 	private static final String TABLE_RECORDS = "records";
 	private static final String KEY_CHECKINT = "checkInt";
+	private static final String KEY_RECORDDATE = "recordDate";
 
 	// private static final String[] P_COLUMNS = { KEY_ID,
 	// KEY_TYPE, KEY_COUNT, KEY_DATE };
@@ -436,14 +437,16 @@ public class Database extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_CHECKINT, recordData.getCheckInt());
+		values.put(KEY_RECORDDATE, recordData.getRecordDate());
 		db.insert(TABLE_RECORDS, null, values);
 		db.close();
 	}
 
-	public void updateRecordData(int input) {
+	public void updateRecordData(int input, String date) {
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("UPDATE " + TABLE_RECORDS +" SET checkInt = "+input+" WHERE id = 1;");  
+		db.execSQL("UPDATE " + TABLE_RECORDS +" SET recordDate = "+date+" WHERE id = 1;");  
 		db.close();
 		
 	}
@@ -462,6 +465,7 @@ public class Database extends SQLiteOpenHelper {
 				recordData = new RecordData();
 				recordData.setId(Integer.parseInt(cursor.getString(0)));
 				recordData.setCheckInt(Integer.parseInt(cursor.getString(1)));
+				recordData.setRecordDate(cursor.getString(2));
 
 				recordDatas.add(recordData);
 			} while (cursor.moveToNext());

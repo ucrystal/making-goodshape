@@ -8,13 +8,15 @@ package sm.mm.nicebody;
 
 		private int id;
 		private int checkInt;
+		private String recordDate;
 
 
 		public RecordData(){}
 
-		public RecordData(int checkInt) {
+		public RecordData(int checkInt, String recordDate) {
 			super();
 			this.checkInt = checkInt;
+			this.recordDate = recordDate;
 
 		}
 
@@ -32,6 +34,14 @@ package sm.mm.nicebody;
 		
 		public void setCheckInt(int checkInt) {
 			this.checkInt = checkInt;
+		}
+		
+		public String getRecordDate() {
+			return recordDate;
+		}
+		
+		public void setRecordDate(String recordDate) {
+			this.recordDate = recordDate;
 		}
 		
 	}

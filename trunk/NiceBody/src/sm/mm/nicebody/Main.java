@@ -1,6 +1,8 @@
 package sm.mm.nicebody;
 
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -23,6 +26,10 @@ public class Main extends Activity {
 	ImageView logoImageview;
 	Button free_btn, recommend_btn, personal_btn;
 	Toast mainToast;
+	
+	Database alarm_db;
+	private int output;
+	static int alarm_int;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -58,6 +65,7 @@ public class Main extends Activity {
 		actionBar.hide();
 
 		Profile.db = new Database(this);
+		
 
 
 		free_btn = (Button) findViewById(R.id.free_btn);
