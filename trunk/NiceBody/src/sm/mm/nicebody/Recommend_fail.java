@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 public class Recommend_fail extends Activity {
 	Button btn_fail_main;
+	Sound mSound;
+	
 	private BackPressCloseHandler backPressCloseHandler;
 
 	@Override
@@ -26,6 +28,11 @@ public class Recommend_fail extends Activity {
 		customActionBar();
 
 		backPressCloseHandler = new BackPressCloseHandler(this);
+		
+		mSound = new Sound(this, R.raw.fail);
+		if (Free_record.sound_ch % 2 == 0) {
+			mSound.play();
+		}
 
 		btn_fail_main = (Button) findViewById(R.id.btn_fail);
 		btn_fail_main.setOnClickListener(new OnClickListener() {
