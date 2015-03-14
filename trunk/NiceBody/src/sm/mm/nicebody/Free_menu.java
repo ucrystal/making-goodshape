@@ -18,16 +18,14 @@ public class Free_menu extends Activity {
 	static int choiceEx = 0;
 	Button free_pushup_btn, free_lunge_btn, free_legraise_btn;
 	private BackPressCloseHandler backPressCloseHandler;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.free_menu);
 
 		customActionBar();
-	
-		//backPressCloseHandler = new BackPressCloseHandler(this);
-	
+
 		free_pushup_btn = (Button) findViewById(R.id.free_pushup_btn);
 		free_pushup_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -37,8 +35,9 @@ public class Free_menu extends Activity {
 
 				Intent intent = new Intent(Free_menu.this, Free_explain.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-				
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
+
 			}
 		});
 		free_lunge_btn = (Button) findViewById(R.id.free_lunge_btn);
@@ -50,7 +49,8 @@ public class Free_menu extends Activity {
 
 				Intent intent = new Intent(Free_menu.this, Free_explain.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 			}
 		});
 		free_legraise_btn = (Button) findViewById(R.id.free_legraise_btn);
@@ -62,15 +62,15 @@ public class Free_menu extends Activity {
 
 				Intent intent = new Intent(Free_menu.this, Free_explain.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
-				
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
+
 			}
 		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -99,18 +99,13 @@ public class Free_menu extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	public void customActionBar() {
-		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
 		abar.setBackgroundDrawable(new ColorDrawable(Color
 				.parseColor("#67C6E5")));
-		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
-		// under the action bar
 		View viewActionBar = getLayoutInflater().inflate(
 				R.layout.actionbar_layout, null);
 		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
@@ -120,7 +115,6 @@ public class Free_menu extends Activity {
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
 		abar.setDisplayHomeAsUpEnabled(true);
-		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
 

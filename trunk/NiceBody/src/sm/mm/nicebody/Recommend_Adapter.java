@@ -20,7 +20,7 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 	private LayoutInflater mInflater;
 
 	ImageView img;
-		
+
 	public Recommend_Adapter(Context context, int rowLayoutResource,
 			ArrayList<Recommend_list_model> objects) {
 		super(context, rowLayoutResource, objects);
@@ -56,55 +56,28 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 		Recommend_list_model data = getItem(position);
 
 		if (data != null) {
-			ImageView ivImage = (ImageView) convertView.findViewById(R.id.item_icon);
-			TextView tvTitle = (TextView) convertView.findViewById(R.id.item_title);
+			ImageView ivImage = (ImageView) convertView
+					.findViewById(R.id.item_icon);
+			TextView tvTitle = (TextView) convertView
+					.findViewById(R.id.item_title);
 
 			ivImage.setImageResource(data.getImage());
 			tvTitle.setText(data.getTitle());
 		}
-		
-		List<RecommendData> Recommend_result = Profile.db.getAllRecommendDatas();
-		
-		for(int i=0; i<Recommend_result.size(); i++) {
-			if(Recommend_result.size()==i+1) {
-				if(position<=i) convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
-				else convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
+
+		List<RecommendData> Recommend_result = Profile.db
+				.getAllRecommendDatas();
+
+		for (int i = 0; i < Recommend_result.size(); i++) {
+			if (Recommend_result.size() == i + 1) {
+				if (position <= i)
+					convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
+				else
+					convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
 			}
 		}
 		return convertView;
-		/*
-        if (Recommend_result.size() == 1) {
-        	if(position==1)
-				convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
-			else
-				convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
-        }
-		else if (Recommend_result.size() == 2) {
-			if(position==1|position==2)
-				convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));
-			else
-				convertView.setBackgroundColor(Color.parseColor("#C9C9C9"));
-			//convertView.setBackgroundColor((position == mList.size() - 8 |position == mList.size() - 7 |position == mList.size() - 6 |position == mList.size() - 5 |position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ?Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
-		}
-		else if (Recommend_result.size() == 3) {
-			convertView.setBackgroundColor((position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
-					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
-		}
-		else if (Recommend_result.size() == 4) {
-			convertView.setBackgroundColor((position == mList.size() - 2 | position == mList.size() - 1) ? 
-					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));			
-		}
-		else if (Recommend_result.size() == 5) {
-			convertView.setBackgroundColor((position == mList.size() - 1) ? 
-					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));
-		}
-		else if (Recommend_result.size() == 6) {
-			convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));			
-		}else if (Recommend_result.size() == 7) {
-			convertView.setBackgroundColor(Color.parseColor("#DEDEDE"));			
-		}else
-			convertView.setBackgroundColor((position == mList.size() - 5 | position == mList.size() - 4 | position == mList.size() - 3 | position == mList.size() - 2 | position == mList.size() - 1) ? 
-					Color.parseColor("#C9C9C9") : Color.parseColor("#DEDEDE"));*/
+
 	}
 
 	@Override
@@ -114,42 +87,18 @@ public class Recommend_Adapter extends ArrayAdapter<Recommend_list_model> {
 
 	@Override
 	public boolean isEnabled(int position) {
-	
-		List<RecommendData> Recommend_result = Profile.db.getAllRecommendDatas();
+
+		List<RecommendData> Recommend_result = Profile.db
+				.getAllRecommendDatas();
 		boolean result = true;
-		
-		for(int i=0; i<Recommend_result.size(); i++) {
-			if(position<=i) result = true;
-			else result = false;
+
+		for (int i = 0; i < Recommend_result.size(); i++) {
+			if (position <= i)
+				result = true;
+			else
+				result = false;
 		}
 		return result;
-		
-		/*
-		if (Recommend_result.size() == 1) {
-			if(position==1) return false;
-			else return true;
-			//return (position == mList.size() - 4 | position == mList.size() - 3| position == mList.size() - 2 | position == mList.size() - 1) ? false: true;
-		}
-		else if (Recommend_result.size() == 3) {
-			return (position == mList.size() - 3 | position == mList.size() - 2 | position == mList
-					.size() - 1) ? false : true;
-		}
-		else if (Recommend_result.size() == 4) {
-			return (position == mList.size() - 2 | position == mList.size() - 1) ? false
-					: true;
-		}
-		else if (Recommend_result.size() == 5) {
-			return (position == mList.size() - 1) ? false : true;
-		}
-		else if (Recommend_result.size() == 6) {
-			return true;
-		}else if (Recommend_result.size() == 7) {
-			return true;
-		} else
-		
-		// ±âº»
-			return (position == mList.size() - 5 | position == mList.size() - 4
-				| position == mList.size() - 3 | position == mList.size() - 2 | position == mList
-				.size() - 1) ? false : true;*/
+
 	}
 }

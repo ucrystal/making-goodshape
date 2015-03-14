@@ -148,15 +148,13 @@ public class Profile_modify extends Activity implements OnClickListener {
 				.getExternalStorageDirectory(), url));
 		intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT,
 				mImageCaptureUri);
-		// 특정기기에서 사진을 저장못하는 문제가 있어 다음을 주석처리 합니다.
-		// intent.putExtra("return-data", true);
+
 		startActivityForResult(intent, PICK_FROM_CAMERA);
 
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.profile_modify, menu);
 		return true;
 	}
@@ -171,15 +169,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.action_ok:
-
-			/*
-			 * Profile.test_int ++;
-			 * 
-			 * RecordData rd = new RecordData();
-			 * rd.setCheckInt(Profile.test_int);
-			 * 
-			 * Profile.db.addRecordData(rd);
-			 */
 
 			Height = editHeight.getText().toString();
 			Weight = editWeight.getText().toString();
@@ -222,13 +211,10 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			}
 
-			// Profile.profilePhoto_default.setImageBitmap(photo);
-
 			title = "몸매가 예뻐gym";
 			text = "우리와 함께 건강한 몸매 만들어봐요 ^0^";
 			if (profileDatas.size() == 0) {
-				// 운동여부 알람 서비스 실행
-				//startService(new Intent("NiceBodyService"));
+
 			}
 
 			// db에 값 저장하기
@@ -236,7 +222,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 					Integer.parseInt(Weight), imageInByte);
 			Profile.db.addProfileData(pd);
 
-			// 다음 activity로
 			intent = new Intent(this, Profile.class);
 			startActivity(intent);
 			finish();
@@ -246,16 +231,12 @@ public class Profile_modify extends Activity implements OnClickListener {
 	}
 
 	public void customActionBar() {
-		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
 		abar.setBackgroundDrawable(new ColorDrawable(Color
 				.parseColor("#67C6E5")));
-		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
-		// under the action bar
 		View viewActionBar = getLayoutInflater().inflate(
 				R.layout.actionbar_layout, null);
 		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
@@ -265,7 +246,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
 		abar.setDisplayHomeAsUpEnabled(true);
-		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
 
@@ -375,7 +355,6 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 	@Override
 	public void onBackPressed() {
-		// super.onBackPressed();
 		backPressCloseHandler.onBackPressed();
 	}
 

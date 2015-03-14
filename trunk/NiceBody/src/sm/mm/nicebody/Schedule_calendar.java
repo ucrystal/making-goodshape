@@ -76,7 +76,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		resultList = new ArrayList<String>();
 		list_adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, resultList);
-		// simple_list_item_1는 textview를 담고 있는 xml형태
 
 		// listview 객체에 아답터 객체 연결
 		listView.setAdapter(list_adapter);
@@ -95,12 +94,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 	}
 
-	/*
-	 * 달력을 셋팅
-	 * 
-	 * @param calendar 달력에 보여지는 이번달의 Calendar 객체
-	 */
-
+	// 달력셋팅
 	private void getCalendar(Calendar calendar) {
 		int lastMonthStartDay;
 		int dayOfMonth;
@@ -108,13 +102,11 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 		DayList.clear();
 
-		// 이번달 시작일의 요일을 구함. 시작일이 일요일인 경우 인덱스를 1(일요일)에서 8(다음주 일요일)로 바꾼다
-
+		// 이번달 시작일의 요일을 구함. 시작일이 일요일인 경우 인덱스를 1(일요일)에서 8(다음주 일요일)로 바꿈
 		dayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
 		thisMonthLastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 		// 지난달 마지막 날
-
 		lastMonthStartDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 		if (dayOfMonth == SUNDAY) {
@@ -152,8 +144,8 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
-				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
-						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db
+						.getRecommendDatasByDate("'" + Info_date + "'");
 
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
@@ -165,8 +157,8 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
-				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
-						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db
+						.getRecommendDatasByDate("'" + Info_date + "'");
 
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
@@ -178,22 +170,22 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 						+ String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
-				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
-						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db
+						.getRecommendDatasByDate("'" + Info_date + "'");
 
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
 					day.setInfoGym(true);
 					Profile.db.updateRecordData(0, Info_date);
 				}
-			
+
 			} else if (i >= 10 && ThisMonthCalendar.get(Calendar.MONTH) >= 10) {
 				String Info_date = Info_year + Info_month + String.valueOf(i);
 				List<FreeData> Info_gym = Profile.db.getFreeDatasByDate("'"
 						+ Info_date + "'");
 
-				List<RecommendData> Info_gym_r = Profile.db.getRecommendDatasByDate("'"
-						+ Info_date + "'");
+				List<RecommendData> Info_gym_r = Profile.db
+						.getRecommendDatasByDate("'" + Info_date + "'");
 
 				if (Info_gym.size() > 0 || Info_gym_r.size() > 1) {
 
@@ -290,10 +282,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 			List<RecommendData> Schedule_check = Profile.db
 					.getAllRecommendDatas();
 
-			// Log.i("gym", "onItemClick()");
-			// Log.i("gym", "position =" + position);
-			// Log.i("gym", "date= " + date_result);
-
 			// 운동별 횟수 출력
 			int totalCount1 = 0;
 			int totalCount2 = 0;
@@ -323,14 +311,15 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				total_cal += Calorie.cal_fushUp(totalCount1);
 			}
 			if (totalCount2 != 0) {
-				resultList.add(String.valueOf("자유운동 :             닐링 레그 리프트    "
-						+ totalCount2 + "회"));
-				total_cal += Calorie.cal_neeling(totalCount2); 
+				resultList.add(String
+						.valueOf("자유운동 :             닐링 레그 리프트    "
+								+ totalCount2 + "회"));
+				total_cal += Calorie.cal_neeling(totalCount2);
 			}
 			if (totalCount3 != 0) {
 				resultList.add(String.valueOf("자유운동 :             레그레이즈     "
 						+ totalCount3 + "회"));
-				total_cal += Calorie.cal_legRaise(totalCount3); 
+				total_cal += Calorie.cal_legRaise(totalCount3);
 			}
 
 			String rec_s = "";
@@ -342,35 +331,52 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 					if (Schedule_result_r.get(i).getId() != 0) {
 						if (i < Schedule_result_r.size() - 1
-								&& Schedule_result_r.get(i).getId() != 1){
-						
+								&& Schedule_result_r.get(i).getId() != 1) {
+
 							rec_s += Schedule_result_r.get(i).getId() - 1
 									+ ", ";
-							
-							total_cal += Calorie.cal_fushUp(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][0]) 
-							+  Calorie.cal_neeling(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][1]) 
-							+  Calorie.cal_legRaise(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][2] + Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][3]);
-						
-						}else if (i == Schedule_result_r.size() - 1){
-							
+
+							total_cal += Calorie
+									.cal_fushUp(Recommend_record.arr[Schedule_result_r
+											.get(i).getId() - 2][0])
+									+ Calorie
+											.cal_neeling(Recommend_record.arr[Schedule_result_r
+													.get(i).getId() - 2][1])
+									+ Calorie
+											.cal_legRaise(Recommend_record.arr[Schedule_result_r
+													.get(i).getId() - 2][2]
+													+ Recommend_record.arr[Schedule_result_r
+															.get(i).getId() - 2][3]);
+
+						} else if (i == Schedule_result_r.size() - 1) {
+
 							rec_s += Schedule_result_r.get(i).getId() - 1 + " ";
-							total_cal += Calorie.cal_fushUp(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][0]) 
-									+  Calorie.cal_neeling(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][1]) 
-									+  Calorie.cal_legRaise(Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][2] + Recommend_record.arr[Schedule_result_r.get(i).getId() - 2][3]);
-						
+							total_cal += Calorie
+									.cal_fushUp(Recommend_record.arr[Schedule_result_r
+											.get(i).getId() - 2][0])
+									+ Calorie
+											.cal_neeling(Recommend_record.arr[Schedule_result_r
+													.get(i).getId() - 2][1])
+									+ Calorie
+											.cal_legRaise(Recommend_record.arr[Schedule_result_r
+													.get(i).getId() - 2][2]
+													+ Recommend_record.arr[Schedule_result_r
+															.get(i).getId() - 2][3]);
+
 						}
-							
+
 					}
 				}
 			}
 
-            if (Schedule_result_r.size() > 0 && Schedule_check.size() > 1 ) {
-                resultList.add(String.valueOf("추천운동 :              "
-                                + rec_s + "단계     성공"));
-            }
-			
-			if(total_cal > 0){
-				resultList.add(String.valueOf("총 소비 칼로리 :                   "+(int) total_cal+ "cal"));
+			if (Schedule_result_r.size() > 0 && Schedule_check.size() > 1) {
+				resultList.add(String.valueOf("추천운동 :              " + rec_s
+						+ "단계     성공"));
+			}
+
+			if (total_cal > 0) {
+				resultList.add(String.valueOf("총 소비 칼로리 :                   "
+						+ (int) total_cal + "cal"));
 			}
 
 		}
@@ -401,7 +407,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -436,16 +441,12 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 	}
 
 	public void customActionBar() {
-		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
 		abar.setBackgroundDrawable(new ColorDrawable(Color
 				.parseColor("#67C6E5")));
-		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
-		// under the action bar
 		View viewActionBar = getLayoutInflater().inflate(
 				R.layout.actionbar_layout, null);
 		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
@@ -456,7 +457,6 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
 		abar.setDisplayHomeAsUpEnabled(true);
-		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
 

@@ -29,7 +29,7 @@ public class Free_result extends Activity {
 
 	Toast recordToast;
 	private BackPressCloseHandler backPressCloseHandler;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class Free_result extends Activity {
 
 		customActionBar();
 		backPressCloseHandler = new BackPressCloseHandler(this);
-	
+
 		free_resultNum = (TextView) findViewById(R.id.resultNum);
 		free_resultTimer = (TextView) findViewById(R.id.resultTimer);
 		free_resultCal = (TextView) findViewById(R.id.resultCal);
@@ -78,13 +78,14 @@ public class Free_result extends Activity {
 					String log_s = "";
 					if (printAll.get(i).getType() == 1) {
 						log_s = "윗몸일으키기";
-					}else if (printAll.get(i).getType() == 2) {
+					} else if (printAll.get(i).getType() == 2) {
 						log_s = "런지";
-					}else if (printAll.get(i).getType() == 3) {
+					} else if (printAll.get(i).getType() == 3) {
 						log_s = "레그레이즈";
 					}
-					
-					Log.v("free", log_s +","+ printAll.get(i).getCount() +","+ printAll.get(i).getDate());
+
+					Log.v("free", log_s + "," + printAll.get(i).getCount()
+							+ "," + printAll.get(i).getDate());
 				}
 
 				recordToast = Toast.makeText(getApplicationContext(),
@@ -98,11 +99,12 @@ public class Free_result extends Activity {
 		result_pushup_gomain.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				Free_record.countResult = 0;
 				Intent intent = new Intent(Free_result.this, Main.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
@@ -110,7 +112,6 @@ public class Free_result extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -138,19 +139,14 @@ public class Free_result extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
 
 	public void customActionBar() {
-		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
 		abar.setBackgroundDrawable(new ColorDrawable(Color
 				.parseColor("#67C6E5")));
-		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
-		// under the action bar
 		View viewActionBar = getLayoutInflater().inflate(
 				R.layout.actionbar_layout, null);
 		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
@@ -160,13 +156,11 @@ public class Free_result extends Activity {
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
 		abar.setDisplayHomeAsUpEnabled(true);
-		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
 
 	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
+	public void onBackPressed() {
+		backPressCloseHandler.onBackPressed();
+	}
 }

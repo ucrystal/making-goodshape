@@ -42,13 +42,7 @@ public class Receiver extends ParsePushBroadcastReceiver {
 				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		it.putExtra("RECEIVER_ID", RECEIVER_ID + "");
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, it,
-				PendingIntent.FLAG_UPDATE_CURRENT); // remember to call
-													// PendingIntent.getActivity()
-													// with the flag
-													// PendingIntent.FLAG_UPDATE_CURRENT,
-													// otherwise the same extras
-													// will be reused for every
-													// notification.
+				PendingIntent.FLAG_UPDATE_CURRENT);
 
 		PendingIntent shareIntent = PendingIntent.getActivity(context, 0,
 				intent, 0);

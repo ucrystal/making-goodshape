@@ -18,16 +18,15 @@ public class Pushinit extends Application {
 	public static Context getContext() {
 		return instance;
 	}
-	
-	public void setCount(int[] count){
-        this.count = count;
-    }
 
-    public int[] getCount(){
-        return count;
-    }
+	public void setCount(int[] count) {
+		this.count = count;
+	}
 
-    
+	public int[] getCount() {
+		return count;
+	}
+
 	@Override
 	public void onCreate() {
 		count = new int[] { 30, 60, 90, 120, 180, 210, 240, 300, 330, 360 };
@@ -35,8 +34,7 @@ public class Pushinit extends Application {
 		Parse.initialize(this, "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried",
 				"AmAEA69L21vTTntYMLTInbiynU4DrsRtBGeXeuYL");
 		ParseInstallation.getCurrentInstallation().saveInBackground();
-		
-	
+
 	}
 
 }

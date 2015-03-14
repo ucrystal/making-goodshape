@@ -13,10 +13,7 @@ package sm.mm.nicebody;
 		
 		public FreeData(){}
 
-		
-		//이게 데이터 테이블 생성잔데, ID는 어떤식으로 입력받을지 안정했고, 
-		//날짜는 DAFAULT로 들어간다고 가정했을때, 
-		// 운동 type하고 운동 count(횟수)만 생성한다.
+		//데이터 테이블 생성자
 		public FreeData(int type, int count) {
 			super();
 			this.type = type;
