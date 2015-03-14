@@ -29,7 +29,7 @@ public class Pushinit extends Application {
 
 	@Override
 	public void onCreate() {
-		count = new int[] { 30, 60, 90, 120, 180, 210, 240, 300, 330, 360 };
+		count = new int[] { 50, 80, 120, 150, 180, 220, 260, 300, 350, 400 };
 		super.onCreate();
 		Parse.initialize(this, "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried",
 				"AmAEA69L21vTTntYMLTInbiynU4DrsRtBGeXeuYL");
