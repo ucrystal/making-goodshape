@@ -89,7 +89,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		countTxt = (TextView) findViewById(R.id.countTxt);
 
 		for (int i = 1; i < 11; i++) {
-			count[i - 1] = 20 * i;
+			count[i - 1] = 50 * i;
 			if (Recommend_list.choiceCh == i)
 				countDownStart(i);
 		}
