@@ -37,11 +37,11 @@ public class Schedule_calendar_day {
 		this.inMonth = inMonth;
 	}
 
-	// 운동정보가 존재하는 날인지 정보를 반환 
+	// 운동정보가 존재하는 날인지 정보를 반환
 	public boolean isInfoGym() {
 		return infoGym;
 	}
-	
+
 	// 운동정보가 존재하는지 저장
 	public void setInfoGym(boolean infoGym) {
 		this.infoGym = infoGym;

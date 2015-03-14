@@ -42,9 +42,7 @@ public class Main extends Activity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									// ActivityManager
-									// activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
-									// activityManager.killBackgroundProcesses("sm.mm.nicebody");
+	
 									moveTaskToBack(true);
 									finish();
 								}
@@ -84,7 +82,6 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				// finish();
 			}
 		});
 
@@ -105,7 +102,6 @@ public class Main extends Activity {
 				startActivity(intent);
 				overridePendingTransition(R.anim.default_start_enter,
 						R.anim.default_start_exit);
-				// finish();
 			}
 		});
 

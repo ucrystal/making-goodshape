@@ -18,8 +18,11 @@ import android.widget.TextView;
 
 public class Recommend_record4 extends Activity implements SensorEventListener {
 	private static final int COUNT_DOWN_INTERVAL = 1000;
-	int[][] arr = { {2, 3, 3, 3}, {4, 6, 5, 5}, {6, 9, 6, 6}, {8, 12, 8, 8}, {10, 15, 10, 10}, {12, 15, 11, 11}, {14, 18, 12, 12}, {14, 20, 14, 14}, {16, 20, 15, 15}, {20, 24, 16, 16} };
-	private  int[] count;
+	int[][] arr = { { 2, 3, 3, 3 }, { 4, 6, 5, 5 }, { 6, 9, 6, 6 },
+			{ 8, 12, 8, 8 }, { 10, 15, 10, 10 }, { 12, 15, 11, 11 },
+			{ 14, 18, 12, 12 }, { 14, 20, 14, 14 }, { 16, 20, 15, 15 },
+			{ 20, 24, 16, 16 } };
+	private int[] count;
 	private int countShow;
 	private int playCheck = 0;
 	private TextView countTxt;
@@ -73,8 +76,8 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
-		count=Recommend_record.count;
-		
+		count = Recommend_record.count;
+
 		mSound = new Sound(this, R.raw.sound);
 
 		countTxt = (TextView) findViewById(R.id.countTxt4);
@@ -84,30 +87,29 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 		fixedNum3 = (TextView) findViewById(R.id.fixedNum3);
 		fixedNum4 = (TextView) findViewById(R.id.fixedNum4);
 
-		for(int i=1; i<11; i++) {
+		for (int i = 1; i < 11; i++) {
 			if (Recommend_list.choiceCh == i)
 				countDownStart(i);
 		}
-		
+
 		rec_sound_btn4 = (Button) findViewById(R.id.button_sound_r4);
-		if(Free_record.sound_ch%2 == 1){
+		if (Free_record.sound_ch % 2 == 1) {
 			rec_sound_btn4.setSelected(true);
-		}else if(Free_record.sound_ch%2 == 0){
+		} else if (Free_record.sound_ch % 2 == 0) {
 			rec_sound_btn4.setSelected(false);
 		}
 		rec_sound_btn4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				Free_record.sound_ch += 1;
-				
-				if(Free_record.sound_ch%2 == 1){
+
+				if (Free_record.sound_ch % 2 == 1) {
 					rec_sound_btn4.setSelected(true);
-				}else if(Free_record.sound_ch%2 == 0){
+				} else if (Free_record.sound_ch % 2 == 0) {
 					rec_sound_btn4.setSelected(false);
 				}
-				
-				
+
 			}
 		});
 
@@ -128,7 +130,8 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 			public void onClick(View v) {
 				countDownTimer.cancel();
 
-				Intent intent = new Intent(Recommend_record4.this,Recommend_fail.class);
+				Intent intent = new Intent(Recommend_record4.this,
+						Recommend_fail.class);
 				startActivity(intent);
 				finish();
 			}
@@ -148,7 +151,8 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 		super.onStart();
 
 		// 센서 값을 이 컨텍스트에서 받아볼 수 있도록 리스너를 등록한다.
-		m_sensor_manager.registerListener(this, m_sensor,SensorManager.SENSOR_DELAY_UI);
+		m_sensor_manager.registerListener(this, m_sensor,
+				SensorManager.SENSOR_DELAY_UI);
 	}
 
 	// 해당 액티비티가 멈추면 근접 데이터를 얻어도 소용이 없으므로 리스너를 해제한다.
@@ -187,16 +191,16 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 					if (testNum == 0) {
 						printNum++;
 
-						if(Free_record.sound_ch%2 == 0){
+						if (Free_record.sound_ch % 2 == 0) {
 							mSound.play();
 						}
-						
+
 						if (printNum < 10)
 							recommend_countNum.setText("0" + printNum);
 						else
 							recommend_countNum.setText("" + printNum);
 
-						for(int i=1; i<11; i++) {
+						for (int i = 1; i < 11; i++) {
 							if (Recommend_list.choiceCh == i)
 								challengeSuccess(i);
 						}
@@ -253,9 +257,11 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 		if (printNum == arr[index][3]) {
 			recommend_countNum.setText("0" + printNum);
 			countDownTimer.cancel();
-			Intent intent = new Intent(Recommend_record4.this,Recommend_success.class);
+			Intent intent = new Intent(Recommend_record4.this,
+					Recommend_success.class);
 			startActivity(intent);
-			overridePendingTransition(R.anim.default_start_enter,R.anim.default_start_exit);
+			overridePendingTransition(R.anim.default_start_enter,
+					R.anim.default_start_exit);
 			finish();
 		}
 	}

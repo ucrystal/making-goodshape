@@ -20,9 +20,9 @@ import android.widget.TextView;
 
 public class Free_record extends Activity implements SensorEventListener {
 
-	//백버튼 두번 누르면 종료 객체
+	// 백버튼 두번 누르면 종료 객체
 	private BackPressCloseHandler backPressCloseHandler;
-	
+
 	// 센서 관련 객체
 	SensorManager m_sensor_manager;
 	Sensor m_sensor;
@@ -51,107 +51,95 @@ public class Free_record extends Activity implements SensorEventListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.free_record);
-		
+
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
-		
+
 		backPressCloseHandler = new BackPressCloseHandler(this);
-		
-		ch = (Chronometer)findViewById(R.id.chronometer_record);
+
+		ch = (Chronometer) findViewById(R.id.chronometer_record);
 		mSound = new Sound(this, R.raw.sound);
-		
-		
+
 		free_sound_btn = (Button) findViewById(R.id.button_sound);
-		if(sound_ch%2 == 1){
+		if (sound_ch % 2 == 1) {
 			free_sound_btn.setSelected(true);
-		}else if(sound_ch%2 == 0){
+		} else if (sound_ch % 2 == 0) {
 			free_sound_btn.setSelected(false);
 		}
 		free_sound_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				sound_ch += 1;
-				
-				if(sound_ch%2 == 1){
+
+				if (sound_ch % 2 == 1) {
 					free_sound_btn.setSelected(true);
-				}else if(sound_ch%2 == 0){
+				} else if (sound_ch % 2 == 0) {
 					free_sound_btn.setSelected(false);
 				}
-				
-				
+
 			}
 		});
-		
+
 		free_finish_btn = (Button) findViewById(R.id.free_finish_btn);
-		free_finish_btn.setOnClickListener(new View.OnClickListener() {		
+		free_finish_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				if (countResult == 0) {
 
-					Toast toast = Toast.makeText(getApplicationContext(), "운동을 하지 않았습니다ㅠㅠ",
-							Toast.LENGTH_LONG);
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"운동을 하지 않았습니다ㅠㅠ", Toast.LENGTH_LONG);
 					toast.show();
 					return;
-					
+
 				}
-				//현재 측정된 시간을 다음 페이지로 전달해줌
+				// 현재 측정된 시간을 다음 페이지로 전달해줌
 				timerResult = ch.getText().toString();
-				
-				Intent intent = new Intent(Free_record.this,Free_result.class);
+
+				Intent intent = new Intent(Free_record.this, Free_result.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.default_start_enter, R.anim.default_start_exit);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
 				finish();
 			}
 		});
-		
-		//측정이 가능한 상태는 playCheck가 1일때,
-		//측정이 일시정지되어 있는 상태는 playCheck가 2일때 (일시정지 버튼을 누르면 측정이 중지됨)
+
+		// 측정이 가능한 상태는 playCheck가 1일때,
+		// 측정이 일시정지되어 있는 상태는 playCheck가 2일때 (일시정지 버튼을 누르면 측정이 중지됨)
 		free_play_btn = (Button) findViewById(R.id.free_play_btn);
 		free_play_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
-				/*
-				cSound.play();
-				try {
-					
-					Thread.sleep(4000);
-					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
-				
-				playCheck=1;
-				
+
+				playCheck = 1;
+
 				ch.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
 				ch.start();
-			
+
 				ch.setOnChronometerTickListener(new OnChronometerTickListener() {
 					@Override
 					public void onChronometerTick(Chronometer chronometer) {
 						String cur_time = ch.getText().toString();
-						if(cur_time.equals("05:00")) ch.stop();
+						if (cur_time.equals("05:00"))
+							ch.stop();
 					}
 				});
 			}
 		});
-		
+
 		free_pause_btn = (Button) findViewById(R.id.free_pause_btn);
 		free_pause_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				playCheck = 2;
-				
+
 				timeWhenStopped = ch.getBase() - SystemClock.elapsedRealtime();
 				ch.stop();
 
 			}
 		});
-		
+
 		free_refresh_btn = (Button) findViewById(R.id.free_refresh_btn);
 		free_refresh_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -160,13 +148,12 @@ public class Free_record extends Activity implements SensorEventListener {
 				countResult = printNum;
 				free_countNum.setText("0" + printNum);
 				playCheck = 2;
-				
+
 				ch.setBase(SystemClock.elapsedRealtime());
 				timeWhenStopped = 0;
 				ch.stop();
 			}
 		});
-
 
 		// 출력용 텍스트뷰를 얻는다.
 		free_countNum = (TextView) findViewById(R.id.countNum);
@@ -203,7 +190,7 @@ public class Free_record extends Activity implements SensorEventListener {
 		// 정확도가 낮은 측정값인 경우
 		if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
 			// 몇몇 기기의 경우 accuracy 가 SENSOR_STATUS_UNRELIABLE 값을
-			// 가져서 측정값을 사용하지 못하는 경우가 있기때문에 임의로 return ; 을 막는다.
+			// 가져서 측정값을 사용하지 못하는 경우가 있기때문에 임의로 return을 막는다.
 			// return;
 		}
 
@@ -223,11 +210,11 @@ public class Free_record extends Activity implements SensorEventListener {
 
 						printNum++;
 						countResult = printNum;
-						
-						if(sound_ch%2 == 0){
+
+						if (sound_ch % 2 == 0) {
 							mSound.play();
 						}
-						
+
 						if (printNum < 10)
 							free_countNum.setText("0" + printNum);
 						else
@@ -246,11 +233,10 @@ public class Free_record extends Activity implements SensorEventListener {
 			}
 		}
 
-	}	
+	}
 
 	@Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-        backPressCloseHandler.onBackPressed();
-    }
+	public void onBackPressed() {
+		backPressCloseHandler.onBackPressed();
+	}
 }

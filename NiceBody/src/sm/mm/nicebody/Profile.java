@@ -44,7 +44,6 @@ public class Profile extends Activity {
 		setContentView(R.layout.profile);
 
 		customActionBar();
-		// backPressCloseHandler = new BackPressCloseHandler(this);
 
 		tv_height = (TextView) findViewById(R.id.textView_height);
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
@@ -54,12 +53,6 @@ public class Profile extends Activity {
 		tv_height = (TextView) findViewById(R.id.textView_height);
 		tv_weight = (TextView) findViewById(R.id.textView_weight);
 		tv_name = (TextView) findViewById(R.id.textView_name);
-
-		// db에 접속여부 저장, 처음이라면 0 출려
-		// 프로필 값이 저장되어 있다면 1 출력
-
-		// Profile.db = new FreeDatabase(this);
-		// Profile.db.dropProfileTable();
 
 		if (db.checkTable() == 0) {
 
@@ -85,11 +78,11 @@ public class Profile extends Activity {
 		} else if (db.checkTable() == 1) {
 
 			startService(new Intent("NiceBodyService"));
-		
-			  RecordData rdtest = new RecordData(); 
-			  rdtest = Profile.db.getRecordData();
-			  
-			  Log.v("test_check",String.valueOf(rdtest.getCheckInt()));
+
+			RecordData rdtest = new RecordData();
+			rdtest = Profile.db.getRecordData();
+
+			Log.v("test_check", String.valueOf(rdtest.getCheckInt()));
 
 			ProfileData profile_pd = Profile.db.getProfileData();
 			tv_name.setText("  " + profile_pd.getName());
@@ -114,7 +107,6 @@ public class Profile extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.profile, menu);
 		return true;
 	}
@@ -141,16 +133,12 @@ public class Profile extends Activity {
 	}
 
 	public void customActionBar() {
-		// Customize the ActionBar
 		final ActionBar abar = getActionBar();
 		abar.setBackgroundDrawable(new ColorDrawable(Color
 				.parseColor("#67C6E5")));
-		// abar.setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_background));//line
-		// under the action bar
 		View viewActionBar = getLayoutInflater().inflate(
 				R.layout.actionbar_layout, null);
 		ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-				// Center the textview in the ActionBar !
 				ActionBar.LayoutParams.WRAP_CONTENT,
 				ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
 		TextView textviewTitle = (TextView) viewActionBar
@@ -160,7 +148,6 @@ public class Profile extends Activity {
 		abar.setDisplayShowCustomEnabled(true);
 		abar.setDisplayShowTitleEnabled(false);
 		abar.setDisplayHomeAsUpEnabled(true);
-		// abar.setIcon(R.color.transparent);
 		abar.setHomeButtonEnabled(true);
 	}
 
