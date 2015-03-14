@@ -247,6 +247,14 @@ public class Recommend_record4 extends Activity implements SensorEventListener {
 
 			public void onFinish() {
 				playCheck = 2;
+				
+				Intent intent_fail = new Intent(Recommend_record4.this,
+						Recommend_fail.class);	
+				startActivity(intent_fail);
+				overridePendingTransition(R.anim.default_start_enter,
+						R.anim.default_start_exit);
+				finish();
+				
 				countTxt.setText(String.valueOf("도전실패"));
 			}
 		};
