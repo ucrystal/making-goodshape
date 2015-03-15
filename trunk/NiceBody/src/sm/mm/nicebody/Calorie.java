@@ -33,8 +33,7 @@ public class Calorie {
 	public static double cal_legRaise(int exerciseNum) {
 
 		cal_pd = Profile.db.getProfileData();
-		// 0.6250*kg*m - 0.0210013*kg
-		calCalorie = (cal_pd.getHeight() / 100 * cal_pd.getWeight() * (0.6250)) - ((0.23)*(0.09131) *cal_pd.getWeight()) * exerciseNum;
+		calCalorie = ((cal_pd.getHeight() / 100 * (0.6250)) - ((0.23)*(0.09131))) * cal_pd.getWeight() * exerciseNum;
 		return calCalorie;
 	}
 }
