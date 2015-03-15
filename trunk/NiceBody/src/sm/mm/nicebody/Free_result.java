@@ -51,7 +51,7 @@ public class Free_result extends Activity {
 
 		if (Free_menu.choiceEx == 1) {
 
-			calCalorie = Calorie.cal_fushUp(Free_record.countResult);
+			calCalorie = Calorie.cal_pushUp(Free_record.countResult);
 			free_resultCal.setText((int) calCalorie + " cal ¼Ò¸ð");
 
 		} else if (Free_menu.choiceEx == 2) {
