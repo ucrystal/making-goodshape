@@ -211,10 +211,8 @@ public class Profile_modify extends Activity implements OnClickListener {
 
 			}
 
-			title = "몸매가 예뻐gym";
-			text = "우리와 함께 건강한 몸매 만들어봐요 ^0^";
 			if (profileDatas.size() == 0) {
-
+				startService(new Intent("NiceBodyService"));
 			}
 
 			// db에 값 저장하기
@@ -358,12 +356,4 @@ public class Profile_modify extends Activity implements OnClickListener {
 		backPressCloseHandler.onBackPressed();
 	}
 
-	public void initializePushNotification() {
-		ParseInstallation installation = ParseInstallation
-				.getCurrentInstallation();
-
-		installation.put("phoneNumber", "821042746727");
-		installation.put("wantPush", true);
-		installation.saveInBackground();
-	}
 }

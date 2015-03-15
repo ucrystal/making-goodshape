@@ -24,6 +24,7 @@ public class Alarm_service extends Service {
 	private static String TAG = "Alarm Service";
 	private boolean mRunning;
 	private static final int DELAY_TIME = 24 * 60 * 60 * 1000;
+	//private static final int DELAY_TIME =  60 * 1000;
 	private static Schedule_calendar_day day;
 	private int output;
 
