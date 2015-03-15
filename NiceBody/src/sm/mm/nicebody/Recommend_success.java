@@ -42,7 +42,7 @@ public class Recommend_success extends Activity {
 
 		if (Recommend_list.choiceCh == 1) {
 			cal = Calorie.cal_neeling(2);
-			Calorie.cal_fushUp(3);
+			Calorie.cal_pushUp(3);
 			Calorie.cal_legRaise(6);
 		}
 
@@ -51,7 +51,7 @@ public class Recommend_success extends Activity {
 
 				trophy.setImageResource(icon_trophy[i - 1]);
 
-				cal = Calorie.cal_fushUp(Recommend_record.arr[i - 1][0])
+				cal = Calorie.cal_pushUp(Recommend_record.arr[i - 1][0])
 						+ Calorie.cal_neeling(Recommend_record.arr[i - 1][1])
 						+ Calorie.cal_legRaise(Recommend_record.arr[i - 1][2]
 								+ Recommend_record.arr[i - 1][3]);

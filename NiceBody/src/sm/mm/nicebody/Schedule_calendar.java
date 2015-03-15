@@ -308,7 +308,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 				// 리스트 객체에 데이터 추가
 				resultList.add(String.valueOf("자유운동 :             팔굽혀펴기     "
 						+ totalCount1 + "회"));
-				total_cal += Calorie.cal_fushUp(totalCount1);
+				total_cal += Calorie.cal_pushUp(totalCount1);
 			}
 			if (totalCount2 != 0) {
 				resultList.add(String
@@ -337,7 +337,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 									+ ", ";
 
 							total_cal += Calorie
-									.cal_fushUp(Recommend_record.arr[Schedule_result_r
+									.cal_pushUp(Recommend_record.arr[Schedule_result_r
 											.get(i).getId() - 2][0])
 									+ Calorie
 											.cal_neeling(Recommend_record.arr[Schedule_result_r
@@ -352,7 +352,7 @@ public class Schedule_calendar extends Activity implements OnItemClickListener,
 
 							rec_s += Schedule_result_r.get(i).getId() - 1 + " ";
 							total_cal += Calorie
-									.cal_fushUp(Recommend_record.arr[Schedule_result_r
+									.cal_pushUp(Recommend_record.arr[Schedule_result_r
 											.get(i).getId() - 2][0])
 									+ Calorie
 											.cal_neeling(Recommend_record.arr[Schedule_result_r
