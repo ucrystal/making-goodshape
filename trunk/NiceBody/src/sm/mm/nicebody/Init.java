@@ -6,12 +6,12 @@ import android.content.Context;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
-public class Pushinit extends Application {
+public class Init extends Application {
 
 	private int[] count;
-	private static Pushinit instance = new Pushinit();
+	private static Init instance = new Init();
 
-	public Pushinit() {
+	public Init() {
 		instance = this;
 	}
 
@@ -31,9 +31,7 @@ public class Pushinit extends Application {
 	public void onCreate() {
 		count = new int[] { 50, 100, 150, 200, 250, 300, 350, 400, 450, 500 };
 		super.onCreate();
-		Parse.initialize(this, "hxiuvZX8btQnfinwtOaGtPbR3F7lJOFygQF3Ried",
-				"AmAEA69L21vTTntYMLTInbiynU4DrsRtBGeXeuYL");
-		ParseInstallation.getCurrentInstallation().saveInBackground();
+
 
 	}
 

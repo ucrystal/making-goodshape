@@ -36,7 +36,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 	static int countResult = 0;
 	static int[] count;
 	static String timerResult = null;
-	static Pushinit myApp;
+	static Init myApp;
 
 	private TextView fixedNum1, fixedNum2, fixedNum3, fixedNum4;
 
@@ -77,7 +77,7 @@ public class Recommend_record extends Activity implements SensorEventListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
 
-		myApp = (Pushinit) getApplicationContext();
+		myApp = (Init) getApplicationContext();
 		count = myApp.getCount();
 
 		mSound = new Sound(this, R.raw.sound);

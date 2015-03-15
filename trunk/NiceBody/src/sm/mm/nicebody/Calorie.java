@@ -8,8 +8,7 @@ public class Calorie {
 	public static double cal_fushUp(int exerciseNum) {
 
 		cal_pd = Profile.db.getProfileData();
-		calCalorie = cal_pd.getHeight() / 100 * cal_pd.getWeight() * (0.0494)
-				* 2 * exerciseNum;
+		calCalorie = cal_pd.getHeight() / 100 * cal_pd.getWeight() * (4.238) * exerciseNum;
 		return calCalorie;
 	}
 
@@ -17,15 +16,15 @@ public class Calorie {
 
 		cal_pd = Profile.db.getProfileData();
 		calCalorie = cal_pd.getHeight() / 100 * cal_pd.getWeight()
-				* (0.05005263) * 2 * (4.2) * exerciseNum;
+				* (0.03503) * 4.2 * 2 * exerciseNum;
 		return calCalorie;
 	}
 
 	public static double cal_legRaise(int exerciseNum) {
 
 		cal_pd = Profile.db.getProfileData();
-		calCalorie = cal_pd.getHeight() / 100 * cal_pd.getWeight() * (0.0211)
-				* 2 * exerciseNum;
+		// 0.6250*kg*m - 0.0210013*kg
+		calCalorie = (cal_pd.getHeight() / 100 * cal_pd.getWeight() * (0.6250)) - ((0.0210013) *cal_pd.getWeight()) * exerciseNum;
 		return calCalorie;
 	}
 }

@@ -77,7 +77,6 @@ public class Profile extends Activity {
 
 		} else if (db.checkTable() == 1) {
 
-			startService(new Intent("NiceBodyService"));
 
 			RecordData rdtest = new RecordData();
 			rdtest = Profile.db.getRecordData();
